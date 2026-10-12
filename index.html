@@ -1,13 +1,2103 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f28c28" />
-    <title>AeroForge — Design. Learn. Explore.</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f28c28">
+<title>AeroForge — Design. Learn. Explore.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+  --bg:#151a21; --surface:#1c222b; --surface-2:#232b36; --line:#2b3441;
+  --ink:#e6eaf0; --muted:#8d9aad; --accent:#f28c28; --accent-soft:rgba(242,140,40,.14);
+  --data:#5da9c9; --ok:#6cc08b; --warn:#e3a44a; --bad:#dd6b6b;
+  --font:'Instrument Sans',system-ui,sans-serif; --mono:'Azeret Mono',monospace;
+  --radius:10px; --shadow:0 2px 20px rgba(0,0,0,.35);
+}
+[data-theme="light"]{
+  --bg:#f5f3f0; --surface:#ffffff; --surface-2:#eceae6; --line:#dfdcd6;
+  --ink:#1b2028; --muted:#6b7482; --accent:#d9761a; --accent-soft:rgba(217,118,26,.12);
+  --data:#3d7f9c; --ok:#3f9463; --warn:#b97f1d; --bad:#c04f4f;
+  --shadow:0 2px 20px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;
+  transition:background .3s,color .3s;overflow-x:hidden}
+button,input,select{font-family:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1400px;margin:0 auto;padding:0 22px;height:60px;display:flex;align-items:center;gap:26px}
+.brand{font-weight:700;font-size:17px;letter-spacing:-.3px;display:flex;align-items:center;gap:8px;cursor:pointer;background:none;border:none;color:var(--ink)}
+.brand-dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.nav-links{display:flex;gap:2px;margin-left:auto;align-items:center}
+.nav-links button{background:none;border:none;color:var(--muted);font-size:14px;padding:7px 12px;
+  border-radius:7px;cursor:pointer;transition:color .15s,background .15s}
+.nav-links button:hover{color:var(--ink);background:var(--surface-2)}
+.nav-links button.on{color:var(--accent);background:var(--accent-soft)}
+.theme-btn{background:none;border:1px solid var(--line);color:var(--muted);width:34px;height:34px;
+  border-radius:8px;cursor:pointer;font-size:15px;display:grid;place-items:center;margin-left:8px}
+.theme-btn:hover{color:var(--ink);border-color:var(--accent)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--ink);
+  width:36px;height:34px;border-radius:8px;cursor:pointer;margin-left:auto}
+@media(max-width:980px){
+  .nav-links{position:fixed;top:60px;left:0;right:0;flex-direction:column;background:var(--surface);
+    border-bottom:1px solid var(--line);padding:10px;gap:2px;display:none;margin-left:0}
+  .nav-links.open{display:flex}
+  .nav-links button{width:100%;text-align:left;padding:11px 14px}
+  .menu-btn{display:block}
+  .theme-btn{margin-left:0;width:100%;justify-content:flex-start;padding:0 14px;height:40px}
+}
+
+/* ---------- views ---------- */
+.view{display:none;max-width:1400px;margin:0 auto;padding:0 22px}
+.view.on{display:block}
+.view.full{max-width:none;padding:0}
+
+/* ---------- home ---------- */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:calc(100vh - 60px);padding:40px 0}
+.hero h1{font-size:clamp(38px,5.2vw,62px);line-height:1.04;letter-spacing:-1.8px;font-weight:700}
+.hero .tag{font-size:clamp(17px,2vw,21px);color:var(--muted);margin-top:14px;font-weight:500}
+.hero p{margin-top:20px;color:var(--muted);max-width:46ch;font-size:16px}
+.cta-row{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{border:none;border-radius:9px;padding:13px 22px;font-size:15px;font-weight:600;cursor:pointer;transition:transform .12s,filter .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:#1a1207}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+#heroCanvas{width:100%;height:min(66vh,560px);display:block}
+.hero-stats{display:flex;gap:28px;margin-top:38px;flex-wrap:wrap}
+.hero-stats div span{display:block}
+.hero-stats .n{font-family:var(--mono);font-size:22px;color:var(--accent);font-weight:600}
+.hero-stats .l{font-size:12.5px;color:var(--muted);margin-top:2px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;min-height:0;gap:10px}
+  #heroCanvas{height:44vh;order:-1}}
+
+/* ---------- forge ---------- */
+.forge{display:grid;grid-template-columns:230px 1fr 300px;height:calc(100vh - 60px)}
+.rail,.analysis{background:var(--surface);overflow-y:auto;padding:18px}
+.rail{border-right:1px solid var(--line)}
+.analysis{border-left:1px solid var(--line)}
+.stage{position:relative;background:var(--bg)}
+#forgeCanvas{width:100%;height:100%;display:block;cursor:grab}
+#forgeCanvas:active{cursor:grabbing}
+.stage-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:12px;
+  color:var(--muted);background:color-mix(in srgb,var(--surface) 85%,transparent);
+  padding:6px 13px;border-radius:20px;border:1px solid var(--line);white-space:nowrap}
+.stage-toggle{position:absolute;top:14px;left:14px;background:var(--surface);border:1px solid var(--line);
+  color:var(--ink);font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;cursor:pointer;
+  transition:border-color .15s,background .15s}
+.stage-toggle:hover{border-color:var(--accent)}
+.stage-toggle.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+#forgeChat{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;max-height:220px;overflow-y:auto}
+#forgeChat:empty{display:none}
+.fc-msg{font-size:13px;padding:9px 12px;border-radius:9px;line-height:1.5}
+.fc-msg.u{background:var(--surface-2);align-self:flex-end;max-width:88%}
+.fc-msg.a{background:var(--accent-soft);color:var(--ink);max-width:92%;border-left:2px solid var(--accent)}
+.forge-chat-in{display:flex;gap:6px}
+.forge-chat-in input{flex:1;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  padding:8px 10px;border-radius:7px;font-size:13px}
+.forge-chat-in button{background:var(--accent);color:#1a1207;border:none;border-radius:7px;
+  padding:0 14px;font-size:13px;font-weight:600;cursor:pointer}
+.panel-h{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.4px;margin-bottom:12px}
+.grp{margin-bottom:22px}
+.grp>summary{font-size:14px;font-weight:600;cursor:pointer;padding:9px 0;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.grp>summary::-webkit-details-marker{display:none}
+.grp>summary::after{content:'+';color:var(--muted);font-weight:400;font-size:17px}
+.grp[open]>summary::after{content:'−'}
+.grp-body{padding:14px 0 4px}
+label.ctl{display:block;margin-bottom:15px;font-size:13px;color:var(--muted)}
+label.ctl .row{display:flex;justify-content:space-between;margin-bottom:6px}
+label.ctl .v{font-family:var(--mono);color:var(--accent);font-size:12.5px}
+input[type=range]{width:100%;accent-color:var(--accent);height:4px}
+select,input[type=text]{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  padding:8px 10px;border-radius:7px;font-size:13.5px}
+select:hover{border-color:var(--accent)}
+input[type=color]{width:100%;height:32px;border:1px solid var(--line);border-radius:7px;background:var(--bg);cursor:pointer}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip-btn{flex:1;min-width:58px;background:var(--bg);border:1px solid var(--line);color:var(--muted);
+  padding:8px 6px;border-radius:7px;font-size:12px;cursor:pointer;transition:.15s}
+.chip-btn:hover{border-color:var(--accent);color:var(--ink)}
+.chip-btn.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+
+/* analysis */
+.metric{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.metric:last-child{border-bottom:none}
+.metric .k{font-size:13px;color:var(--muted)}
+.metric .v{font-family:var(--mono);font-size:15px;font-weight:500}
+.metric .v small{font-size:11px;color:var(--muted);font-weight:400;margin-left:2px}
+.stab-wrap{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:16px}
+.stab-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.stab-val{font-family:var(--mono);font-size:19px;font-weight:600}
+.stab-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.stab-track{position:relative;height:5px;background:var(--surface-2);border-radius:3px;margin:20px 0 26px}
+.stab-pin{position:absolute;top:50%;width:2px;height:16px;transform:translate(-50%,-50%)}
+.stab-pin span{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:10px;
+  font-family:var(--mono);white-space:nowrap}
+.pin-cg{background:var(--accent)} .pin-cg span{color:var(--accent)}
+.pin-cp{background:var(--data)} .pin-cp span{color:var(--data)}
+.warn-card{background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--warn);
+  border-radius:8px;padding:12px 14px;margin-bottom:10px;font-size:13px}
+.warn-card.ok{border-left-color:var(--ok)}
+.warn-card.bad{border-left-color:var(--bad)}
+.warn-card h5{font-size:13px;margin-bottom:4px;font-weight:600}
+.warn-card p{color:var(--muted);font-size:12.5px;line-height:1.55}
+.warn-card button{background:none;border:none;color:var(--accent);font-size:12.5px;cursor:pointer;
+  padding:6px 0 0;font-weight:500;text-decoration:underline}
+@media(max-width:1100px){
+  .forge{grid-template-columns:1fr;height:auto}
+  .rail,.analysis{border:none;border-top:1px solid var(--line);max-height:none}
+  .stage{height:56vh;order:-1}
+}
+
+/* ---------- generic page ---------- */
+.page{padding:48px 0 70px;max-width:980px}
+.page h2{font-size:clamp(27px,3.6vw,38px);letter-spacing:-1px;margin-bottom:10px}
+.page .lede{color:var(--muted);font-size:16.5px;max-width:62ch;margin-bottom:34px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px;
+  transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card h3{font-size:16px;margin-bottom:7px}
+.card p{font-size:13.5px;color:var(--muted)}
+
+/* learn */
+.path{position:relative;padding-left:44px}
+.path::before{content:'';position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.lesson{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:12px}
+.lesson::before{content:attr(data-n);position:absolute;left:-44px;top:18px;width:31px;height:31px;
+  border-radius:50%;background:var(--surface);border:2px solid var(--line);display:grid;place-items:center;
+  font-family:var(--mono);font-size:12px;color:var(--muted)}
+.lesson.done::before{border-color:var(--ok);color:var(--ok)}
+.lesson h3{font-size:16.5px;margin-bottom:6px}
+.lesson p{color:var(--muted);font-size:14px}
+.lesson-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.lesson.open .lesson-body{display:block}
+.lesson-body p+p{margin-top:10px}
+.lesson-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.mini-btn{background:var(--surface-2);border:1px solid var(--line);color:var(--ink);padding:7px 13px;
+  border-radius:7px;font-size:13px;cursor:pointer}
+.mini-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* components */
+.filters{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.filters input,.filters select{width:auto;flex:1;min-width:140px}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.comp{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:15px;
+  cursor:pointer;transition:.15s}
+.comp:hover{border-color:var(--accent);transform:translateY(-2px)}
+.comp .cat{font-size:11px;color:var(--data);margin-bottom:5px}
+.comp h4{font-size:14.5px;margin-bottom:5px}
+.comp .spec{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+.comp .price{color:var(--accent);font-weight:600}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,92vw);background:var(--surface);
+  border-left:1px solid var(--line);z-index:80;padding:24px;overflow-y:auto;
+  transform:translateX(100%);transition:transform .25s ease;box-shadow:var(--shadow)}
+.drawer.open{transform:translateX(0)}
+.drawer-x{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);
+  font-size:22px;cursor:pointer;line-height:1}
+.drawer h3{font-size:20px;margin:6px 0 4px;padding-right:30px}
+
+/* simulation */
+.sim-grid{display:grid;grid-template-columns:1fr 300px;gap:18px}
+@media(max-width:900px){.sim-grid{grid-template-columns:1fr}}
+.report{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;margin-bottom:12px}
+.chart-box h4{font-size:12.5px;color:var(--muted);margin-bottom:10px;font-weight:600}
+canvas.chart{width:100%;height:170px;display:block}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);
+  padding:44px 24px;text-align:center;color:var(--muted)}
+.empty h3{color:var(--ink);font-size:17px;margin-bottom:8px}
+
+/* projects */
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.15s}
+.proj:hover{border-color:var(--accent)}
+.proj-thumb{height:130px;background:var(--surface-2);display:grid;place-items:center}
+.proj-meta{padding:14px}
+.proj-meta h4{font-size:15px;margin-bottom:3px}
+.proj-meta .d{font-size:12px;color:var(--muted)}
+.proj-meta .s{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:7px}
+
+/* aero */
+#aeroBtn{position:fixed;right:22px;bottom:22px;z-index:90;width:58px;height:58px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line);cursor:pointer;box-shadow:var(--shadow);
+  display:grid;place-items:center;transition:transform .18s}
+#aeroBtn:hover{transform:scale(1.07);border-color:var(--accent)}
+#aeroPanel{position:fixed;right:22px;bottom:92px;z-index:90;width:min(370px,calc(100vw - 44px));
+  height:min(480px,68vh);background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);display:none;flex-direction:column;overflow:hidden}
+#aeroPanel.open{display:flex}
+.aero-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.aero-head strong{font-size:14.5px}
+.aero-head span{font-size:12px;color:var(--muted)}
+.aero-head button{margin-left:auto;background:none;border:none;color:var(--muted);font-size:19px;cursor:pointer}
+.aero-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:9px 13px;border-radius:12px;font-size:13.5px;line-height:1.55}
+.msg.a{background:var(--surface-2);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.u{background:var(--accent);color:#1a1207;align-self:flex-end;border-bottom-right-radius:4px}
+.msg strong{font-weight:600}
+.aero-sugg{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+.aero-sugg button{background:var(--bg);border:1px solid var(--line);color:var(--muted);font-size:12px;
+  padding:6px 10px;border-radius:14px;cursor:pointer}
+.aero-sugg button:hover{border-color:var(--accent);color:var(--accent)}
+.aero-in{display:flex;border-top:1px solid var(--line)}
+.aero-in input{flex:1;background:none;border:none;padding:13px 15px;color:var(--ink);font-size:13.5px;outline:none}
+.aero-in button{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;padding:0 16px;cursor:pointer}
+@media(max-width:600px){#aeroPanel{right:12px;left:12px;width:auto;bottom:86px}#aeroBtn{right:14px;bottom:14px}}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);
+  border:1px solid var(--accent);color:var(--ink);padding:11px 20px;border-radius:9px;font-size:14px;
+  box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.25s;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#partBar{position:absolute;top:58px;left:14px;display:flex;flex-direction:column;gap:5px}
+#partBar button{background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:12.5px;
+  padding:6px 12px;border-radius:7px;cursor:pointer;text-align:left;min-width:104px}
+#partBar button:hover{border-color:var(--accent)}
+#partBar button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+#partInfo{position:absolute;top:14px;right:14px;max-width:270px;background:var(--surface);border:1px solid var(--accent);
+  border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;display:none;box-shadow:var(--shadow)}
+#partInfo b{display:block;color:var(--accent);margin-bottom:3px;font-size:14px}
+
+.fs-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.fs-top .btn{padding:8px 16px;font-size:13.5px}
+.fs-top select{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:13px}
+.fs-top input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
+.fs-top label{font-size:13.5px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+.fs-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;align-items:start}
+@media(max-width:980px){.fs-grid{grid-template-columns:1fr}}
+.sch{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+.sch svg{width:100%;height:auto;display:block}
+.sch text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.sch .t{fill:var(--ink);font-weight:600;font-size:12px}
+.sch .bx{fill:var(--surface-2);stroke:var(--line);stroke-width:1.5;transition:stroke .2s,fill .2s}
+.sch .bx.on{stroke:var(--ok)} .sch .bx.hot{stroke:var(--bad);fill:rgba(221,107,107,.25)}
+.sch .bx.spent{stroke:var(--bad);fill:rgba(221,107,107,.4)}
+.sch .nf{opacity:.35} .sch .nf .bx{stroke-dasharray:4 4}
+.sch .w{stroke:var(--line);stroke-width:2;fill:none;stroke-linejoin:round}
+.sch .w.live{stroke:var(--data);stroke-dasharray:5 5;animation:fsdash .5s linear infinite}
+.sch .w.live.pwr{stroke:var(--accent)}
+.sch .w.armed{stroke:var(--warn)}
+.sch .w.fire{stroke:var(--bad);stroke-width:3.5;stroke-dasharray:4 3;animation:fsdash .2s linear infinite}
+@keyframes fsdash{to{stroke-dashoffset:-10}}
+.sch .led{fill:var(--surface-2);stroke:var(--line);stroke-width:1.5} .sch .led.on{fill:var(--ok);stroke:var(--ok)}
+.sch .led.warn{fill:var(--warn);stroke:var(--warn)} .sch .led.bad{fill:var(--bad);stroke:var(--bad)}
+#fsPhase{font-family:var(--mono);font-weight:600;color:var(--accent)}
+#fsLog{max-height:150px;overflow-y:auto;font-family:var(--mono);font-size:12px;line-height:1.7}
+#fsLog div{border-bottom:1px solid var(--line);padding:2px 0} #fsLog .warn{color:var(--warn)} #fsLog .bad{color:var(--bad)} #fsLog .ok{color:var(--ok)}
+
+.lprog{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;color:var(--muted)}
+.lprog-bar{flex:1;height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+#lprogFill{height:100%;background:var(--accent);width:0;transition:width .3s}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.gloss div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:11px 14px;font-size:13.5px;line-height:1.5}
+.gloss b{display:block;color:var(--accent);margin-bottom:2px}
+.qopt{display:block;width:100%;text-align:left;margin-top:8px;padding:10px 14px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:14px;cursor:pointer}
+.qopt:hover{border-color:var(--accent)} .qopt.right{border-color:var(--ok);background:rgba(110,190,130,.15)} .qopt.wrong{border-color:var(--bad);background:rgba(221,107,107,.15)}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:8px}
+.faq summary{cursor:pointer;font-weight:600;font-size:14.5px} .faq details p{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <button class="brand" data-go="home"><span class="brand-dot"></span>AeroForge</button>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="nav-links" id="navLinks">
+      <button data-go="forge">Forge</button>
+      <button data-go="learn">Learn</button>
+      <button data-go="components">Components</button>
+      <button data-go="simulation">Simulation</button>
+      <button data-go="flightcomputer">Flight Computer</button>
+      <button data-go="projects">Projects</button>
+      <button data-go="about">About</button>
+      <button class="theme-btn" id="themeBtn" title="Switch theme">☾</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HOME ============ -->
+<section class="view on" id="view-home">
+  <div class="hero">
+    <div>
+      <h1>Welcome to AeroForge.</h1>
+      <div class="tag">Design. Learn. Explore.</div>
+      <p>Build a rocket from real parts, watch the engineering respond as you change it, and find out why
+         each choice matters. No prior rocketry knowledge needed — start from the default rocket and make it yours.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" data-go="forge">Start designing</button>
+        <button class="btn btn-ghost" data-go="learn">Explore learning</button>
+      </div>
+      <div class="hero-stats">
+        <div><span class="n" id="hsParts">—</span><span class="l">Components in catalog</span></div>
+        <div><span class="n" id="hsLessons">—</span><span class="l">Lessons</span></div>
+        <div><span class="n">Live</span><span class="l">Analysis as you design</span></div>
+      </div>
+    </div>
+    <canvas id="heroCanvas"></canvas>
+  </div>
+</section>
+
+<!-- ============ FORGE ============ -->
+<section class="view full" id="view-forge">
+  <div class="forge">
+    <aside class="rail">
+      <div class="panel-h">Parts</div>
+
+      <details class="grp" open><summary>Body</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Diameter</span><span class="v" id="vDia">54 mm</span></div>
+          <input type="range" id="sDia" min="24" max="100" step="2" value="54"></label>
+        <label class="ctl"><div class="row"><span>Length</span><span class="v" id="vLen">70 cm</span></div>
+          <input type="range" id="sLen" min="30" max="150" step="2" value="70"></label>
+        <label class="ctl"><div class="row"><span>Material</span></div>
+          <select id="selBodyMat"></select></label>
+      </div></details>
+
+      <details class="grp" open><summary>Nose</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Shape</span></div>
+          <div class="chips" id="noseChips"></div></label>
+        <label class="ctl"><div class="row"><span>Length</span><span class="v" id="vNose">16 cm</span></div>
+          <input type="range" id="sNose" min="6" max="40" step="1" value="16"></label>
+      </details>
+
+      <details class="grp" open><summary>Fins</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Count</span></div>
+          <div class="chips" id="finChips"></div></label>
+        <label class="ctl"><div class="row"><span>Span</span><span class="v" id="vSpan">6 cm</span></div>
+          <input type="range" id="sSpan" min="2" max="14" step="1" value="6"></label>
+        <label class="ctl"><div class="row"><span>Root chord</span><span class="v" id="vChord">9 cm</span></div>
+          <input type="range" id="sChord" min="4" max="20" step="1" value="9"></label>
+        <label class="ctl"><div class="row"><span>Sweep</span><span class="v" id="vSweep">4 cm</span></div>
+          <input type="range" id="sSweep" min="0" max="12" step="1" value="4"></label>
+      </details>
+
+      <details class="grp"><summary>Motor</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Class</span></div><select id="selMotor"></select></label>
+      </div></details>
+
+      <details class="grp"><summary>Recovery</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Parachute</span></div><select id="selChute"></select></label>
+      </div></details>
+
+      <details class="grp"><summary>Avionics</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Flight computer</span></div><select id="selAvi"></select></label>
+      </div></details>
+
+      <details class="grp"><summary>Appearance</summary><div class="grp-body">
+        <label class="ctl"><div class="row"><span>Body colour</span></div><input type="color" id="cBody" value="#e8e4dc"></label>
+        <label class="ctl"><div class="row"><span>Nose colour</span></div><input type="color" id="cNose" value="#f28c28"></label>
+        <label class="ctl"><div class="row"><span>Fin colour</span></div><input type="color" id="cFin" value="#f28c28"></label>
+        <label class="ctl"><div class="row"><span>Finish</span></div><select id="selFinish"></select></label>
+        <label class="ctl"><div class="row"><span>Roll stripe</span></div>
+          <div class="chips" id="stripeChips"></div></label>
+      </div></details>
+
+      <button class="btn btn-ghost" style="width:100%;margin-top:6px" id="resetBtn">Reset to default rocket</button>
+    </aside>
+
+    <div class="stage">
+      <canvas id="forgeCanvas"></canvas>
+      <button id="cutawayBtn" class="stage-toggle">Show inside ▸</button>
+      <div id="partBar"></div>
+      <div id="partInfo"></div>
+      <div class="stage-hint">Drag to rotate · scroll to zoom · click a part to zoom in</div>
+    </div>
+
+    <aside class="analysis">
+      <div class="panel-h">Analysis</div>
+
+      <div class="stab-wrap">
+        <div class="stab-top">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Stability margin</div>
+            <div class="stab-val" id="stabVal">—</div>
+          </div>
+          <span class="stab-badge" id="stabBadge">—</span>
+        </div>
+        <div class="stab-track">
+          <div class="stab-pin pin-cg" id="pinCG" style="left:40%"><span>CG</span></div>
+          <div class="stab-pin pin-cp" id="pinCP" style="left:65%"><span>CP</span></div>
+        </div>
+      </div>
+
+      <div class="metric"><span class="k">Liftoff mass</span><span class="v" id="mMass">—</span></div>
+      <div class="metric"><span class="k">Thrust-to-weight</span><span class="v" id="mTW">—</span></div>
+      <div class="metric"><span class="k">Estimated apogee</span><span class="v" id="mApogee">—</span></div>
+      <div class="metric"><span class="k">Max velocity</span><span class="v" id="mVel">—</span></div>
+      <div class="metric"><span class="k">Descent rate</span><span class="v" id="mDesc">—</span></div>
+      <div class="metric"><span class="k">Parts cost</span><span class="v" id="mCost">—</span></div>
+
+      <div class="panel-h" style="margin:22px 0 10px">Design notes</div>
+      <div id="warnings"></div>
+
+      <div class="panel-h" style="margin:22px 0 10px">Can't find a control? Ask</div>
+      <div id="forgeChat"></div>
+      <div class="forge-chat-in">
+        <input type="text" id="forgeChatIn" placeholder="Ask anything, e.g. take the rocket apart">
+        <button id="forgeChatSend">Go</button>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;margin-top:14px" id="simBtn">Run simulation</button>
+      <button class="btn btn-ghost" style="width:100%;margin-top:8px" id="saveBtn">Save project</button>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ LEARN ============ -->
+<section class="view" id="view-learn">
+  <div class="page">
+    <h2>Learn rocketry from zero</h2>
+    <p class="lede">Each lesson builds on the one before it. Open any lesson to read it, then jump into Forge
+      to try the idea on a real design.</p>
+    <div class="lprog"><div class="lprog-bar"><div id="lprogFill"></div></div><span id="lprogTxt"></span></div>
+    <div class="path" id="lessonList"></div>
+    <h2 style="margin-top:44px;font-size:22px">Test yourself</h2>
+    <div class="chart-box" id="quizBox" style="margin-top:12px"></div>
+    <h2 style="margin-top:44px;font-size:22px">Glossary</h2>
+    <input type="text" id="glossIn" placeholder="Search terms, e.g. apogee" style="width:100%;margin:12px 0;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:14px">
+    <div id="glossList" class="gloss"></div>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section class="view" id="view-components">
+  <div class="page" style="max-width:1200px">
+    <h2>Components</h2>
+    <p class="lede">Browse parts, compare specifications and prices, then add one straight to your design.</p>
+    <div class="filters">
+      <input type="text" id="compSearch" placeholder="Search components…">
+      <select id="compCat"></select>
+      <select id="compSort">
+        <option value="name">Sort: name</option>
+        <option value="price">Sort: price, low to high</option>
+        <option value="price-d">Sort: price, high to low</option>
+        <option value="mass">Sort: mass, light to heavy</option>
+      </select>
+    </div>
+    <div class="comp-grid" id="compGrid"></div>
+  </div>
+</section>
+
+<!-- ============ SIMULATION ============ -->
+<section class="view" id="view-simulation">
+  <div class="page" style="max-width:1200px">
+    <h2>Simulation</h2>
+    <p class="lede">A physics-based estimate of how your current Forge design would fly. Assumptions are listed
+      under the report — read them before trusting any number.</p>
+    <div id="simContent"></div>
+  </div>
+</section>
+
+<!-- ============ FLIGHT COMPUTER ============ -->
+<section class="view" id="view-flightcomputer">
+  <div class="page" style="max-width:1200px">
+    <h2>Flight computer</h2>
+    <p class="lede">The electronics that sense the flight and trigger recovery. Pick parts to see what the
+      assembled system can do, what it weighs, and how long its battery lasts.</p>
+    <div class="sim-grid">
+      <div>
+        <div id="fcPicker"></div>
+      </div>
+      <div class="report">
+        <div class="panel-h">Your build</div>
+        <div class="metric"><span class="k">Total mass</span><span class="v" id="fcMass">—</span></div>
+        <div class="metric"><span class="k">Current draw</span><span class="v" id="fcDraw">—</span></div>
+        <div class="metric"><span class="k">Battery life</span><span class="v" id="fcLife">—</span></div>
+        <div class="metric"><span class="k">Cost</span><span class="v" id="fcCost">—</span></div>
+        <div class="panel-h" style="margin:20px 0 10px">Capabilities</div>
+        <div id="fcCaps"></div>
+      </div>
+    </div>
+
+    <div class="panel-h" style="margin:38px 0 8px">Schematic simulator</div>
+    <p class="lede" style="margin-bottom:16px">Your flight computer wired up as a schematic, running a real flight of the rocket
+      you designed in Forge. Watch power, sensor buses and the parachute pyro channel switch on as the flight unfolds.
+      Change parts above and the schematic rewires itself.</p>
+    <div class="fs-top">
+      <button class="btn btn-primary" id="fsPlay">▶ Play</button>
+      <button class="btn btn-ghost" id="fsRestart">Restart</button>
+      <select id="fsSpeed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+      <label><input type="checkbox" id="fsArm" checked> Pyro armed</label>
+      <input type="range" id="fsScrub" min="0" max="1000" value="0" aria-label="Flight time">
+    </div>
+    <div class="fs-grid">
+      <div class="sch" id="fsSch"></div>
+      <div>
+        <div class="report">
+          <div class="metric"><span class="k">Phase</span><span class="v" id="fsPhase">—</span></div>
+          <div class="metric"><span class="k">Flight time</span><span class="v" id="fsT">—</span></div>
+          <div class="metric"><span class="k">Altitude (baro)</span><span class="v" id="fsAlt">—</span></div>
+          <div class="metric"><span class="k">Velocity</span><span class="v" id="fsVel">—</span></div>
+          <div class="metric"><span class="k">Acceleration (IMU)</span><span class="v" id="fsAcc">—</span></div>
+          <div class="metric"><span class="k">Pressure</span><span class="v" id="fsP">—</span></div>
+          <div class="metric"><span class="k">Battery</span><span class="v" id="fsV">—</span></div>
+          <div class="metric"><span class="k">Current draw</span><span class="v" id="fsI">—</span></div>
+          <div class="metric"><span class="k">Radio</span><span class="v" id="fsTx">—</span></div>
+          <div class="metric"><span class="k">GPS</span><span class="v" id="fsGps">—</span></div>
+        </div>
+        <div class="chart-box" style="margin-top:12px"><h4>Altitude</h4><svg id="fsPlot" viewBox="0 0 360 90" style="width:100%;height:auto"></svg></div>
+        <div class="chart-box"><h4>Flight computer log</h4><div id="fsLog"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="view" id="view-projects">
+  <div class="page" style="max-width:1200px">
+    <h2>Projects</h2>
+    <p class="lede">Saved designs live in this browser only. Clearing site data or switching device removes them.</p>
+    <div class="cards" id="projGrid"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="view" id="view-about">
+  <div class="page">
+    <h2>About AeroForge</h2>
+    <p class="lede">An educational rocket-design platform: design a rocket, see the engineering consequences
+      immediately, and learn the reasoning behind them.</p>
+    <div class="cards">
+      <div class="card"><h3>You design it</h3><p>AeroForge never silently changes your rocket. It analyses what
+        you built, flags what might not work, and explains why — the decision stays yours.</p></div>
+      <div class="card"><h3>Explain, don't just fail</h3><p>Every warning says what the problem is, why it matters
+        physically, and what kind of change would address it.</p></div>
+      <div class="card"><h3>Honest numbers</h3><p>Calculations use real engineering relationships, simplified where
+        that keeps things understandable. Every simplification is written down.</p></div>
+      <div class="card"><h3>Yours, locally</h3><p>No account, no sign-up. Projects and progress are stored in your
+        own browser.</p></div>
+    </div>
+    <div class="empty" style="margin-top:26px;text-align:left">
+      <h3>What the simulator does and doesn't model</h3>
+      <p style="margin-top:8px">Included: shaped thrust curve scaled to the motor's rated impulse, drag with an
+      altitude-dependent air density, mass loss as propellant burns, and parachute descent. Not included: wind
+      during ascent, angle of attack, transonic drag rise, fin flutter, and the exact measured thrust trace of
+      your specific motor. Stability uses a simplified nose-and-fins method, not full Barrowman.
+      Treat results as estimates for comparing designs, not flight predictions.</p>
+    </div>
+
+    <h2 style="margin-top:44px;font-size:22px">What is inside</h2>
+    <div class="cards" style="margin-top:14px">
+      <div class="card"><h3>Forge</h3><p>Design a rocket with live 3D, a full analysis, and an assistant you can talk to. Take it apart,
+        zoom into any part and see inside it.</p></div>
+      <div class="card"><h3>Simulation</h3><p>Fly your design and read altitude, speed, acceleration and descent rate as charts.</p></div>
+      <div class="card"><h3>Flight computer</h3><p>Pick the electronics, check battery life, then run the schematic simulator to watch the
+        circuit work through a flight.</p></div>
+      <div class="card"><h3>Components</h3><p>Browse motors, parachutes and materials with the numbers that matter.</p></div>
+      <div class="card"><h3>Learn</h3><p>Fifteen lessons, a quiz and a glossary that take you from the basics to a first launch.</p></div>
+      <div class="card"><h3>Projects</h3><p>Save designs and come back to them later, all stored in your browser.</p></div>
+    </div>
+    <h2 style="margin-top:44px;font-size:22px">How the numbers work</h2>
+    <div class="empty" style="margin-top:14px;text-align:left">
+      <p><b>Flight:</b> every 10 ms the simulator adds up thrust, weight and drag, divides by the current mass to get acceleration, and steps speed and height forward.</p>
+      <p style="margin-top:8px"><b>Drag:</b> ½ × air density × speed² × drag coefficient × frontal area, with density falling off with altitude.</p>
+      <p style="margin-top:8px"><b>Stability:</b> the distance between the centre of gravity and a simplified centre of pressure, expressed in body diameters.</p>
+      <p style="margin-top:8px"><b>Flight computer:</b> battery life is capacity divided by total current draw, and the pyro pulse sags the voltage by current times the battery’s internal resistance.</p>
+    </div>
+    <h2 style="margin-top:44px;font-size:22px">Safety first</h2>
+    <div class="empty" style="margin-top:14px;text-align:left">
+      <p>AeroForge is a design and learning tool. It does not replace a launch safety code. Use only commercially made motors, never build your own propellant,
+      fly in an open area, and follow your local rocketry club’s rules and your country’s laws. Simulated results are estimates, not guarantees.</p>
+    </div>
+    <h2 style="margin-top:44px;font-size:22px">Questions</h2>
+    <div class="faq" style="margin-top:14px">
+      <details><summary>Can the assistant really do anything?</summary><p>It can do anything the app supports: change any design setting, take the rocket apart, zoom into parts, rotate the view, run the simulation, save, and switch pages. It also answers rocketry questions. Anything outside the app it will tell you it cannot do.</p></details>
+      <details><summary>Is my data uploaded anywhere?</summary><p>Projects and progress stay in your own browser. Only the text you type to the assistant is sent for it to answer.</p></details>
+      <details><summary>How accurate is the simulation?</summary><p>It is good for comparing designs. It leaves out wind during ascent, angle of attack, transonic drag and fin flutter, so real flights will differ.</p></details>
+      <details><summary>Why is my rocket flagged as unstable?</summary><p>The centre of pressure is too close to, or ahead of, the centre of gravity. Add fin area, sweep the fins back or move weight forward, then check the margin again.</p></details>
+      <details><summary>Why does the flight computer need a barometer?</summary><p>It is how the computer knows when the rocket has stopped climbing. Without it, the parachute never fires.</p></details>
+    </div>
+  </div>
+</section>
+
+<button id="aeroBtn" title="Ask Aero">
+  <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="18" r="11" fill="#e9edf2"/>
+    <path d="M11 18a9 9 0 0118 0v3a9 9 0 01-18 0z" fill="#e9edf2"/>
+    <ellipse cx="20" cy="18" rx="7.5" ry="6.5" fill="#222a35"/>
+    <ellipse cx="17.6" cy="16.6" rx="1.7" ry="2" fill="#8fd4ff" opacity=".9"/>
+    <rect x="14" y="28" width="12" height="8" rx="3" fill="#f28c28"/>
+    <rect x="9" y="29" width="5" height="3.4" rx="1.7" fill="#e9edf2"/>
+    <rect x="26" y="29" width="5" height="3.4" rx="1.7" fill="#e9edf2"/>
+  </svg>
+</button>
+
+<div id="aeroPanel">
+  <div class="aero-head">
+    <div><strong>Aero</strong> <span>your guide</span></div>
+    <button id="aeroX">×</button>
+  </div>
+  <div class="aero-body" id="aeroBody"></div>
+  <div class="aero-sugg" id="aeroSugg"></div>
+  <div class="aero-in">
+    <input type="text" id="aeroIn" placeholder="Ask about your rocket…">
+    <button id="aeroSend">Send</button>
+  </div>
+</div>
+
+<div class="drawer" id="compDrawer">
+  <button class="drawer-x" id="drawerX">×</button>
+  <div id="drawerBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const MATERIALS = [
+  {id:'card', name:'Cardboard tube', density:0.42, strength:1, price:6, note:'Light and cheap. Fine up to about mid-power.'},
+  {id:'glass', name:'Fibreglass', density:1.15, strength:3, price:34, note:'Much stronger, noticeably heavier.'},
+  {id:'cf',   name:'Carbon fibre', density:0.88, strength:4, price:78, note:'Strongest per gram. Blocks radio signals.'},
+];
+const NOSE_SHAPES = [
+  {id:'conical', name:'Conical', cd:0.55, cn:2.0},
+  {id:'ogive',   name:'Ogive',   cd:0.42, cn:2.0},
+  {id:'ellipse', name:'Elliptical', cd:0.46, cn:2.0},
+];
+const FINISHES = [
+  {id:'matte', name:'Matte', rough:0.85, metal:0.0},
+  {id:'satin', name:'Satin', rough:0.45, metal:0.1},
+  {id:'gloss', name:'Gloss', rough:0.12, metal:0.2},
+  {id:'metal', name:'Bare metal', rough:0.25, metal:0.85},
+];
+const MOTORS = [
+  {id:'B6',  name:'B6-4',  cls:'B', impulse:5,   avg:6.3,  burn:0.8,  prop:5.6,  mass:19.6, price:6},
+  {id:'C6',  name:'C6-5',  cls:'C', impulse:10,  avg:5.4,  burn:1.86, prop:10.5, mass:25.8, price:7},
+  {id:'D12', name:'D12-5', cls:'D', impulse:20,  avg:12.5, burn:1.6,  prop:19.8, mass:44.5, price:9},
+  {id:'E12', name:'E12-6', cls:'E', impulse:30,  avg:12.0, burn:2.5,  prop:35.0, mass:60.0, price:15},
+  {id:'F32', name:'F32-8', cls:'F', impulse:60,  avg:32.0, burn:1.9,  prop:62.0, mass:102,  price:24},
+  {id:'G80', name:'G80-10',cls:'G', impulse:120, avg:80.0, burn:1.5,  prop:114,  mass:186,  price:38},
+];
+const CHUTES = [
+  {id:'p30', name:'30 cm nylon', dia:0.30, mass:12, price:7},
+  {id:'p45', name:'45 cm nylon', dia:0.45, mass:22, price:11},
+  {id:'p60', name:'60 cm ripstop', dia:0.60, mass:38, price:17},
+  {id:'p90', name:'90 cm ripstop', dia:0.90, mass:72, price:29},
+];
+const AVIONICS = [
+  {id:'none', name:'None', mass:0,  price:0,  caps:[]},
+  {id:'alt',  name:'Barometric altimeter', mass:14, price:38, caps:['Records altitude','Fires one recovery charge at apogee']},
+  {id:'dual', name:'Dual-deploy computer', mass:26, price:85, caps:['Records altitude and acceleration','Drogue at apogee, main lower down','Logs flight data to memory']},
+  {id:'tele', name:'Telemetry computer',   mass:41, price:180,caps:['Everything dual-deploy does','Live radio downlink','GPS position for recovery']},
+];
+const FC_PARTS = {
+  board:[
+    {id:'nano', name:'Arduino Nano', draw:15, mass:7,  price:12, note:'Cheap, simple, endless code examples.'},
+    {id:'pico', name:'Raspberry Pi Pico', draw:22, mass:3, price:5, note:'Dirt cheap and dual-core.'},
+    {id:'teensy', name:'Teensy 4.0', draw:20, mass:5, price:24, note:'Very fast and power-efficient.'},
+  ],
+  sensor:[
+    {id:'baro', name:'Barometer (BMP390)', draw:5, mass:2, price:11, cap:'Altitude and apogee detection'},
+    {id:'imu',  name:'IMU (BMI088)', draw:7, mass:2, price:19, cap:'Acceleration and orientation'},
+    {id:'gps',  name:'GPS module', draw:30, mass:9, price:22, cap:'Position for recovery'},
+  ],
+  radio:[
+    {id:'rnone', name:'No radio', draw:0, mass:0, price:0, cap:null},
+    {id:'lora', name:'LoRa module', draw:20, mass:8, price:35, cap:'Live telemetry, about 8 km'},
+    {id:'aprs', name:'APRS (ham)', draw:45, mass:14, price:90, cap:'Long-range tracking, licence required'},
+  ],
+  power:[
+    {id:'b150', name:'150 mAh LiPo', cap_mah:150, mass:5, price:8},
+    {id:'b500', name:'500 mAh LiPo', cap_mah:500, mass:12, price:14},
+    {id:'b1200',name:'1200 mAh LiPo',cap_mah:1200,mass:24, price:22},
+  ],
+};
+const LESSONS = [
+  {t:'What makes a rocket fly', s:'Thrust, weight, drag — and why only one of them is under your control.',
+   b:["A rocket goes up because its motor pushes exhaust down. That push is thrust, and it has to beat the rocket's weight before anything leaves the pad.",
+      "Once moving, air resistance — drag — starts fighting back, and it grows with the square of speed. Double your speed and drag roughly quadruples.",
+      "Weight and drag are fixed by your design. Thrust comes from the motor you choose. Most design work is really about making the first two small enough for the third to do its job."]},
+  {t:'Thrust-to-weight ratio', s:'The single number that decides whether your launch is safe or scary.',
+   b:["Divide your motor's average thrust by the rocket's weight at liftoff. That ratio tells you how hard the rocket accelerates off the rod.",
+      "Below about 5:1 the rocket leaves the rod slowly. Fins only work once air is flowing fast over them, so a slow launch means the rocket can tip before it becomes stable.",
+      "Anything above roughly 5:1 is usually safe. Very high ratios are fine structurally but waste altitude to drag."]},
+  {t:'Centre of gravity and centre of pressure', s:'Why a rocket weathercocks instead of tumbling.',
+   b:["Centre of gravity (CG) is where the rocket's mass balances. Centre of pressure (CP) is where aerodynamic force effectively acts.",
+      "If CP sits behind CG, any small tilt creates a force that pushes the nose back into the wind — the rocket self-corrects. If CP is ahead of CG, the same tilt makes it worse, and the rocket tumbles.",
+      "The distance between them, measured in body diameters, is the stability margin. One to two calibers is the usual target."]},
+  {t:'Fins and what they actually do', s:'Bigger is not automatically better.',
+   b:["Fins move CP backwards, which is what buys you stability. More area, or area further back, moves it further.",
+      "But fins also add drag and mass at the tail, and tail mass drags CG backwards too — partly cancelling the benefit.",
+      "Three fins is the minimum for stability, four is more forgiving of build errors. Sweeping fins back moves CP aft without adding much area."]},
+  {t:'Choosing a motor', s:'Letters, impulse, and the delay you might forget.',
+   b:["Motor classes step up by letter, and each letter is double the total impulse of the one before it. A D has twice the impulse of a C.",
+      "Total impulse sets how much altitude is available. Average thrust sets how hard you get off the pad. Two motors with the same letter can feel very different.",
+      "The number after the dash is the ejection delay in seconds. Too short and the chute pops while still climbing fast; too long and it deploys after the rocket has already turned over."]},
+  {t:'Recovery', s:'Getting it back in one piece is half the design.',
+   b:["A parachute's job is to bring descent speed down to something the airframe survives — roughly 3 to 6 m/s for most hobby rockets.",
+      "Descent rate depends on chute area and rocket mass. Doubling the chute diameter roughly halves the landing speed.",
+      "Bigger chutes drift further in wind. Dual deployment solves this: a small drogue at apogee, then the main chute low down, so the rocket spends less time drifting."]},
+  {t:'Flight computers', s:'Sensing the flight and deciding when to act.',
+   b:["A flight computer reads a barometer to track altitude. When altitude stops increasing, it has found apogee and fires the recovery charge.",
+      "Adding an accelerometer makes apogee detection faster and more reliable, because pressure alone lags slightly behind the real peak.",
+      "Everything draws current. Battery life has to cover setup on the pad, the flight itself, and the search afterwards — not just the 20 seconds in the air."]},
+  {t:'Anatomy of a rocket', s:'Every part, what it does, and where it lives.',
+   b:["The nose cone sits on top and shapes how air flows around the rocket. The body tube is the airframe: it holds everything and carries the loads of flight.",
+      "Inside the body sit the recovery system (parachute and its ejection charge), the avionics bay with the flight computer, and at the bottom the motor held in a motor mount.",
+      "Outside, at the tail, the fins give stability and the nozzle sits at the very end where exhaust leaves. In Forge you can take the rocket apart and zoom into each of these parts."]},
+  {t:'Motor codes decoded', s:'What C6-5 actually tells you.',
+   b:["A code like C6-5 has three pieces. The letter is the total impulse class, the first number is the average thrust in newtons, and the number after the dash is the ejection delay in seconds.",
+      "So C6-5 gives about 6 N of average thrust and a 5 second delay before the ejection charge fires. A larger first number means a harder, shorter push off the pad.",
+      "Pick the delay to match the rocket: a heavy rocket slows down more slowly after burnout and needs a longer delay than a light one."]},
+  {t:'Newton and the rocket equation', s:'Why throwing mass backwards moves you forwards.',
+   b:["Newton's third law says every action has an equal and opposite reaction. A motor throws hot gas backwards, and the rocket is pushed forwards with the same force.",
+      "Newton's second law, F = ma, then tells you how fast the rocket accelerates: net force (thrust minus weight minus drag) divided by the current mass.",
+      "The mass keeps dropping as propellant burns, so acceleration climbs through the burn even when thrust stays constant. This is why a rocket's best acceleration comes near burnout."]},
+  {t:'Drag and the nose cone', s:'How shape decides how high you go.',
+   b:["Drag grows with the square of speed and depends on shape and frontal area. Drag force = ½ × air density × speed² × drag coefficient × area.",
+      "A pointed ogive or elliptical nose has a lower drag coefficient than a blunt one. The body tube, the fins and any rough surface add to it as well.",
+      "Because air gets thinner with altitude, drag fades as the rocket climbs. A smooth paint finish and thin, well-shaped fins can add real height."]},
+  {t:'Wind, weathercocking and launch angle', s:'Why rockets lean into the wind.',
+   b:["A stable rocket turns its nose into the wind as it climbs. This is called weathercocking, and it is the same stability that keeps it pointing straight in calm air.",
+      "The stronger the wind and the slower the launch, the more the rocket tilts, and the less altitude you get. A fast, high thrust-to-weight launch tilts less.",
+      "Launch a few degrees away from people and into the wind, and never above 20 km/h of wind for a first flight. The parachute then drifts further than the rocket went up, so pick a big, open field."]},
+  {t:'Reading the flight computer schematic', s:'Following power, sensors and the parachute charge.',
+   b:["Start at the battery. Power flows through the regulator to a steady 3.3 V that feeds the microcontroller and sensors. Sensors talk to the microcontroller over shared buses such as I²C.",
+      "The pyro channel is separate and carries a lot more current. The microcontroller drives a MOSFET through a small gate resistor, and the MOSFET lets the battery push about an amp through the e-match, which sets off the ejection charge.",
+      "The arming switch lets you keep that channel dead while you work on the pad. Open the schematic simulator on the Flight computer page and watch each of these wires light up during a flight."]},
+  {t:'Launch safety', s:'The rules that keep every launch boring, which is the goal.',
+   b:["Use only commercially made motors and never modify them. Never build your own propellant, and never fly a motor of a class your rocket was not built for.",
+      "Launch outdoors in an open area, well clear of people, trees, power lines and buildings. Use a launch rod or rail, a blast deflector and an electrical igniter with a long lead.",
+      "Check the stability margin and the parachute before every flight, count down aloud, and wait for the rocket to be safe before walking up to it. Follow your local rocketry club's rules and your country's laws."]},
+  {t:'Your first flight checklist', s:'Everything to check before you press the button.',
+   b:["Design: stability margin of 1 to 2 calibers, thrust-to-weight above 5:1, and a descent speed under about 6 m/s. Forge flags each of these.",
+      "Build: fins straight and firmly attached, parachute folded and loose in the tube, ejection charge in place, motor held in so it cannot slide out.",
+      "Pad: flight computer armed last, battery charged, wind calm, area clear, countdown from five. Afterwards, wait, then approach and disarm everything before touching the rocket."]},
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const DEFAULT = {
+  dia:54, len:70, bodyMat:'card', nose:'ogive', noseLen:16,
+  finCount:3, span:6, chord:9, sweep:4,
+  motor:'D12', chute:'p45', avi:'alt',
+  cBody:'#e8e4dc', cNose:'#f28c28', cFin:'#f28c28', finish:'satin', stripe:'none',
+};
+let D = {...DEFAULT};
+let FC = {board:'nano', sensors:['baro'], radio:'rnone', power:'b500'};
+let lastSim = null;
+
+const store = {
+  get(k,f){ try{ const v=localStorage.getItem('aeroforge:'+k); return v?JSON.parse(v):f; }catch(e){ return f; } },
+  set(k,v){ try{ localStorage.setItem('aeroforge:'+k, JSON.stringify(v)); }catch(e){} },
+};
+
+/* =========================================================
+   ENGINEERING
+   ========================================================= */
+function analyse(d){
+  const dia = d.dia/1000, r = dia/2;
+  const bodyLen = d.len/100, noseLen = d.noseLen/100;
+  const total = bodyLen + noseLen;
+  const mat = MATERIALS.find(m=>m.id===d.bodyMat);
+  const motor = MOTORS.find(m=>m.id===d.motor);
+  const chute = CHUTES.find(c=>c.id===d.chute);
+  const avi = AVIONICS.find(a=>a.id===d.avi);
+  const nose = NOSE_SHAPES.find(n=>n.id===d.nose);
+
+  // masses (grams)
+  const tubeArea = Math.PI*dia*bodyLen;            // m² of wall
+  const mBody = tubeArea*mat.density*1000*0.9;
+  const mNose = Math.PI*r*r*noseLen*0.5*mat.density*1000*3.2 + 8;
+  const span=d.span/100, chord=d.chord/100, sweep=d.sweep/100;
+  const finArea = 0.5*(chord + chord*0.55)*span;
+  const mFins = finArea*d.finCount*mat.density*1000*2.6;
+  const mExtra = 22;                                // glue, shock cord, lug
+  const dry = mBody+mNose+mFins+chute.mass+avi.mass+mExtra;
+  const liftoff = dry + motor.mass;
+
+  // CG from nose tip (m)
+  const xChute = noseLen + bodyLen*0.28;
+  const xAvi   = noseLen + bodyLen*0.42;
+  const xMotor = noseLen + bodyLen - 0.04;
+  const items = [
+    [mBody, noseLen + bodyLen/2],
+    [mNose, noseLen*0.42],
+    [mFins, noseLen + bodyLen - chord*0.45],
+    [chute.mass, xChute],
+    [avi.mass, xAvi],
+    [mExtra, noseLen + bodyLen*0.5],
+    [motor.mass, xMotor],
+  ];
+  const mSum = items.reduce((a,[m])=>a+m,0);
+  const cg = items.reduce((a,[m,x])=>a+m*x,0)/mSum;
+
+  // CP — simplified nose + fins (Barrowman-style, nose and fins only)
+  const cnNose = nose.cn, xNose = 0.466*noseLen;
+  const ct = chord*0.55;
+  const midSweep = Math.sqrt(sweep*sweep + span*span);
+  const cnFins = (1 + r/(span+r)) *
+    (4*d.finCount*Math.pow(span/dia,2)) /
+    (1 + Math.sqrt(1 + Math.pow(2*midSweep/(chord+ct),2)));
+  const xFinLE = noseLen + bodyLen - chord;
+  const xFins = xFinLE + (sweep*(chord+2*ct))/(3*(chord+ct))
+              + (1/6)*(chord+ct - (chord*ct)/(chord+ct));
+  const cnTot = cnNose + cnFins;
+  const cp = (cnNose*xNose + cnFins*xFins)/cnTot;
+
+  const margin = (cp-cg)/dia;
+  const tw = motor.avg/((liftoff/1000)*9.81);
+  const cost = mat.price + motor.price + chute.price + avi.price + 9;
+
+  // quick flight estimate (reuses the same integrator as full sim)
+  const flight = fly(d, {steps:false});
+
+  return {dia,total,bodyLen,noseLen,mat,motor,chute,avi,nose,
+    dry,liftoff,cg,cp,margin,tw,cost,finArea,xChute,xAvi,xMotor,
+    apogee:flight.apogee, vmax:flight.vmax, descent:flight.descent, flight};
+}
+
+function thrustShape(f){
+  const a=[[0,0],[.05,1.85],[.15,1.15],[.3,.9],[.8,.88],[.93,.5],[1,0]];
+  for(let i=0;i<a.length-1;i++){
+    if(f>=a[i][0]&&f<=a[i+1][0]){
+      const t=(f-a[i][0])/(a[i+1][0]-a[i][0]||1);
+      return a[i][1]+(a[i+1][1]-a[i][1])*t;
+    }
+  } return 0;
+}
+const SHAPE_AVG = (()=>{let s=0;for(let i=0;i<400;i++)s+=thrustShape(i/400);return s/400;})();
+
+function fly(d, opt={}){
+  const dia=d.dia/1000, A=Math.PI*Math.pow(dia/2,2);
+  const mat=MATERIALS.find(m=>m.id===d.bodyMat);
+  const motor=MOTORS.find(m=>m.id===d.motor);
+  const chute=CHUTES.find(c=>c.id===d.chute);
+  const avi=AVIONICS.find(a=>a.id===d.avi);
+  const nose=NOSE_SHAPES.find(n=>n.id===d.nose);
+  const bodyLen=d.len/100, noseLen=d.noseLen/100;
+  const span=d.span/100, chord=d.chord/100;
+
+  const mBody=Math.PI*dia*bodyLen*mat.density*1000*0.9;
+  const mNose=Math.PI*Math.pow(dia/2,2)*noseLen*0.5*mat.density*1000*3.2+8;
+  const finArea=0.5*(chord+chord*0.55)*span;
+  const mFins=finArea*d.finCount*mat.density*1000*2.6;
+  const dry=(mBody+mNose+mFins+chute.mass+avi.mass+22)/1000;
+  const casing=(motor.mass-motor.prop)/1000, prop=motor.prop/1000;
+
+  const cd = nose.cd + 0.022*d.finCount + 0.06;
+  const cdChute=1.45, Ac=Math.PI*Math.pow(chute.dia/2,2);
+  const rho=h=>1.225*Math.exp(-Math.max(h,0)/8500);
+  const g=9.81;
+
+  let t=0,dt=0.01,v=0,h=0,apogee=0,vmax=0,amax=0,apT=null;
+  const series=[];
+  while(t<300){
+    let m,F;
+    if(t<=motor.burn){ m=dry+casing+prop*(1-t/motor.burn); F=motor.avg*thrustShape(t/motor.burn)/SHAPE_AVG; }
+    else { m=dry+casing; F=0; }
+    let a;
+    if(apT===null){
+      const drag=0.5*rho(h)*v*Math.abs(v)*cd*A;
+      a=(F-m*g-drag)/m;
+      v+=a*dt; h+=v*dt;
+      if(h>apogee)apogee=h;
+      if(v>vmax)vmax=v;
+      if(Math.abs(a)/g>amax)amax=Math.abs(a)/g;
+      if(v<=0&&t>motor.burn)apT=t;
+    } else {
+      const vt=Math.sqrt(2*m*g/(rho(h)*cdChute*Ac));
+      v=-vt; h+=v*dt; a=0;
+      if(h<=0){h=0;if(opt.steps!==false)series.push({t,h,v,a:0});break;}
+    }
+    if(opt.steps!==false && series.length<4000 && Math.round(t*100)%3===0)
+      series.push({t:+t.toFixed(2),h:Math.max(h,0),v,a:a/g});
+    t+=dt;
+  }
+  const mFinal=dry+casing;
+  const descent=Math.sqrt(2*mFinal*g/(1.225*cdChute*Ac));
+  return {apogee,vmax,amax,descent,apT,land:t,series,burn:motor.burn};
+}
+
+function notes(a){
+  const out=[];
+  if(a.margin<0) out.push({lvl:'bad',h:'Unstable configuration',
+    p:`The centre of pressure sits ${Math.abs(a.margin).toFixed(2)} calibers ahead of the centre of gravity. Any tilt off vertical will grow rather than correct itself, so the rocket will tumble instead of flying straight.`,
+    why:'CG and CP'});
+  else if(a.margin<1) out.push({lvl:'warn',h:'Marginal stability',
+    p:`Stability margin is ${a.margin.toFixed(2)} calibers. Below about 1 caliber, gusts and small build imperfections can upset the flight. Larger or further-back fins move CP aft; nose weight moves CG forward.`,
+    why:'CG and CP'});
+  else if(a.margin>3) out.push({lvl:'warn',h:'Very high stability margin',
+    p:`At ${a.margin.toFixed(2)} calibers the rocket is stable but will weathercock hard into wind, turning into the breeze and losing altitude. Slightly smaller fins would bring this down.`,
+    why:'Fins'});
+  else out.push({lvl:'ok',h:'Stability looks good',
+    p:`${a.margin.toFixed(2)} calibers of margin — comfortably inside the usual 1 to 2 caliber target.`,why:'CG and CP'});
+
+  if(a.tw<3) out.push({lvl:'bad',h:'Not enough thrust',
+    p:`Thrust-to-weight is only ${a.tw.toFixed(1)}:1. The rocket will barely accelerate off the pad, and fins need airspeed before they stabilise anything. Step up a motor class or cut mass.`,why:'Thrust-to-weight ratio'});
+  else if(a.tw<5) out.push({lvl:'warn',h:'Low thrust-to-weight',
+    p:`${a.tw.toFixed(1)}:1 is below the usual 5:1 guideline. It will fly, but expect a slow, wobbly departure from the rod.`,why:'Thrust-to-weight ratio'});
+
+  if(a.descent>7) out.push({lvl:'warn',h:'Hard landing',
+    p:`Estimated descent rate is ${a.descent.toFixed(1)} m/s. Above about 6 m/s, fins and airframes start breaking on landing. A larger parachute would soften it.`,why:'Recovery'});
+  else if(a.descent<2.5) out.push({lvl:'warn',h:'Very slow descent',
+    p:`At ${a.descent.toFixed(1)} m/s the rocket lands gently but drifts a long way downwind. Fine on a big field, risky on a small one.`,why:'Recovery'});
+
+  if(a.mat.id==='cf' && a.avi.id==='tele') out.push({lvl:'warn',h:'Carbon fibre blocks radio',
+    p:'Carbon fibre is conductive and will heavily attenuate the telemetry signal from inside the airframe. Either use a fibreglass section around the antenna, or mount the antenna externally.',why:'Flight computers'});
+
+  return out;
+}
+
+/* =========================================================
+   3D
+   ========================================================= */
+function makeScene(canvas, opts={}){
+  const S={}; S.canvas=canvas;
+  S.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  S.renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  S.scene=new THREE.Scene();
+  S.cam=new THREE.PerspectiveCamera(42,1,0.1,400);
+  S.scene.add(new THREE.AmbientLight(0xffffff,0.55));
+  const k=new THREE.DirectionalLight(0xffffff,0.95); k.position.set(5,8,6); S.scene.add(k);
+  const f=new THREE.DirectionalLight(0x9ecde6,0.35); f.position.set(-6,-2,-4); S.scene.add(f);
+  S.group=new THREE.Group(); S.scene.add(S.group);
+  S.rotY=opts.rotY??0.7; S.rotX=opts.rotX??0.12; S.zoom=opts.zoom??26;
+  S.spin=opts.spin||0; S.target=new THREE.Vector3(0,0,0); S.goal=null;
+
+  let lx=0,ly=0;
+  S.dragging=false;
+  if(opts.interactive!==false){
+    canvas.addEventListener('mousedown',e=>{S.goal=null;S.dragging=true;lx=e.clientX;ly=e.clientY;});
+    addEventListener('mousemove',e=>{ if(!S.dragging)return;
+      const up=Math.cos(S.rotX)<0?-1:1; S.rotY+=up*(e.clientX-lx)*0.011; S.rotX+=(e.clientY-ly)*0.011; lx=e.clientX; ly=e.clientY;});
+    addEventListener('mouseup',()=>S.dragging=false);
+    canvas.addEventListener('touchstart',e=>{const t=e.touches[0];S.dragging=true;lx=t.clientX;ly=t.clientY;},{passive:true});
+    canvas.addEventListener('touchmove',e=>{const t=e.touches[0];if(!S.dragging)return;
+      const up=Math.cos(S.rotX)<0?-1:1; S.rotY+=up*(t.clientX-lx)*0.011; S.rotX+=(t.clientY-ly)*0.011;
+      lx=t.clientX;ly=t.clientY;},{passive:true});
+    addEventListener('touchend',()=>S.dragging=false);
+    canvas.addEventListener('wheel',e=>{e.preventDefault();
+      S.goal=null;S.zoom=Math.max(1.2,Math.min(90,S.zoom*(1+e.deltaY*0.0012)));},{passive:false});
+  }
+  S.resize=()=>{
+    const w=canvas.clientWidth||300,h=canvas.clientHeight||300;
+    S.renderer.setSize(w,h,false); S.cam.aspect=w/h; S.cam.updateProjectionMatrix();
+  };
+  S.fit=()=>{
+    const box=new THREE.Box3().setFromObject(S.group);
+    if(box.isEmpty())return;
+    const size=new THREE.Vector3(),c=new THREE.Vector3();
+    box.getSize(size); box.getCenter(c);
+    S.target.copy(c);
+    const max=Math.max(size.x,size.y,size.z,0.6);
+    S.zoom=(max/2)/Math.tan(S.cam.fov/2*Math.PI/180)*1.6;
+  };
+  const loop=()=>{
+    requestAnimationFrame(loop);
+    if(S.spin && !S.dragging) S.rotY+=S.spin;
+    if(S.goal){S.target.lerp(S.goal.t,0.12);S.zoom+=(S.goal.z-S.zoom)*0.12;
+      if(S.target.distanceTo(S.goal.t)<0.01&&Math.abs(S.goal.z-S.zoom)<0.02)S.goal=null;}
+    S.cam.position.set(
+      S.target.x+Math.sin(S.rotY)*S.zoom*Math.cos(S.rotX),
+      S.target.y+Math.sin(S.rotX)*S.zoom,
+      S.target.z+Math.cos(S.rotY)*S.zoom*Math.cos(S.rotX));
+    S.cam.up.set(0,Math.cos(S.rotX)>=0?1:-1,0);
+    S.cam.lookAt(S.target);
+    S.renderer.render(S.scene,S.cam);
+  };
+  S.resize(); loop();
+  addEventListener('resize',S.resize);
+  return S;
+}
+
+
+/* ---------- exploded / isolate view state ---------- */
+const VIEW={explode:0,target:0,hidden:new Set(),isolate:null,focus:null};
+const PARTS=['nose','body','fins','nozzle','motor','avionics','parachute'];
+function applyView(g){
+  const dm=g.userData.dim; if(!dm||!g.userData.exp)return;
+  const e=VIEW.explode,{r,H}=dm;
+  const O={nose:[0,.5*H,0],body:[0,0,0],nozzle:[0,-.34*H,0],
+    motor:[4.6*r,-.12*H,0],avionics:[-4.6*r,.02*H,0],parachute:[4.6*r,.1*H,0]};
+  g.children.forEach(c=>{
+    const part=c.userData.part; if(!part)return;
+    if(!c.userData.base)c.userData.base=c.position.clone();
+    const b=c.userData.base;
+    let o=O[part]||[0,0,0];
+    if(part==='fins'){const a=c.rotation.y;o=[Math.cos(a)*2.6*r,-.18*H,-Math.sin(a)*2.6*r];}
+    c.position.set(b.x+o[0]*e,b.y+o[1]*e,b.z+o[2]*e);
+    c.traverse(m=>{if(m.isMesh&&m.material&&m.material.emissive){
+      const on=VIEW.focus&&VIEW.focus===part; m.material.emissive.set(on?0xf28c28:0x000000); m.material.emissiveIntensity=on?0.35:0;}});
+    c.visible=part==='marker'?e<0.01:!VIEW.hidden.has(part)&&(!VIEW.isolate||VIEW.isolate===part);
+  });
+}
+
+function tube(rt,rb,wall,h,mat,seg=40){
+  const g=new THREE.Group();
+  g.add(new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg,1,true),mat));
+  g.add(new THREE.Mesh(new THREE.CylinderGeometry(rt-wall,rb-wall,h,seg,1,true),mat));
+  const ring=(ri,ro,y,sx)=>{const m=new THREE.Mesh(new THREE.RingGeometry(ri,ro,seg),mat);m.rotation.x=sx*Math.PI/2;m.position.y=y;g.add(m);};
+  ring(rt-wall,rt,h/2,-1); ring(rb-wall,rb,-h/2,1);
+  return g;
+}
+const SC=26; // scene units per metre
+function buildRocket(group, d, showMarkers, cutaway){
+  while(group.children.length) group.remove(group.children[0]);
+  const a=analyse(d);
+  const r=(d.dia/1000/2)*SC, bodyH=(d.len/100)*SC, noseH=(d.noseLen/100)*SC;
+  const fin=FINISHES.find(f=>f.id===d.finish);
+  const mk=c=>new THREE.MeshStandardMaterial({color:new THREE.Color(c),roughness:fin.rough,metalness:fin.metal});
+
+  const bodyMat = cutaway
+    ? new THREE.MeshStandardMaterial({color:new THREE.Color(d.cBody),roughness:fin.rough,metalness:fin.metal,
+        transparent:true,opacity:0.16,depthWrite:false,side:THREE.DoubleSide})
+    : Object.assign(mk(d.cBody),{side:THREE.DoubleSide});
+  const body=tube(r,r,r*0.1,bodyH,bodyMat);
+  body.position.y=bodyH/2; body.userData.part='body'; group.add(body);
+
+  const wall=r*0.08, outer=[], inner=[];
+  for(let i=0;i<=16;i++){const t=i/16;
+    const x=d.nose==='conical'?r*(1-t):d.nose==='ellipse'?r*Math.sqrt(Math.max(0,1-t*t)):r*Math.pow(1-t,0.62);
+    outer.push(new THREE.Vector2(x,t*noseH)); inner.push(new THREE.Vector2(Math.max(0,x-wall),t*noseH-wall*t));}
+  const noseGeo=new THREE.LatheGeometry([...outer,...inner.reverse(),outer[0]],40);
+  const noseMat = cutaway
+    ? new THREE.MeshStandardMaterial({color:new THREE.Color(d.cNose),roughness:fin.rough,metalness:fin.metal,
+        transparent:true,opacity:0.16,depthWrite:false,side:THREE.DoubleSide})
+    : Object.assign(mk(d.cNose),{side:THREE.DoubleSide});
+  const nose=new THREE.Mesh(noseGeo,noseMat);
+  nose.position.y=bodyH;
+  nose.userData.part='nose'; group.add(nose);
+
+  // fins
+  const span=(d.span/100)*SC, chord=(d.chord/100)*SC, sweep=(d.sweep/100)*SC, thick=Math.max(0.05,r*0.11);
+  const sh=new THREE.Shape();
+  sh.moveTo(0,0); sh.lineTo(0,chord); sh.lineTo(span,chord-sweep); sh.lineTo(span,chord-sweep-chord*0.55); sh.lineTo(0,0);
+  const fg=new THREE.ExtrudeGeometry(sh,{depth:thick,bevelEnabled:false});
+  for(let i=0;i<d.finCount;i++){
+    const holder=new THREE.Object3D();
+    const mesh=new THREE.Mesh(fg,mk(d.cFin));
+    mesh.position.set(r,0,-thick/2);
+    holder.add(mesh);
+    holder.rotation.y=(Math.PI*2/d.finCount)*i; holder.userData.part='fins';
+    group.add(holder);
+  }
+
+  // motor nozzle
+  const nz=tube(r*0.62,r*0.4,r*0.07,bodyH*0.07,new THREE.MeshStandardMaterial({color:0x8e97a4,roughness:0.35,metalness:0.8,side:THREE.DoubleSide}),24);
+  nz.position.y=-bodyH*0.035; nz.userData.part='nozzle'; group.add(nz);
+
+  // roll stripe
+  if(d.stripe!=='none' && !cutaway){
+    const sm=new THREE.MeshStandardMaterial({color:new THREE.Color(d.cNose),roughness:fin.rough,metalness:fin.metal});
+    if(d.stripe==='band'){
+      const b=new THREE.Mesh(new THREE.CylinderGeometry(r*1.012,r*1.012,bodyH*0.07,40),sm);
+      b.position.y=bodyH*0.72; b.userData.part='body'; group.add(b);
+    } else {
+      for(let i=0;i<2;i++){
+        const s=new THREE.Mesh(new THREE.BoxGeometry(r*0.22,bodyH*0.86,r*0.05),sm);
+        s.position.set(Math.cos(i*Math.PI)*r*1.005,bodyH*0.5,Math.sin(i*Math.PI)*r*1.005);
+        s.userData.part='body'; group.add(s);
+      }
+    }
+  }
+
+  // cutaway internals — real components at their actual computed positions, shaped so
+  // they read as what they are without needing text labels floating in the scene
+  let legend=[];
+  const ex=!!group.userData.exp&&(VIEW.target>0||VIEW.explode>0.002);
+  const cutaway0=cutaway; cutaway=cutaway||ex;
+  const addP=(m,p)=>{m.userData.part=p;group.add(m);};
+  if(cutaway){
+    const totalH=bodyH+noseH;
+    const yFor=x=>totalH-(x/a.total)*totalH;
+
+    // motor: tapered casing + a visible nozzle taper, sitting right above the real nozzle
+    const motorH=Math.min(bodyH*0.22, bodyH*(a.motor.burn*0.09+0.1));
+    const motor=tube(r*0.72,r*0.72,r*0.07,motorH*0.8,new THREE.MeshStandardMaterial({color:0xc9a15a,roughness:0.6,side:THREE.DoubleSide}),24);
+    motor.position.y=motorH*0.9; addP(motor,'motor');
+    const motorTaper=tube(r*0.72,r*0.4,r*0.07,motorH*0.35,new THREE.MeshStandardMaterial({color:0x8e6a3a,roughness:0.6,side:THREE.DoubleSide}),24);
+    motorTaper.position.y=motorH*0.35; addP(motorTaper,'motor');
+    legend.push({c:'#f28c28',t:'Motor'});
+
+    // avionics: flat board shape with a raised chip, more circuit-like than a plain box
+    if(a.avi.id!=='none'){
+      const aviY=yFor(a.xAvi);
+      const board=new THREE.Mesh(new THREE.BoxGeometry(r*1.0,r*0.12,r*1.0),
+        new THREE.MeshStandardMaterial({color:0x1f6e82,roughness:0.4}));
+      board.position.y=aviY; addP(board,'avionics');
+      const chip=new THREE.Mesh(new THREE.BoxGeometry(r*0.32,r*0.16,r*0.32),
+        new THREE.MeshStandardMaterial({color:0x0d1a22,roughness:0.3}));
+      chip.position.y=aviY+r*0.14; addP(chip,'avionics');
+      legend.push({c:'#5da9c9',t:'Avionics'});
+    }
+
+    // parachute: a bundled, slightly irregular canopy shape instead of a plain sphere
+    const chuteY=yFor(a.xChute);
+    const chuteGeo=new THREE.SphereGeometry(r*0.68,12,10);
+    chuteGeo.scale(1,0.62,1);
+    const chuteBundle=new THREE.Mesh(chuteGeo,new THREE.MeshStandardMaterial({color:0xe6eaf0,roughness:0.95}));
+    chuteBundle.position.y=chuteY; addP(chuteBundle,'parachute');
+    const tie=new THREE.Mesh(new THREE.TorusGeometry(r*0.3,r*0.03,6,16),
+      new THREE.MeshStandardMaterial({color:0xdd6b6b,roughness:0.6}));
+    tie.rotation.x=Math.PI/2; tie.position.y=chuteY; addP(tie,'parachute');
+    legend.push({c:'#e6eaf0',t:'Parachute'});
+
+    // CG plane — a thin disc through the body, no label needed once the legend explains it
+    const yCG=yFor(a.cg);
+    const cgLine=new THREE.Mesh(new THREE.CylinderGeometry(r*1.3,r*1.3,0.035,28,1,true),
+      new THREE.MeshBasicMaterial({color:0xf28c28,transparent:true,opacity:0.8,side:THREE.DoubleSide}));
+    cgLine.position.y=yCG; addP(cgLine,'marker');
+    legend.push({c:'#f28c28',t:'CG (centre of gravity)'});
+  }
+
+  if(showMarkers && !cutaway && !ex){
+    const totalH=bodyH+noseH;
+    const yCG=totalH-(a.cg/a.total)*totalH;
+    const yCP=totalH-(a.cp/a.total)*totalH;
+    const ring=(y,c)=>{
+      const m=new THREE.Mesh(new THREE.TorusGeometry(r*1.22,r*0.055,8,28),
+        new THREE.MeshBasicMaterial({color:c}));
+      m.rotation.x=Math.PI/2; m.position.y=y; addP(m,'marker');
+    };
+    ring(yCG,0xf28c28); ring(yCP,0x5da9c9);
+  }
+  group.userData.dim={r,H:bodyH+noseH};
+  applyView(group);
+  return legend;
+}
+
+/* =========================================================
+   UI WIRING
+   ========================================================= */
+const $=id=>document.getElementById(id);
+const toast=(m)=>{const t=$('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200);};
+
+// nav
+function go(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='view-'+v));
+  document.querySelectorAll('.nav-links button[data-go]').forEach(b=>b.classList.toggle('on',b.dataset.go===v));
+  $('navLinks').classList.remove('open');
+  scrollTo({top:0,behavior:'instant'});
+  if(v==='forge'){ setTimeout(()=>{forge.resize();forge.fit();},30); }
+  if(v==='simulation') renderSim();
+  if(v==='projects') renderProjects();
+  location.hash=v;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-go]'); if(b) go(b.dataset.go);
+});
+$('menuBtn').onclick=()=>$('navLinks').classList.toggle('open');
+
+// theme
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  $('themeBtn').textContent = t==='dark'?'☾':'☀';
+  store.set('theme',t);
+}
+$('themeBtn').onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+setTheme(store.get('theme','dark'));
+
+// populate selects / chips
+const fill=(el,arr,val)=>{el.innerHTML=arr.map(o=>
+  `<option value="${o.id}" ${o.id===val?'selected':''}>${o.name}</option>`).join('');};
+fill($('selBodyMat'),MATERIALS,D.bodyMat);
+fill($('selMotor'),MOTORS.map(m=>({id:m.id,name:`${m.name} — class ${m.cls}`})),D.motor);
+fill($('selChute'),CHUTES,D.chute);
+fill($('selAvi'),AVIONICS,D.avi);
+fill($('selFinish'),FINISHES,D.finish);
+
+function chips(el,arr,key){
+  el.innerHTML=arr.map(o=>`<button class="chip-btn ${D[key]==o.v?'on':''}" data-v="${o.v}">${o.l}</button>`).join('');
+  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    D[key]=isNaN(b.dataset.v)?b.dataset.v:+b.dataset.v;
+    chips(el,arr,key); update();
+  });
+}
+chips($('noseChips'),NOSE_SHAPES.map(n=>({v:n.id,l:n.name})),'nose');
+chips($('finChips'),[{v:3,l:'3'},{v:4,l:'4'},{v:6,l:'6'}],'finCount');
+chips($('stripeChips'),[{v:'none',l:'None'},{v:'band',l:'Band'},{v:'lines',l:'Lines'}],'stripe');
+
+// bind inputs
+const bind=(id,key,fmt)=>{
+  const el=$(id);
+  el.value=D[key];
+  el.addEventListener('input',()=>{
+    D[key]=el.type==='range'?+el.value:el.value;
+    if(fmt)$(fmt.id).textContent=fmt.f(D[key]);
+    update();
+  });
+};
+bind('sDia','dia',{id:'vDia',f:v=>v+' mm'});
+bind('sLen','len',{id:'vLen',f:v=>v+' cm'});
+bind('sNose','noseLen',{id:'vNose',f:v=>v+' cm'});
+bind('sSpan','span',{id:'vSpan',f:v=>v+' cm'});
+bind('sChord','chord',{id:'vChord',f:v=>v+' cm'});
+bind('sSweep','sweep',{id:'vSweep',f:v=>v+' cm'});
+['selBodyMat|bodyMat','selMotor|motor','selChute|chute','selAvi|avi','selFinish|finish',
+ 'cBody|cBody','cNose|cNose','cFin|cFin'].forEach(s=>{
+  const [id,key]=s.split('|'); bind(id,key);
+});
+
+$('resetBtn').onclick=()=>{D={...DEFAULT};syncControls();update();toast('Reset to the default rocket');};
+
+$('cutawayBtn').onclick=()=>{
+  cutawayOn=!cutawayOn;
+  $('cutawayBtn').classList.toggle('on',cutawayOn);
+  $('cutawayBtn').textContent = cutawayOn ? 'Show outside ▸' : 'Show inside ▸';
+  update();
+  forge.fit();
+};
+
+/* ---------- forge command box: plain-language edits to the design ---------- */
+function fcSay(who,txt){
+  const d=document.createElement('div');
+  d.className='fc-msg '+(who==='u'?'u':'a'); d.textContent=txt;
+  $('forgeChat').appendChild(d); $('forgeChat').scrollTop=1e6;
+}
+function stepMotor(dir){
+  const i=MOTORS.findIndex(m=>m.id===D.motor);
+  const j=Math.max(0,Math.min(MOTORS.length-1,i+dir));
+  return MOTORS[j];
+}
+function stepChute(dir){
+  const i=CHUTES.findIndex(c=>c.id===D.chute);
+  const j=Math.max(0,Math.min(CHUTES.length-1,i+dir));
+  return CHUTES[j];
+}
+function runForgeCommand(text){
+  const s=text.toLowerCase();
+  const bigger=/bigger|larger|more|increase|longer|taller|wider|stronger/.test(s);
+  const smaller=/smaller|less|decrease|shorter|narrower|weaker/.test(s);
+  const applied=[];
+  const help=[]; // specific "here's what I can actually do" notes for parts that were mentioned but not matched to a real action
+
+  const pm={nose:/nose|cone/,fins:/\bfins?\b/,nozzle:/nozzle/,motor:/motor|engine/,avionics:/avionic|computer|board/,parachute:/parachute|chute/,body:/body|tube/};
+  if(/where|zoom|focus|show me|look at|closer/.test(s)){
+    const k=Object.keys(pm).find(k=>pm[k].test(s));
+    if(k){focusPart(k);return PART_INFO[k][0]+": "+PART_INFO[k][1];}
+  }
+  if(/disassembl|explode|take.*apart|break.*(apart|down)|separate|components/.test(s)&&!/where/.test(s)){
+    VIEW.target=1;VIEW.hidden.clear();VIEW.isolate=null;update();fitExploded();
+    return "Done — I took the rocket apart: nose cone, body tube, fins, nozzle, motor, avionics and parachute.";
+  }
+  if(/reassembl|put.*together|collapse|assemble/.test(s)){VIEW.target=0;fitExploded();return "Done — I put the rocket back together.";}
+  if(/fin/.test(s)){
+    if(bigger){ D.span=Math.min(14,D.span+2); D.chord=Math.min(20,D.chord+2); applied.push('made the fins bigger'); }
+    else if(smaller){ D.span=Math.max(2,D.span-2); D.chord=Math.max(4,D.chord-2); applied.push('made the fins smaller'); }
+    else if(/more fin|add.*fin|4 fin|four fin/.test(s)){ D.finCount=Math.min(6,D.finCount+1); applied.push('added a fin'); }
+    else if(/fewer fin|remove.*fin|3 fin|three fin/.test(s)){ D.finCount=Math.max(3,D.finCount-1); applied.push('reduced the fin count'); }
+    else { D.span=Math.min(14,D.span+2); applied.push('increased fin span a little'); }
+  }
+  if(/nose|cone/.test(s)){
+    let ok=false;
+    if(bigger){ D.noseLen=Math.min(40,D.noseLen+4); applied.push('made the nose longer'); ok=true; }
+    else if(smaller){ D.noseLen=Math.max(6,D.noseLen-4); applied.push('made the nose shorter'); ok=true; }
+    if(/ogive/.test(s)) { D.nose='ogive'; applied.push('switched to an ogive nose'); ok=true; }
+    if(/conical|pointy|pointed/.test(s)) { D.nose='conical'; applied.push('switched to a conical nose'); ok=true; }
+    if(/ellipt|round|blunt/.test(s)) { D.nose='ellipse'; applied.push('switched to an elliptical nose'); ok=true; }
+    if(/side|sideways|offset|rotate|tilt/.test(s) && !ok){
+      help.push("The nose cone sits fixed at the tip of the body — it can't move sideways or tilt, or the airflow over it stops working. I can make it longer, shorter, or change its shape (conical, ogive, elliptical) instead.");
+      ok=true; // handled with a real answer, don't also fall through to the generic one
+    }
+    if(!ok) help.push("I can make the nose longer/shorter, or change its shape — try 'make the nose longer' or 'switch to a conical nose'.");
+  }
+  if(/body|tube|diameter|wide|narrow|length|tall|long/.test(s) && !/fin|nose|cone/.test(s)){
+    let ok=false;
+    if(/diameter|wide|narrow|fat|thin/.test(s)){
+      if(bigger){ D.dia=Math.min(100,D.dia+8); applied.push('made the body wider'); ok=true; }
+      else if(smaller){ D.dia=Math.max(24,D.dia-8); applied.push('made the body narrower'); ok=true; }
+    } else {
+      if(bigger){ D.len=Math.min(150,D.len+15); applied.push('made the body longer'); ok=true; }
+      else if(smaller){ D.len=Math.max(30,D.len-15); applied.push('made the body shorter'); ok=true; }
+    }
+    if(!ok) help.push("I can make the body wider/narrower or longer/shorter — try 'make the body wider' or 'make it shorter'.");
+  }
+  if(/motor|engine|thrust|power/.test(s)){
+    let ok=false;
+    if(bigger){ D.motor=stepMotor(1).id; applied.push('stepped up to a '+MOTORS.find(m=>m.id===D.motor).name+' motor'); ok=true; }
+    else if(smaller){ D.motor=stepMotor(-1).id; applied.push('stepped down to a '+MOTORS.find(m=>m.id===D.motor).name+' motor'); ok=true; }
+    if(!ok) help.push("I can step the motor up or down a class — try 'give it a stronger motor' or 'use a weaker motor'.");
+  }
+  if(/parachute|chute|land|descent/.test(s)){
+    let ok=false;
+    if(bigger || /soft|gentle|slower/.test(s)){ D.chute=stepChute(1).id; applied.push('sized up the parachute'); ok=true; }
+    else if(smaller || /fast|hard/.test(s)){ D.chute=stepChute(-1).id; applied.push('sized down the parachute'); ok=true; }
+    if(!ok) help.push("I can size the parachute up for a softer landing, or down for a faster one — try 'make the landing softer'.");
+  }
+  if(/carbon|fibreglass|fiberglass|cardboard|material/.test(s)){
+    if(/carbon/.test(s)){ D.bodyMat='cf'; applied.push('switched the body to carbon fibre'); }
+    else if(/fibreglass|fiberglass|glass/.test(s)){ D.bodyMat='glass'; applied.push('switched the body to fibreglass'); }
+    else if(/cardboard|cheap|light/.test(s)){ D.bodyMat='card'; applied.push('switched the body to cardboard'); }
+    else help.push("I can switch the body material — try 'use carbon fibre' or 'switch to cardboard'.");
+  }
+  const colorMatch=s.match(/\b(red|blue|green|orange|black|white|yellow|purple)\b.*\b(nose|fin|body)\b|\b(nose|fin|body)\b.*\b(red|blue|green|orange|black|white|yellow|purple)\b/);
+  const COLORS={red:'#dd6b6b',blue:'#5da9c9',green:'#6cc08b',orange:'#f28c28',black:'#1b2028',white:'#e6eaf0',yellow:'#e3c04a',purple:'#9b7fd1'};
+  if(colorMatch){
+    const words=s.split(/\s+/), colorWord=words.find(w=>COLORS[w]), partWord=words.find(w=>['nose','fin','body'].includes(w));
+    if(colorWord && partWord){
+      const hex=COLORS[colorWord];
+      if(partWord==='nose'){D.cNose=hex;} else if(partWord==='fin'){D.cFin=hex;} else {D.cBody=hex;}
+      applied.push(`changed the ${partWord} colour to ${colorWord}`);
+    }
+  }
+  if(/reset|default|start over/.test(s)){
+    D={...DEFAULT}; applied.push('reset to the default rocket');
+  }
+  if(/inside|cutaway|see.*component|where.*(motor|avionics|parachute)/.test(s)){
+    if(!cutawayOn){ cutawayOn=true; $('cutawayBtn').classList.add('on'); $('cutawayBtn').textContent='Show outside ▸'; }
+    applied.push("switched to the inside view — you'll see the motor, avionics, and parachute at their real positions");
+  }
+
+  if(applied.length){
+    syncControls(); update(); forge.fit();
+    return "Done — I "+applied.join(', and ')+".";
+  }
+  if(help.length){
+    return help.join(' ');
+  }
+  return null; // truly nothing recognized — caller falls back to Aero's general explanation
+}
+
+/* ---------- AI agent: understands anything, runs real actions ---------- */
+let _sample;
+async function getSample(){
+  if(_sample!==undefined)return _sample;
+  try{_sample=(window.claude&&await window.claude.use('sample'))||null;}catch(e){_sample=null;}
+  return _sample;
+}
+const NUM={dia:'sDia',len:'sLen',noseLen:'sNose',span:'sSpan',chord:'sChord',sweep:'sSweep'};
+const SEL={bodyMat:'selBodyMat',motor:'selMotor',chute:'selChute',avi:'selAvi',finish:'selFinish'};
+function agentSchema(){
+  const num=Object.entries(NUM).map(([k,id])=>`${k} (${$(id).min}-${$(id).max}, ${k==='dia'?'mm':'cm'})`).join('; ');
+  const sel=Object.entries(SEL).map(([k,id])=>`${k}: `+[...$(id).options].map(o=>o.value).join('|')).join('; ');
+  return `numbers: ${num}\nchoices: ${sel}; nose: ${NOSE_SHAPES.map(n=>n.id).join('|')}; finCount: 3|4|6; stripe: none|band|lines\ncolours (hex string): cBody, cNose, cFin`;
+}
+function runActions(list){
+  const done=[]; let pendingFocus;
+  (list||[]).forEach(a=>{
+    try{
+      if(a.type==='set'){
+        const k=a.key,v=a.value;
+        if(NUM[k]){const el=$(NUM[k]);D[k]=Math.max(+el.min,Math.min(+el.max,+v));done.push(k);}
+        else if(SEL[k]&&[...$(SEL[k]).options].some(o=>o.value===v)){D[k]=v;done.push(k);}
+        else if(k==='nose'&&NOSE_SHAPES.some(n=>n.id===v)){D.nose=v;done.push(k);}
+        else if(k==='finCount'&&[3,4,6].includes(+v)){D.finCount=+v;done.push(k);}
+        else if(k==='stripe'&&['none','band','lines'].includes(v)){D.stripe=v;done.push(k);}
+        else if(['cBody','cNose','cFin'].includes(k)&&/^#[0-9a-f]{6}$/i.test(v)){D[k]=v;done.push(k);}
+      }else if(a.type==='explode'){VIEW.focus=null;VIEW.target=a.on===false?0:1;if(VIEW.target){VIEW.hidden.clear();VIEW.isolate=null;}}
+      else if(a.type==='hide'&&PARTS.includes(a.part)){VIEW.hidden.add(a.part);VIEW.isolate=null;}
+      else if(a.type==='show'&&PARTS.includes(a.part)){VIEW.hidden.delete(a.part);}
+      else if(a.type==='isolate'&&PARTS.includes(a.part)){VIEW.isolate=a.part;VIEW.target=Math.max(VIEW.target,1);}
+      else if(a.type==='focus'&&(a.part===null||PARTS.includes(a.part))){pendingFocus=a.part;}
+      else if(a.type==='showAll'){VIEW.hidden.clear();VIEW.isolate=null;}
+      else if(a.type==='cutaway'){cutawayOn=a.on!==false;$('cutawayBtn').classList.toggle('on',cutawayOn);
+        $('cutawayBtn').textContent=cutawayOn?'Show outside ▸':'Show inside ▸';}
+      else if(a.type==='camera'){const V={front:[0,0],side:[Math.PI/2,0],back:[Math.PI,0],top:[0,1.35],bottom:[0,-1.35],iso:[.7,.25]}[a.view];
+        if(V){forge.rotY=V[0];forge.rotX=V[1];} if(a.zoom)forge._z=+a.zoom;}
+      else if(a.type==='spin'){forge.spin=a.on===false?0:0.008;}
+      else if(a.type==='reset'){D={...DEFAULT};VIEW.target=0;VIEW.hidden.clear();VIEW.isolate=null;}
+      else if(a.type==='simulate'){$('simBtn').click();}
+      else if(a.type==='save'){$('saveBtn').click();}
+      else if(a.type==='go'&&$('view-'+a.view)){go(a.view);}
+    }catch(err){console.warn('action failed',a,err);}
+  });
+  syncControls(); update();
+  if(pendingFocus!==undefined)focusPart(pendingFocus); else fitExploded();
+}
+function fitExploded(){
+  const e=VIEW.explode; VIEW.explode=VIEW.target; applyView(forge.group);
+  forge.fit(); if(forge._z){forge.zoom*=forge._z;forge._z=0;}
+  VIEW.explode=e; applyView(forge.group);
+}
+(function tickView(){
+  requestAnimationFrame(tickView);
+  const t=VIEW.target; if(VIEW.explode===t)return;
+  VIEW.explode+=(t-VIEW.explode)*0.1;
+  if(Math.abs(t-VIEW.explode)<0.003){VIEW.explode=t; if(t===0)update(); if(!VIEW.focus)fitExploded();}
+  applyView(forge.group);
+})();
+
+/* ---------- zoom into a specific part ---------- */
+const PART_INFO={
+  nose:['Nose cone','The hollow cone at the very top. It slices through the air to cut drag.'],
+  body:['Body tube','The main hollow airframe. Everything else is mounted in or on it.'],
+  fins:['Fins','Mounted on the outside at the bottom. They keep the rocket pointing straight.'],
+  nozzle:['Nozzle','At the very bottom. Hot exhaust gas leaves through it, and that is what pushes the rocket up.'],
+  motor:['Rocket engine (motor)','This is the engine. It is the gold hollow casing at the BOTTOM of the body tube, just above the nozzle. It is inside the airframe, so use the inside view to see it.'],
+  avionics:['Avionics','The flight computer board. It sits inside the body, above the motor, and triggers the parachute.'],
+  parachute:['Parachute','Packed inside the upper body, below the nose cone. It opens at the top of the flight for a soft landing.']
+};
+function partBox(part){
+  const box=new THREE.Box3(); let any=false;
+  forge.group.children.forEach(c=>{
+    if(c.visible&&(part?c.userData.part===part:c.userData.part!=='marker')){box.expandByObject(c);any=true;}});
+  return any?box:null;
+}
+function focusPart(part){
+  VIEW.focus=part||null;
+  const internal=['motor','avionics','parachute'].includes(part);
+  if(internal&&VIEW.target===0&&!cutawayOn){
+    cutawayOn=true;$('cutawayBtn').classList.add('on');$('cutawayBtn').textContent='Show outside ▸';}
+  if(VIEW.hidden.has(part))VIEW.hidden.delete(part);
+  update();
+  const e=VIEW.explode; VIEW.explode=VIEW.target; applyView(forge.group);
+  const box=partBox(part)||partBox(null);
+  VIEW.explode=e; applyView(forge.group);
+  if(box){
+    const size=new THREE.Vector3(),c=new THREE.Vector3(); box.getSize(size); box.getCenter(c);
+    const mx=Math.max(size.x,size.y,size.z,0.3);
+    forge.goal={t:c,z:Math.max(2.2,(mx/2)/Math.tan(forge.cam.fov/2*Math.PI/180)*(part?2.3:1.7))};
+  }
+  const info=$('partInfo');
+  if(part){info.innerHTML='<b>'+PART_INFO[part][0]+'</b>'+PART_INFO[part][1];info.style.display='block';}
+  else info.style.display='none';
+  document.querySelectorAll('#partBar button').forEach(b=>b.classList.toggle('on',b.dataset.p===(part||'')));
+}
+function initPartUI(){
+$('partBar').innerHTML='<button data-p="">Whole rocket</button>'+PARTS.map(p=>`<button data-p="${p}">${PART_INFO[p][0].replace(' (motor)','')}</button>`).join('');
+$('partBar').querySelectorAll('button').forEach(b=>b.onclick=()=>focusPart(b.dataset.p||null));
+// click the model itself to zoom in on whatever part you hit
+(()=>{const rc=new THREE.Raycaster(),cv=forge.canvas;let dx=0,dy=0;
+  cv.addEventListener('pointerdown',e=>{dx=e.clientX;dy=e.clientY;});
+  cv.addEventListener('pointerup',e=>{
+    if(Math.hypot(e.clientX-dx,e.clientY-dy)>5)return;
+    const r=cv.getBoundingClientRect();
+    rc.setFromCamera(new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1),forge.cam);
+    const hit=rc.intersectObjects(forge.group.children,true).find(h=>{
+      let o=h.object;while(o&&!o.userData.part)o=o.parent;return o&&o.userData.part!=='marker'&&o.visible;});
+    if(hit){let o=hit.object;while(!o.userData.part)o=o.parent;focusPart(o.userData.part);}
+  });})();
+
+}
+
+const AGENT_HIST=[];
+async function agent(text){
+  const sample=await getSample(); if(!sample)return null;
+  const a=analyse(D);
+  const sys=`You are Aero, the assistant inside AeroForge, a model-rocket design app. You can do ANYTHING the user asks that the app supports, by emitting actions, and you can answer any rocketry question.
+Reply with ONLY a JSON object: {"reply": string, "actions": Action[]}. "reply" is plain text, friendly, under 90 words, saying what you did or answering the question. If the request is something the app cannot do, say so honestly and do the closest useful thing.
+Actions:
+{"type":"set","key":K,"value":V} change the design
+{"type":"explode","on":true|false} disassemble the rocket into separated components (nose cone, body tube, fins, nozzle, motor, avionics, parachute) / reassemble
+{"type":"isolate","part":P} show only one part (exploded); {"type":"hide","part":P}; {"type":"show","part":P}; {"type":"showAll"}
+{"type":"focus","part":P|null} zoom the camera in on one part and highlight it (use for 'zoom in on', 'show me', 'where is the engine/motor'; null = whole rocket); {"type":"cutaway","on":bool} see inside; {"type":"camera","view":"front|side|back|top|bottom|iso","zoom":number (multiplier, <1 closer)}; {"type":"spin","on":bool}
+{"type":"reset"}; {"type":"simulate"} run the flight sim; {"type":"save"}; {"type":"go","view":"home|forge|learn|components|simulation|flightcomputer|projects|about"}
+Parts P: ${PARTS.join(', ')}.
+Settable keys:\n${agentSchema()}
+Several actions may be combined. When asked to disassemble, use explode (and describe the components in the reply).
+Current design: ${JSON.stringify(D)}. Liftoff ${Math.round(a.liftoff)} g, stability ${a.margin.toFixed(2)} cal, T/W ${a.tw.toFixed(1)}, apogee ${Math.round(a.apogee)} m, descent ${a.descent.toFixed(1)} m/s, cost $${a.cost}.
+Recent chat: ${JSON.stringify(AGENT_HIST.slice(-6))}
+User request: ${text}`;
+  const out=await sample.json(sys,{modelTier:'quick',cache:false});
+  AGENT_HIST.push({user:text,assistant:out.reply});
+  runActions(out.actions);
+  return String(out.reply||'Done.');
+}
+
+async function forgeChatSend(){
+  const v=$('forgeChatIn').value.trim(); if(!v)return;
+  fcSay('u',v); $('forgeChatIn').value='';
+  fcSay('a','Thinking…'); const slot=$('forgeChat').lastChild;
+  let reply=null;
+  try{reply=await agent(v);}catch(e){console.warn(e);}
+  if(reply===null)reply=runForgeCommand(v)||"I couldn't match that. The AI helper isn't available here, so I can only do simple edits like 'make the fins bigger' or 'disassemble the rocket'.";
+  slot.textContent=reply; $('forgeChat').scrollTop=1e6;
+}
+$('forgeChatSend').onclick=forgeChatSend;
+$('forgeChatIn').addEventListener('keydown',e=>{if(e.key==='Enter')forgeChatSend();});
+function syncControls(){
+  $('sDia').value=D.dia; $('vDia').textContent=D.dia+' mm';
+  $('sLen').value=D.len; $('vLen').textContent=D.len+' cm';
+  $('sNose').value=D.noseLen; $('vNose').textContent=D.noseLen+' cm';
+  $('sSpan').value=D.span; $('vSpan').textContent=D.span+' cm';
+  $('sChord').value=D.chord; $('vChord').textContent=D.chord+' cm';
+  $('sSweep').value=D.sweep; $('vSweep').textContent=D.sweep+' cm';
+  $('selBodyMat').value=D.bodyMat; $('selMotor').value=D.motor;
+  $('selChute').value=D.chute; $('selAvi').value=D.avi; $('selFinish').value=D.finish;
+  $('cBody').value=D.cBody; $('cNose').value=D.cNose; $('cFin').value=D.cFin;
+  chips($('noseChips'),NOSE_SHAPES.map(n=>({v:n.id,l:n.name})),'nose');
+  chips($('finChips'),[{v:3,l:'3'},{v:4,l:'4'},{v:6,l:'6'}],'finCount');
+  chips($('stripeChips'),[{v:'none',l:'None'},{v:'band',l:'Band'},{v:'lines',l:'Lines'}],'stripe');
+}
+
+// scenes
+const hero=makeScene($('heroCanvas'),{spin:0.0032,rotX:0.1,interactive:true});
+buildRocket(hero.group,{...DEFAULT,cBody:'#e8e4dc'},false); hero.fit();
+const forge=makeScene($('forgeCanvas')); forge.group.userData.exp=true;
+
+let cutawayOn=false;
+function update(){
+  const a=analyse(D);
+  buildRocket(forge.group,D,!cutawayOn,cutawayOn);
+  buildRocket(hero.group,D,false,false);
+
+  $('stabVal').textContent=a.margin.toFixed(2)+' cal';
+  const sb=$('stabBadge');
+  if(a.margin<0){sb.textContent='Unstable';sb.style.background='rgba(221,107,107,.16)';sb.style.color='var(--bad)';}
+  else if(a.margin<1){sb.textContent='Marginal';sb.style.background='rgba(227,164,74,.16)';sb.style.color='var(--warn)';}
+  else if(a.margin>3){sb.textContent='Over-stable';sb.style.background='rgba(227,164,74,.16)';sb.style.color='var(--warn)';}
+  else {sb.textContent='Stable';sb.style.background='rgba(108,192,139,.16)';sb.style.color='var(--ok)';}
+  $('pinCG').style.left=Math.max(3,Math.min(97,(a.cg/a.total)*100))+'%';
+  $('pinCP').style.left=Math.max(3,Math.min(97,(a.cp/a.total)*100))+'%';
+
+  $('mMass').innerHTML=Math.round(a.liftoff)+'<small>g</small>';
+  $('mTW').innerHTML=a.tw.toFixed(1)+'<small>:1</small>';
+  $('mApogee').innerHTML=Math.round(a.apogee)+'<small>m</small>';
+  $('mVel').innerHTML=Math.round(a.vmax)+'<small>m/s</small>';
+  $('mDesc').innerHTML=a.descent.toFixed(1)+'<small>m/s</small>';
+  $('mCost').innerHTML='$'+a.cost;
+
+  $('warnings').innerHTML=notes(a).map(n=>
+    `<div class="warn-card ${n.lvl==='ok'?'ok':n.lvl==='bad'?'bad':''}">
+      <h5>${n.h}</h5><p>${n.p}</p>
+      ${n.why?`<button data-lesson="${n.why}">Learn more</button>`:''}
+     </div>`).join('');
+  $('warnings').querySelectorAll('[data-lesson]').forEach(b=>b.onclick=()=>openLesson(b.dataset.lesson));
+}
+
+$('simBtn').onclick=()=>{lastSim=null;go('simulation');};
+$('saveBtn').onclick=()=>{
+  const list=store.get('projects',[]);
+  const a=analyse(D);
+  list.unshift({id:Date.now(),name:'Rocket '+(list.length+1),date:new Date().toISOString(),
+    design:{...D},apogee:Math.round(a.apogee),margin:+a.margin.toFixed(2)});
+  store.set('projects',list.slice(0,40));
+  toast('Project saved to this browser');
+};
+
+/* ---------- learn ---------- */
+
+/* ---------- learn extras ---------- */
+const GLOSSARY=[
+['Apogee','The highest point of the flight, where the rocket stops climbing.'],
+['Calibers','Distance measured in body diameters. Stability margin is given in calibers.'],
+['Centre of gravity (CG)','The balance point of the rocket\u2019s mass.'],
+['Centre of pressure (CP)','The point where the aerodynamic force effectively acts. It should sit behind the CG.'],
+['Drag coefficient (Cd)','A number describing how slippery a shape is. Lower is better.'],
+['Drogue','A small parachute that slows the rocket a little at apogee in dual deployment.'],
+['Ejection charge','A small powder charge that pushes out the parachute at the end of the motor\u2019s delay.'],
+['E-match','A tiny electric igniter used to set off the ejection charge or the motor.'],
+['Impulse','Thrust multiplied by time. It sets the total altitude potential of a motor.'],
+['I\u00B2C','A two-wire bus that lets a microcontroller talk to several sensors.'],
+['Max Q','The moment of peak air pressure on the rocket, near its top speed in dense air.'],
+['MOSFET','An electronic switch that lets a small signal control a large current.'],
+['Nozzle','The flared opening at the bottom of the motor where exhaust leaves.'],
+['Ogive','A smooth, curved, pointed nose shape with low drag.'],
+['Pyro channel','The circuit on a flight computer that fires an igniter or ejection charge.'],
+['Stability margin','The gap between CG and CP in calibers. About 1 to 2 is the usual target.'],
+['Thrust-to-weight','Average thrust divided by liftoff weight. Above about 5:1 is safe.'],
+['Weathercocking','A stable rocket turning its nose into the wind as it climbs.']];
+const QUIZ=[
+{q:'Where should the centre of pressure be compared with the centre of gravity?',o:['Behind it (closer to the tail)','Ahead of it (closer to the nose)','At exactly the same point'],a:0,w:'CP behind CG makes any tilt push the nose back into line.'},
+{q:'What does the second part of a motor code like C6-5 mean?',o:['The ejection delay in seconds','The motor weight in grams','The number of fins to use'],a:0,w:'The number after the dash is the delay before the ejection charge fires.'},
+{q:'If you double your speed, drag roughly\u2026',o:['doubles','quadruples','stays the same'],a:1,w:'Drag grows with the square of speed.'},
+{q:'Which sensor lets a flight computer detect apogee?',o:['GPS only','Barometer','Radio'],a:1,w:'A barometer tracks altitude, so the computer notices when it stops rising.'},
+{q:'Why does the pyro channel have its own MOSFET?',o:['It carries far more current than a microcontroller pin can','To make the LED blink','To measure altitude'],a:0,w:'The MOSFET lets a tiny signal switch an amp-level current through the e-match.'},
+{q:'What is a safe thrust-to-weight ratio to aim for?',o:['Below 2:1','Above about 5:1','Exactly 1:1'],a:1,w:'Above about 5:1 the rocket is moving fast enough for the fins to work off the rod.'}];
+let quizI=0,quizScore=0;
+function renderQuiz(){
+  const box=$('quizBox');
+  if(quizI>=QUIZ.length){box.innerHTML=`<h3>You scored ${quizScore} / ${QUIZ.length}</h3><p style="color:var(--muted);margin:8px 0 12px">${quizScore===QUIZ.length?'Perfect. You are ready for a first flight.':'Re-read the lessons you missed, then try again.'}</p><button class="btn btn-primary" id="quizAgain">Try again</button>`;
+    $('quizAgain').onclick=()=>{quizI=0;quizScore=0;renderQuiz();};return;}
+  const q=QUIZ[quizI];
+  box.innerHTML=`<h4>Question ${quizI+1} of ${QUIZ.length}</h4><p style="font-size:15.5px;font-weight:600">${q.q}</p>`+
+    q.o.map((t,i)=>`<button class="qopt" data-i="${i}">${t}</button>`).join('')+'<p id="quizFb" style="margin-top:12px;color:var(--muted);font-size:13.5px"></p>';
+  box.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{
+    if(box.dataset.lock===String(quizI))return; box.dataset.lock=quizI;
+    const ok=+b.dataset.i===q.a; if(ok)quizScore++;
+    b.classList.add(ok?'right':'wrong'); box.querySelectorAll('.qopt')[q.a].classList.add('right');
+    $('quizFb').innerHTML=(ok?'Correct. ':'Not quite. ')+q.w+' <button class="mini-btn" id="quizNext">Next</button>';
+    $('quizNext').onclick=()=>{quizI++;renderQuiz();};});
+}
+function renderGloss(){
+  const f=$('glossIn').value.toLowerCase();
+  $('glossList').innerHTML=GLOSSARY.filter(g=>(g[0]+g[1]).toLowerCase().includes(f)).map(g=>`<div><b>${g[0]}</b>${g[1]}</div>`).join('')||'<p style="color:var(--muted)">No matching terms.</p>';
+}
+function initLearn(){ renderQuiz(); renderGloss(); $('glossIn').oninput=renderGloss; }
+
+function renderLessons(){
+  const done=store.get('lessonsDone',[]);
+  $('lessonList').innerHTML=LESSONS.map((l,i)=>
+    `<div class="lesson ${done.includes(i)?'done':''}" data-i="${i}" data-n="${i+1}">
+      <h3>${l.t}</h3><p>${l.s}</p>
+      <div class="lesson-body">${l.b.map(p=>`<p>${p}</p>`).join('')}
+        <div class="lesson-actions">
+          <button class="mini-btn" data-done="${i}">${done.includes(i)?'Mark unread':'Mark as read'}</button>
+          <button class="mini-btn" data-go="forge">Try it in Forge</button>
+        </div>
+      </div>
+    </div>`).join('');
+  $('lprogFill').style.width=(done.length/LESSONS.length*100)+'%'; $('lprogTxt').textContent=done.length+' of '+LESSONS.length+' lessons read';
+  $('lessonList').querySelectorAll('.lesson').forEach(el=>{
+    el.querySelector('h3').onclick=()=>el.classList.toggle('open');
+    el.querySelector('p').onclick=()=>el.classList.toggle('open');
+  });
+  $('lessonList').querySelectorAll('[data-done]').forEach(b=>b.onclick=e=>{
+    e.stopPropagation();
+    const i=+b.dataset.done, d=store.get('lessonsDone',[]);
+    const n=d.includes(i)?d.filter(x=>x!==i):[...d,i];
+    store.set('lessonsDone',n); renderLessons();
+  });
+}
+function openLesson(title){
+  go('learn');
+  const i=LESSONS.findIndex(l=>l.t.toLowerCase().includes(title.toLowerCase().split(' ')[0]));
+  setTimeout(()=>{
+    const els=$('lessonList').querySelectorAll('.lesson');
+    const el=els[i>=0?i:0]; if(!el)return;
+    el.classList.add('open'); el.scrollIntoView({behavior:'smooth',block:'center'});
+  },60);
+}
+
+/* ---------- components ---------- */
+const CATALOG=[
+  ...MATERIALS.map(m=>({...m,cat:'Body tube',spec:`${m.density.toFixed(2)} g/cm³`,addKey:'bodyMat'})),
+  ...MOTORS.map(m=>({...m,cat:'Motor',spec:`${m.impulse} N·s · ${m.avg} N avg`,addKey:'motor',
+    note:`Class ${m.cls} motor. Burns for ${m.burn}s.`})),
+  ...CHUTES.map(c=>({...c,cat:'Recovery',spec:`${Math.round(c.dia*100)} cm · ${c.mass} g`,addKey:'chute',
+    note:'Nylon or ripstop canopy with shroud lines.'})),
+  ...AVIONICS.filter(a=>a.id!=='none').map(a=>({...a,cat:'Avionics',spec:`${a.mass} g`,addKey:'avi',
+    note:a.caps.join('. ')+'.'})),
+  ...FC_PARTS.board.map(b=>({...b,cat:'Microcontroller',spec:`${b.draw} mA · ${b.mass} g`})),
+  ...FC_PARTS.sensor.map(s=>({...s,cat:'Sensor',spec:`${s.draw} mA · ${s.mass} g`,note:s.cap})),
+  ...FC_PARTS.radio.filter(r=>r.id!=='rnone').map(r=>({...r,cat:'Radio',spec:`${r.draw} mA · ${r.mass} g`,note:r.cap})),
+  ...FC_PARTS.power.map(p=>({...p,cat:'Battery',spec:`${p.cap_mah} mAh · ${p.mass} g`})),
+];
+function renderComps(){
+  const q=$('compSearch').value.toLowerCase(), cat=$('compCat').value, sort=$('compSort').value;
+  let list=CATALOG.filter(c=>(cat==='all'||c.cat===cat)&&
+    (c.name.toLowerCase().includes(q)||c.cat.toLowerCase().includes(q)));
+  list.sort((a,b)=> sort==='price'?a.price-b.price : sort==='price-d'?b.price-a.price :
+    sort==='mass'?(a.mass||0)-(b.mass||0) : a.name.localeCompare(b.name));
+  $('compGrid').innerHTML=list.length?list.map((c,i)=>
+    `<div class="comp" data-i="${CATALOG.indexOf(c)}">
+      <div class="cat">${c.cat}</div><h4>${c.name}</h4>
+      <div class="spec"><span>${c.spec}</span><span class="price">$${c.price}</span></div>
+    </div>`).join('') : `<div class="empty" style="grid-column:1/-1"><h3>No components match</h3>
+      <p>Try a different search term or clear the category filter.</p></div>`;
+  $('compGrid').querySelectorAll('.comp').forEach(el=>el.onclick=()=>openComp(+el.dataset.i));
+}
+function openComp(i){
+  const c=CATALOG[i];
+  $('drawerBody').innerHTML=`
+    <div class="cat" style="color:var(--data);font-size:12px">${c.cat}</div>
+    <h3>${c.name}</h3>
+    <div style="font-family:var(--mono);color:var(--accent);font-size:19px;margin-bottom:14px">$${c.price}</div>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:18px">${c.note||c.cap||'A component you can use in your design.'}</p>
+    <div class="panel-h">Specifications</div>
+    <div class="metric"><span class="k">Category</span><span class="v">${c.cat}</span></div>
+    ${c.mass!==undefined?`<div class="metric"><span class="k">Mass</span><span class="v">${c.mass}<small>g</small></span></div>`:''}
+    ${c.draw!==undefined?`<div class="metric"><span class="k">Current draw</span><span class="v">${c.draw}<small>mA</small></span></div>`:''}
+    ${c.impulse?`<div class="metric"><span class="k">Total impulse</span><span class="v">${c.impulse}<small>N·s</small></span></div>
+      <div class="metric"><span class="k">Average thrust</span><span class="v">${c.avg}<small>N</small></span></div>
+      <div class="metric"><span class="k">Burn time</span><span class="v">${c.burn}<small>s</small></span></div>`:''}
+    ${c.dia?`<div class="metric"><span class="k">Diameter</span><span class="v">${Math.round(c.dia*100)}<small>cm</small></span></div>`:''}
+    ${c.cap_mah?`<div class="metric"><span class="k">Capacity</span><span class="v">${c.cap_mah}<small>mAh</small></span></div>`:''}
+    <div class="metric"><span class="k">Price source</span><span class="v" style="font-size:12px;color:var(--muted)">Built-in catalog</span></div>
+    ${c.addKey?`<button class="btn btn-primary" style="width:100%;margin-top:18px" id="addBtn">Add to my design</button>`:
+      `<button class="btn btn-ghost" style="width:100%;margin-top:18px" data-go="flightcomputer">Use in flight computer</button>`}
+  `;
+  $('compDrawer').classList.add('open');
+  const ab=$('addBtn');
+  if(ab) ab.onclick=()=>{
+    D[c.addKey]=c.id; syncControls(); update();
+    $('compDrawer').classList.remove('open'); go('forge');
+    toast(c.name+' added to your design');
+  };
+}
+$('drawerX').onclick=()=>$('compDrawer').classList.remove('open');
+$('compCat').innerHTML='<option value="all">All categories</option>'+
+  [...new Set(CATALOG.map(c=>c.cat))].map(c=>`<option>${c}</option>`).join('');
+['compSearch','compCat','compSort'].forEach(id=>$(id).addEventListener('input',renderComps));
+
+/* ---------- simulation ---------- */
+function renderSim(){
+  const a=analyse(D), f=fly(D);
+  lastSim=f;
+  const fmt=(n,d=0)=>n.toFixed(d);
+  $('simContent').innerHTML=`
+    <div class="sim-grid">
+      <div>
+        <div class="chart-box"><h4>Altitude over time</h4><canvas class="chart" id="cAlt"></canvas></div>
+        <div class="chart-box"><h4>Velocity over time</h4><canvas class="chart" id="cVel"></canvas></div>
+        <div class="chart-box"><h4>Acceleration over time</h4><canvas class="chart" id="cAcc"></canvas></div>
+      </div>
+      <div class="report">
+        <div class="panel-h">Flight result</div>
+        <div class="metric"><span class="k">Maximum altitude</span><span class="v">${fmt(f.apogee)}<small>m</small></span></div>
+        <div class="metric"><span class="k">Maximum velocity</span><span class="v">${fmt(f.vmax)}<small>m/s</small></span></div>
+        <div class="metric"><span class="k">Maximum acceleration</span><span class="v">${fmt(f.amax,1)}<small>g</small></span></div>
+        <div class="metric"><span class="k">Burn time</span><span class="v">${fmt(f.burn,1)}<small>s</small></span></div>
+        <div class="metric"><span class="k">Time to apogee</span><span class="v">${f.apT?fmt(f.apT,1):'—'}<small>s</small></span></div>
+        <div class="metric"><span class="k">Total flight time</span><span class="v">${fmt(f.land,1)}<small>s</small></span></div>
+        <div class="metric"><span class="k">Landing velocity</span><span class="v">${fmt(f.descent,1)}<small>m/s</small></span></div>
+
+        <div class="panel-h" style="margin:20px 0 8px">Stability</div>
+        <div class="metric"><span class="k">${a.margin.toFixed(2)} calibers</span>
+          <span class="v" style="color:${a.margin<0?'var(--bad)':a.margin<1?'var(--warn)':'var(--ok)'}">
+          ${a.margin<0?'Unstable':a.margin<1?'Marginal':'Stable'}</span></div>
+
+        <div class="panel-h" style="margin:20px 0 8px">Recovery</div>
+        <div class="metric"><span class="k">Deployment</span><span class="v">apogee</span></div>
+        <div class="metric"><span class="k">Descent rate</span><span class="v">${fmt(f.descent,1)}<small>m/s</small></span></div>
+
+        <button class="btn btn-ghost" style="width:100%;margin-top:18px" data-go="forge">Back to Forge</button>
+      </div>
+    </div>
+    <div class="empty" style="margin-top:16px;text-align:left">
+      <h3>Model assumptions</h3>
+      <p style="margin-top:8px">Thrust follows a generic rise-and-taper curve normalised so its average equals the
+      motor's rated average thrust — not your specific motor's measured trace. Air density thins with altitude as
+      ρ = 1.225·e^(−h/8500). Drag coefficient is estimated from nose shape and fin count. The parachute is assumed
+      to open instantly at apogee, and no wind is modelled during ascent. Stability uses a simplified nose-and-fins
+      method, not full Barrowman.</p>
+    </div>`;
+  requestAnimationFrame(()=>{
+    drawChart($('cAlt'),f.series,'h','#f28c28','m');
+    drawChart($('cVel'),f.series,'v','#5da9c9','m/s');
+    drawChart($('cAcc'),f.series,'a','#6cc08b','g');
+  });
+}
+function drawChart(cv,series,key,color,unit){
+  if(!cv)return;
+  const w=cv.width=cv.clientWidth*2, h=cv.height=cv.clientHeight*2;
+  const ctx=cv.getContext('2d');
+  const cs=getComputedStyle(document.documentElement);
+  const line=cs.getPropertyValue('--line').trim(), muted=cs.getPropertyValue('--muted').trim();
+  ctx.clearRect(0,0,w,h);
+  const pad={l:78,r:16,t:14,b:34};
+  let xMax=0,yMax=0,yMin=0;
+  series.forEach(p=>{xMax=Math.max(xMax,p.t);yMax=Math.max(yMax,p[key]);yMin=Math.min(yMin,p[key]);});
+  if(yMax===yMin)yMax=yMin+1;
+  const px=x=>pad.l+(x/xMax)*(w-pad.l-pad.r);
+  const py=y=>h-pad.b-((y-yMin)/(yMax-yMin))*(h-pad.t-pad.b);
+  ctx.strokeStyle=line;ctx.lineWidth=2;ctx.font='20px Azeret Mono, monospace';ctx.fillStyle=muted;
+  for(let i=0;i<=4;i++){
+    const v=yMin+(yMax-yMin)*i/4, y=py(v);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();
+    ctx.textAlign='right';ctx.fillText(v.toFixed(Math.abs(yMax)<10?1:0),pad.l-10,y+7);
+  }
+  ctx.textAlign='left';ctx.fillText('0 s',pad.l,h-10);
+  ctx.textAlign='right';ctx.fillText(xMax.toFixed(0)+' s',w-pad.r,h-10);
+  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=3.5;ctx.lineJoin='round';
+  series.forEach((p,i)=>{const x=px(p.t),y=py(p[key]);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+  ctx.stroke();
+  ctx.lineTo(px(series[series.length-1].t),py(Math.max(yMin,0)));
+  ctx.lineTo(px(series[0].t),py(Math.max(yMin,0)));
+  ctx.closePath();ctx.fillStyle=color+'22';ctx.fill();
+}
+
+/* ---------- flight computer ---------- */
+function renderFC(){
+  const sec=(title,key,arr,multi)=>`
+    <div class="panel-h" style="margin-top:18px">${title}</div>
+    <div class="comp-grid">${arr.map(o=>{
+      const on = multi ? FC.sensors.includes(o.id) : FC[key]===o.id;
+      return `<div class="comp" data-k="${key}" data-id="${o.id}" data-m="${multi?1:0}"
+        style="${on?'border-color:var(--accent);background:var(--accent-soft)':''}">
+        <h4>${o.name}</h4>
+        <div class="spec"><span>${o.draw!==undefined?o.draw+' mA':o.cap_mah+' mAh'}</span>
+        <span>${o.mass} g</span><span class="price">$${o.price}</span></div>
+        ${o.note||o.cap?`<p style="font-size:12.5px;color:var(--muted);margin-top:7px">${o.note||o.cap}</p>`:''}
+      </div>`;}).join('')}</div>`;
+  $('fcPicker').innerHTML=
+    sec('Microcontroller','board',FC_PARTS.board,false)+
+    sec('Sensors — choose any','sensors',FC_PARTS.sensor,true)+
+    sec('Radio','radio',FC_PARTS.radio,false)+
+    sec('Battery','power',FC_PARTS.power,false);
+  $('fcPicker').querySelectorAll('.comp').forEach(el=>el.onclick=()=>{
+    const k=el.dataset.k,id=el.dataset.id;
+    if(el.dataset.m==='1'){
+      FC.sensors=FC.sensors.includes(id)?FC.sensors.filter(x=>x!==id):[...FC.sensors,id];
+    } else FC[k]=id;
+    renderFC();
+  });
+
+  const b=FC_PARTS.board.find(x=>x.id===FC.board);
+  const r=FC_PARTS.radio.find(x=>x.id===FC.radio);
+  const p=FC_PARTS.power.find(x=>x.id===FC.power);
+  const ss=FC_PARTS.sensor.filter(x=>FC.sensors.includes(x.id));
+  const draw=b.draw+r.draw+ss.reduce((a,s)=>a+s.draw,0);
+  const mass=b.mass+r.mass+p.mass+ss.reduce((a,s)=>a+s.mass,0);
+  const cost=b.price+r.price+p.price+ss.reduce((a,s)=>a+s.price,0);
+  const life=draw>0?p.cap_mah/draw:Infinity;
+  $('fcMass').innerHTML=mass+'<small>g</small>';
+  $('fcDraw').innerHTML=draw+'<small>mA</small>';
+  $('fcLife').innerHTML=(life===Infinity?'∞':life.toFixed(1))+'<small>h</small>';
+  $('fcCost').innerHTML='$'+cost;
+
+  const caps=[];
+  if(ss.some(s=>s.id==='baro')) caps.push({lvl:'ok',h:'Can detect apogee',p:'The barometer tracks altitude, so the computer knows when the rocket stops climbing.'});
+  else caps.push({lvl:'bad',h:'Cannot detect apogee',p:'Without a barometer there is no way to know when to deploy recovery. Add one.'});
+  if(ss.some(s=>s.id==='imu')) caps.push({lvl:'ok',h:'Faster apogee detection',p:'The IMU catches the transition sooner than pressure alone, which lags slightly behind the real peak.'});
+  if(ss.some(s=>s.id==='gps')&&r.id==='rnone') caps.push({lvl:'warn',h:'GPS with no radio',p:'Position is only readable after you find the rocket. Add a radio to use it during the search.'});
+  if(life<1) caps.push({lvl:'bad',h:'Battery too small',p:`About ${(life*60).toFixed(0)} minutes of runtime. That has to cover pad setup, flight, and searching. Use a larger battery.`});
+  else if(life<2) caps.push({lvl:'warn',h:'Tight battery margin',p:`${life.toFixed(1)} hours. Workable, but leaves little room if the rocket sits armed on the pad.`});
+  else caps.push({lvl:'ok',h:'Battery margin is comfortable',p:`${life.toFixed(1)} hours covers setup, flight, and a long search.`});
+  if(FS.ready){FS.t=0;fsBuild();}
+  $('fcCaps').innerHTML=caps.map(c=>
+    `<div class="warn-card ${c.lvl==='ok'?'ok':c.lvl==='bad'?'bad':''}"><h5>${c.h}</h5><p>${c.p}</p></div>`).join('');
+}
+
+
+/* ---------- flight computer schematic simulator ---------- */
+const FS={t:0,play:false,speed:1,last:0,tr:[],ev:[],end:1,ready:false,logN:-1};
+function fsSchematic(){
+  const b=FC_PARTS.board.find(x=>x.id===FC.board), p=FC_PARTS.power.find(x=>x.id===FC.power), r=FC_PARTS.radio.find(x=>x.id===FC.radio);
+  const has=id=>FC.sensors.includes(id);
+  const box=(id,x,y,w,h,title,sub,fit=true)=>`<g class="${fit?'':'nf'}"><rect id="${id}" class="bx" x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/>
+    <text class="t" x="${x+8}" y="${y+19}">${title}</text><text x="${x+8}" y="${y+36}">${sub}</text></g>`;
+  const w=(id,d)=>`<path id="${id}" class="w" d="${d}"/>`;
+  return `<svg viewBox="0 0 800 400" role="img" aria-label="Flight computer schematic">
+   ${w('wBatt','M110 175 H250')}${w('wReg','M350 175 H400')}
+   ${w('wP1a','M65 210 V350 H90')}${w('wP1b','M130 350 H150')}${w('wP2','M250 350 H320')}${w('wP3','M390 350 H440')}
+   ${w('wGate','M470 260 V300 H355 V330')}
+   <line id="swLine" x1="90" y1="350" x2="128" y2="350" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+   <circle cx="90" cy="350" r="3" fill="var(--ink)"/><circle cx="130" cy="350" r="3" fill="var(--ink)"/><text x="96" y="378">ARM</text>
+   <path d="M440 350 V362 M430 362 H450 M434 368 H446" stroke="var(--muted)" stroke-width="2" fill="none"/>
+   ${w('wMcuBus','M540 155 H600')}${w('wSpine','M600 55 V265')}
+   ${has('baro')?w('tBaro','M600 55 H650'):''}${has('imu')?w('tImu','M600 125 H650'):''}
+   ${FC.sensors.includes('gps')?w('tGps','M600 195 H650'):''}${r.id!=='rnone'?w('tRadio','M600 265 H650'):''}
+   ${w('wLed','M400 228 H352')}${w('wBzr','M400 256 H352')}
+   ${box('bxBat',20,140,90,70,'LiPo',p.name.replace(' LiPo',''))}
+   ${box('bxReg',250,145,100,60,'3.3 V LDO','regulator')}
+   ${box('bxMcu',400,120,140,140,b.name.replace('Raspberry Pi ','RPi '),'microcontroller')}
+   ${box('bxEm',150,330,100,40,'E-match','ejection charge')}
+   ${box('bxQ',320,330,70,40,'Q1','N-MOSFET')}
+   ${box('bxBaro',650,30,130,50,'BMP390','barometer',has('baro'))}
+   ${box('bxImu',650,100,130,50,'BMI088','IMU',has('imu'))}
+   ${box('bxGps',650,170,130,50,'GPS','UART module',has('gps'))}
+   ${box('bxRadio',650,240,130,50,r.id==='rnone'?'No radio':r.name,r.id==='rnone'?'not fitted':'telemetry',r.id!=='rnone')}
+   <circle id="led" class="led" cx="345" cy="228" r="7"/><text x="300" y="232">LED</text>
+   <rect id="bzr" class="led" x="318" y="246" width="34" height="20" rx="4"/><text x="288" y="260">BZR</text>
+   <rect x="392" y="292" width="36" height="16" rx="3" fill="var(--bg)" stroke="var(--line)"/><text x="397" y="304">220Ω</text>
+   <text x="476" y="286">D5</text><text x="150" y="322">Pyro channel 1</text>
+   <text x="608" y="49">I²C</text><text x="608" y="119">I²C</text><text x="608" y="189">UART</text><text x="608" y="259">SPI</text>
+   <text x="545" y="148">3V3 bus</text><text x="30" y="132">+ battery</text></svg>`;
+}
+function fsBuild(){
+  if(!$('fsSch'))return;
+  const f=fly(D), bd=FC.sensors.includes('baro'), im=FC.sensors.includes('imu');
+  const b=FC_PARTS.board.find(x=>x.id===FC.board), p=FC_PARTS.power.find(x=>x.id===FC.power);
+  const r=FC_PARTS.radio.find(x=>x.id===FC.radio), ss=FC_PARTS.sensor.filter(x=>FC.sensors.includes(x.id));
+  const PAD=2, armed=$('fsArm').checked, deploy=bd&&armed;
+  const tr=[]; for(let i=0;i<8;i++)tr.push({t:i*.25,h:0,v:0,a:0});
+  const apT=f.apT??f.burn+5;
+  f.series.forEach(q=>{ if(deploy||q.t<=apT) tr.push({t:q.t+PAD,h:q.h,v:q.v,a:q.a}); });
+  if(!deploy){ let last=tr[tr.length-1],hh=last.h,vv=0,tt=last.t;
+    while(hh>0&&tt<400){vv+=-9.81*(1-(vv*vv)/3025)*0.03; hh+=vv*0.03; tt+=0.03; tr.push({t:tt,h:Math.max(hh,0),v:vv,a:0});} }
+  FS.tr=tr; const tLand=tr[tr.length-1].t; FS.end=tLand+2;
+  const lat=im?0.06:0.28, tAp=apT+PAD, tDet=tAp+lat, tBurn=PAD+f.burn;
+  const R=60/p.cap_mah, vmin=4.1-1.8*R, base=b.draw+r.draw+ss.reduce((a,x)=>a+x.draw,0);
+  Object.assign(FS,{deploy,tAp,tDet,tBurn,tLand,base,cap:p.cap_mah,R,armed,bd,im});
+  const ev=[{t:0,m:`Power on · ${b.name} boots · ${base} mA`,k:'ok'}];
+  ev.push(armed?{t:.5,m:'Pyro channel ARMED',k:'ok'}:{t:.5,m:'Pyro DISARMED — recovery will not fire',k:'warn'});
+  if(bd||im)ev.push({t:PAD+.05,m:`Liftoff detected by ${bd?'barometer':'IMU'}`,k:''});
+  ev.push({t:tBurn,m:'Motor burnout',k:''},{t:tAp,m:`Physical apogee ${Math.round(f.apogee)} m`,k:''});
+  if(bd){ ev.push({t:tDet,m:`Apogee detected by ${im?'IMU + barometer':'barometer'} (+${Math.round(lat*1000)} ms)`,k:'ok'});
+    if(armed){ev.push({t:tDet,m:'FIRE pyro channel 1 · 1.8 A for 0.6 s',k:'warn'});
+      ev.push(vmin<3.5?{t:tDet+.3,m:`Battery sagged to ${vmin.toFixed(2)} V — below the 3.5 V regulator limit, MCU would reset`,k:'bad'}
+                       :{t:tDet+.3,m:`Battery sag to ${vmin.toFixed(2)} V — MCU stays up`,k:'ok'});
+      ev.push({t:tDet+.9,m:`Parachute out · descending ${f.descent.toFixed(1)} m/s`,k:'ok'});}
+    else ev.push({t:tDet+.2,m:'Pyro inhibited by arming switch — no parachute!',k:'bad'});
+  } else ev.push({t:tAp+.3,m:'No barometer: apogee never detected, no deployment',k:'bad'});
+  ev.push({t:tLand,m:deploy?'Landed':'Impact at high speed',k:deploy?'ok':'bad'});
+  if(r.id!=='rnone')ev.push({t:tLand+.5,m:'Radio beacon running for recovery',k:''});
+  FS.ev=ev.sort((a,c)=>a.t-c.t); FS.logN=-1;
+  $('fsSch').innerHTML=fsSchematic();
+  const W=360,H=90,mx=Math.max(...tr.map(q=>q.h),1), step=Math.max(1,Math.floor(tr.length/180));
+  const pts=tr.filter((_,i)=>i%step===0).map(q=>`${(q.t/FS.end*W).toFixed(1)},${(H-6-(q.h/mx)*(H-14)).toFixed(1)}`).join(' ');
+  $('fsPlot').innerHTML=`<polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <line id="fsCur" x1="0" x2="0" y1="0" y2="${H}" stroke="var(--data)" stroke-width="1.5"/>`;
+  FS.t=Math.min(FS.t,FS.end); fsFrame();
+}
+function fsSample(t){
+  const a=FS.tr; if(t<=a[0].t)return a[0]; if(t>=a[a.length-1].t)return a[a.length-1];
+  let lo=0,hi=a.length-1; while(hi-lo>1){const m=(lo+hi)>>1; if(a[m].t<=t)lo=m; else hi=m;}
+  const k=(t-a[lo].t)/((a[hi].t-a[lo].t)||1);
+  return {h:a[lo].h+(a[hi].h-a[lo].h)*k,v:a[lo].v+(a[hi].v-a[lo].v)*k,a:a[lo].a+(a[hi].a-a[lo].a)*k};
+}
+function fsFrame(){
+  if(!FS.tr.length||!$('fsSch'))return;
+  const t=FS.t,s=fsSample(t),S=FS;
+  let ph='PAD · ARMED'; if(!S.armed)ph='PAD · SAFE';
+  if(t>=2)ph='BOOST'; if(t>=S.tBurn)ph='COAST';
+  if(t>=S.tAp)ph=S.deploy?'APOGEE':'FALLING';
+  if(S.deploy&&t>=S.tDet)ph='PYRO FIRE'; if(S.deploy&&t>=S.tDet+.6)ph='DESCENT';
+  if(t>=S.tLand)ph=S.deploy?'LANDED':'IMPACT';
+  const fire=S.deploy&&t>=S.tDet&&t<S.tDet+.6, spent=S.deploy&&t>=S.tDet;
+  const I=S.base+(fire?1800:0), used=S.base*t/3600+(S.deploy?1800*Math.min(Math.max(t-S.tDet,0),.6)/3600:0);
+  const V=4.2-0.8*used/S.cap-I/1000*S.R, landed=t>=S.tLand, flying=t>=2&&!landed;
+  const cls=(id,c,on)=>{const e=$(id); if(e)e.classList.toggle(c,!!on);};
+  ['wBatt','wReg','wMcuBus','wSpine','tBaro','tImu','tGps','tRadio','wLed','wBzr'].forEach(id=>{
+    cls(id,'live',true); cls(id,'pwr',id==='wBatt'||id==='wReg');});
+  ['wP1a','wP1b','wP2','wP3','wGate'].forEach(id=>{cls(id,'fire',fire); cls(id,'armed',S.armed&&!fire);});
+  const sw=$('swLine'); if(sw)sw.setAttribute('y2',S.armed?350:334);
+  ['bxBat','bxReg','bxMcu'].forEach(id=>cls(id,'on',true));
+  cls('bxBaro','on',S.bd); cls('bxImu','on',S.im); cls('bxGps','on',FC.sensors.includes('gps')); cls('bxRadio','on',FC.radio!=='rnone');
+  cls('bxQ','hot',fire); cls('bxEm','hot',fire); cls('bxEm','spent',spent&&!fire);
+  const led=$('led'),bz=$('bzr');
+  led.setAttribute('class','led '+(fire?'bad':(Math.floor(t*(S.armed?2:.7))%2?'on':'')));
+  bz.setAttribute('class','led '+(fire?'bad':(landed&&Math.floor(t*2)%2?'warn':(!flying&&t<.3?'warn':''))));
+  $('fsPhase').textContent=ph; $('fsT').textContent=(t<2?'T−'+(2-t).toFixed(1):'T+'+(t-2).toFixed(1))+' s';
+  const noise=(Math.sin(t*37)+Math.sin(t*91))*0.25;
+  $('fsAlt').textContent=S.bd?(Math.max(0,s.h+noise)).toFixed(1)+' m':'no sensor';
+  $('fsVel').textContent=s.v.toFixed(1)+' m/s';
+  $('fsAcc').textContent=S.im?((flying&&!(S.deploy&&t>S.tDet)?s.a+1:1)).toFixed(2)+' g':'no sensor';
+  $('fsP').textContent=S.bd?(1013.25*Math.exp(-s.h/8400)).toFixed(1)+' hPa':'no sensor';
+  $('fsV').textContent=V.toFixed(2)+' V'; $('fsI').textContent=I+' mA';
+  $('fsTx').textContent=FC.radio==='rnone'?'not fitted':(FC.radio==='aprs'?Math.floor(t/5)+1:Math.floor(t)+1)+' packets sent';
+  $('fsGps').textContent=!FC.sensors.includes('gps')?'not fitted':(t<3?'acquiring…':'FIX · 9 satellites');
+  const n=S.ev.filter(e=>e.t<=t).length;
+  if(n!==S.logN){S.logN=n; $('fsLog').innerHTML=S.ev.filter(e=>e.t<=t).map(e=>
+    `<div class="${e.k}">T${e.t<2?'−'+(2-e.t).toFixed(1):'+'+(e.t-2).toFixed(1)}  ${e.m}</div>`).join(''); $('fsLog').scrollTop=1e6;}
+  const cur=$('fsCur'); if(cur){const x=t/S.end*360;cur.setAttribute('x1',x);cur.setAttribute('x2',x);}
+  $('fsScrub').value=t/S.end*1000;
+}
+function fsInit(){
+  FS.ready=true;
+  $('fsPlay').onclick=()=>{ if(FS.t>=FS.end)FS.t=0; FS.play=!FS.play; $('fsPlay').textContent=FS.play?'❚❚ Pause':'▶ Play'; };
+  $('fsRestart').onclick=()=>{FS.t=0;FS.play=true;$('fsPlay').textContent='❚❚ Pause';};
+  $('fsSpeed').onchange=e=>FS.speed=+e.target.value;
+  $('fsArm').onchange=()=>{FS.t=0;fsBuild();};
+  $('fsScrub').oninput=e=>{FS.t=e.target.value/1000*FS.end;fsFrame();};
+  (function loop(now){requestAnimationFrame(loop);
+    const dt=Math.min(.1,(now-FS.last)/1000||0); FS.last=now;
+    if(!$('view-flightcomputer').classList.contains('on'))return;
+    if(FS.play){FS.t+=dt*FS.speed; if(FS.t>=FS.end){FS.t=FS.end;FS.play=false;$('fsPlay').textContent='▶ Play';}}
+    fsFrame();})(0);
+  fsBuild();
+}
+
+/* ---------- projects ---------- */
+function renderProjects(){
+  const list=store.get('projects',[]);
+  if(!list.length){
+    $('projGrid').innerHTML=`<div class="empty" style="grid-column:1/-1">
+      <h3>No saved projects yet</h3><p>Design a rocket in Forge and use “Save project” to keep it here.</p>
+      <button class="btn btn-primary" style="margin-top:16px" data-go="forge">Open Forge</button></div>`;
+    return;
+  }
+  $('projGrid').innerHTML=list.map(p=>`
+    <div class="proj" data-id="${p.id}">
+      <div class="proj-thumb">${thumbSVG(p.design)}</div>
+      <div class="proj-meta">
+        <h4>${p.name}</h4>
+        <div class="d">${new Date(p.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}</div>
+        <div class="s">${p.apogee} m · ${p.margin} cal</div>
+      </div>
+    </div>`).join('');
+  $('projGrid').querySelectorAll('.proj').forEach(el=>el.onclick=()=>{
+    const p=store.get('projects',[]).find(x=>x.id==el.dataset.id);
+    if(!p)return; D={...DEFAULT,...p.design}; syncControls(); update(); go('forge');
+    toast('Opened “'+p.name+'”');
+  });
+}
+function thumbSVG(d){
+  const h=96, w=34;
+  const noseH=h*0.26, bodyH=h*0.6;
+  const fin=`M${w/2-1} ${noseH+bodyH} l-${d.span*1.5} ${d.sweep*1.2+9} l0 -${9} z`;
+  return `<svg width="${w+30}" height="${h}" viewBox="0 0 ${w+30} ${h}">
+    <g transform="translate(15,4)">
+      <path d="M${w/2} 0 L${w} ${noseH} L0 ${noseH} Z" fill="${d.cNose}"/>
+      <rect x="0" y="${noseH}" width="${w}" height="${bodyH}" fill="${d.cBody}"/>
+      <path d="${fin}" fill="${d.cFin}"/>
+      <path d="${fin}" fill="${d.cFin}" transform="scale(-1,1) translate(-${w},0)"/>
+      <rect x="${w*0.34}" y="${noseH+bodyH}" width="${w*0.32}" height="6" fill="#8e97a4"/>
+    </g></svg>`;
+}
+
+/* ---------- aero ---------- */
+const AERO_SUGG=['Why is my rocket unstable?','What does thrust-to-weight mean?','How do I get higher?','Is my parachute big enough?'];
+function aeroSay(who,txt){
+  const d=document.createElement('div');
+  d.className='msg '+(who==='u'?'u':'a'); d.innerHTML=txt;
+  $('aeroBody').appendChild(d); $('aeroBody').scrollTop=1e6;
+}
+function aeroAnswer(q){
+  const a=analyse(D), s=q.toLowerCase();
+  const ctx=`Right now your rocket is ${Math.round(a.liftoff)} g with a ${a.margin.toFixed(2)} caliber margin and a ${a.tw.toFixed(1)}:1 thrust-to-weight ratio.`;
+  if(/unstable|stability|tumble|cg|cp|caliber/.test(s)){
+    return `<strong>What it is</strong><br>Stability margin is the gap between your centre of pressure and centre of gravity, measured in body diameters.<br><br>
+      <strong>Why it matters</strong><br>If CP sits behind CG the rocket self-corrects when it tips. If CP moves ahead of CG, tipping gets worse and it tumbles.<br><br>
+      <strong>In your project</strong><br>You are at <strong>${a.margin.toFixed(2)} calibers</strong>. ${
+      a.margin<0?'That is negative, so this design would tumble. Bigger or further-back fins move CP aft; adding nose weight moves CG forward.':
+      a.margin<1?'That is below the usual 1 caliber target. A little more fin span would help.':
+      a.margin>3?'That is quite high — stable, but it will weathercock into wind and lose altitude.':
+      'That sits comfortably in the normal 1 to 2 caliber range.'}`;
+  }
+  if(/thrust|t\/w|weight ratio|pad|rod/.test(s)){
+    return `<strong>What it is</strong><br>Thrust-to-weight is the motor's average thrust divided by the rocket's weight at liftoff.<br><br>
+      <strong>Why it matters</strong><br>Fins only stabilise once air is moving fast over them. A slow launch means the rocket can tip before that happens.<br><br>
+      <strong>In your project</strong><br>You are at <strong>${a.tw.toFixed(1)}:1</strong>. ${
+      a.tw<5?'Below the usual 5:1 guideline — a bigger motor or lighter build would help.':'Comfortably above the 5:1 guideline.'}`;
+  }
+  if(/high|altitude|apogee|further/.test(s)){
+    return `<strong>In your project</strong><br>Estimated apogee is <strong>${Math.round(a.apogee)} m</strong>.<br><br>
+      Three things raise it: more total impulse (a bigger motor class), less mass, and less drag.
+      Drag is often the cheapest win — a slimmer body or an ogive nose costs nothing in mass.
+      Your current setup is a ${a.motor.name} pushing ${Math.round(a.liftoff)} g through a ${a.dia*1000} mm tube.`;
+  }
+  if(/parachute|chute|land|recovery|descen/.test(s)){
+    return `<strong>What it is</strong><br>The parachute sets how fast the rocket comes back down.<br><br>
+      <strong>Why it matters</strong><br>Most hobby airframes survive landings around 3 to 6 m/s. Faster than that breaks fins.<br><br>
+      <strong>In your project</strong><br>Your ${a.chute.name} gives about <strong>${a.descent.toFixed(1)} m/s</strong>. ${
+      a.descent>7?'That is hard enough to risk damage — go one size up.':
+      a.descent<2.5?'Gentle, but it will drift a long way in any wind.':'That is a healthy landing speed.'}`;
+  }
+  if(/cost|price|money|cheap/.test(s)){
+    return `Your current parts come to <strong>$${a.cost}</strong>, with the ${a.motor.name} motor and ${a.mat.name.toLowerCase()} airframe as the main items. The Components page lets you compare alternatives side by side.`;
+  }
+  if(/fin/.test(s)){
+    return `<strong>What they do</strong><br>Fins push the centre of pressure backwards, which is what makes a rocket stable.<br><br>
+      <strong>The trade-off</strong><br>They also add drag and tail mass, and tail mass pulls CG backwards — partly undoing the gain.<br><br>
+      <strong>In your project</strong><br>You have <strong>${D.finCount} fins</strong> at ${D.span} cm span, giving ${a.margin.toFixed(2)} calibers of margin.`;
+  }
+  if(/motor|engine|class/.test(s)){
+    return `<strong>In your project</strong><br>You are flying a <strong>${a.motor.name}</strong> — a class ${a.motor.cls} motor with ${a.motor.impulse} N·s of total impulse over ${a.motor.burn} s.<br><br>
+      Each letter class doubles the impulse of the one before it. Total impulse sets available altitude; average thrust sets how hard you leave the pad.`;
+  }
+  if(/hello|hi |hey|help|what can you/.test(s)){
+    return `Hello. I can explain any part of your design or the ideas behind it.<br><br>${ctx}<br><br>Try asking about stability, fins, motors, or recovery.`;
+  }
+  return `I can explain stability, thrust-to-weight, fins, motors, recovery, altitude, and cost — and how each one relates to what you have built.<br><br>${ctx}<br><br>Which of those would you like to go into?`;
+}
+async function aeroSend(){
+  const v=$('aeroIn').value.trim(); if(!v)return;
+  aeroSay('u',v); $('aeroIn').value='';
+  aeroSay('a','Thinking…'); const slot=$('aeroBody').lastChild;
+  let r=null;
+  try{r=await agent(v);}catch(e){console.warn(e);}
+  slot.innerHTML=r===null?aeroAnswer(v):r.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\n/g,'<br>');
+  $('aeroBody').scrollTop=1e6;
+}
+$('aeroBtn').onclick=()=>{
+  const p=$('aeroPanel'); p.classList.toggle('open');
+  if(p.classList.contains('open')&&!$('aeroBody').children.length){
+    aeroSay('a','Hi, I am Aero. I can explain anything about rocketry or about the design you are working on right now — just ask.');
+  }
+};
+$('aeroX').onclick=()=>$('aeroPanel').classList.remove('open');
+$('aeroSend').onclick=aeroSend;
+$('aeroIn').addEventListener('keydown',e=>{if(e.key==='Enter')aeroSend();});
+$('aeroSugg').innerHTML=AERO_SUGG.map(s=>`<button>${s}</button>`).join('');
+$('aeroSugg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  aeroSay('u',b.textContent); setTimeout(()=>aeroSay('a',aeroAnswer(b.textContent)),260);
+});
+
+/* ---------- boot ---------- */
+$('hsParts').textContent=CATALOG.length;
+$('hsLessons').textContent=LESSONS.length;
+initPartUI(); initLearn(); renderLessons(); renderComps(); renderFC(); update(); fsInit();
+const _go0=go; go=function(v){_go0(v); if(v==='flightcomputer'){FS.t=0;FS.play=false;$('fsPlay').textContent='▶ Play';fsBuild();}};
+setTimeout(()=>{hero.fit();forge.fit();},80);
+const start=location.hash.replace('#','');
+if(start&&$('view-'+start)) go(start);
+</script>
+</body>
 </html>

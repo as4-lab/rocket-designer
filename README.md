@@ -2,35 +2,34 @@
 
 **Design. Learn. Explore.**
 
-AeroForge is an educational rocket-design web app concept. This repository contains a working Vite + React starter implementing the core visual direction and major screens described in the project specification.
+AeroForge is an educational rocket-design web app. Design a rocket, see the engineering consequences straight away, and learn the reasoning behind them. It is a single `index.html` file: no install, no build step.
 
-## Included
-- Aerospace-inspired light/dark UI
-- Responsive desktop/mobile layout
-- Interactive 3D starter rocket using Three.js / React Three Fiber
-- Forge design controls and live educational analysis
-- Learning path
-- Component catalog/search
-- Simplified simulation visualization and results
-- Flight Computer educational section
-- Local browser storage for the current design and theme
-- Projects view
-- Medium Aero assistant panel with local rule-based demo responses
+## What it does
 
-## Run locally
+- **Forge**: design a rocket with a live 3D view and a full analysis (stability, thrust-to-weight, apogee, descent speed, cost).
+  - Rotate it a full 360° in every direction.
+  - Take it apart into its components, zoom into any part and see inside it.
+  - The hollow body tube, nose cone, motor and nozzle are modelled as real shells.
+- **Simulation**: fly your design and read altitude, speed and acceleration as charts.
+- **Flight computer**: choose the electronics, check battery life, and run the **schematic simulator** to watch the circuit work through a flight. Try disarming the pyro channel or removing the barometer.
+- **Components**: browse motors, parachutes and materials.
+- **Learn**: 15 lessons, a quiz and a glossary.
+- **Projects**: save designs in your browser.
+- **Aero assistant**: type what you want, for example "take the rocket apart" or "where is the engine".
 
-```bash
-npm install
-npm run dev
-```
+## Run it
 
-Then open the local Vite address shown in the terminal.
+Open `index.html` in a browser. To host it, enable GitHub Pages (Settings, Pages, deploy from the `main` branch, root folder).
 
-## GitHub Pages
+## About the assistant
 
-This project is configured as a normal Vite app. For GitHub Pages, it is easiest to use GitHub Actions to run the Vite build and deploy the `dist` folder. If the repository is not hosted at the domain root, add the correct Vite `base` setting for the repository path.
+On claude.ai the assistant is powered by Claude and can run any action the app supports. Anywhere else (GitHub Pages or a local file) it falls back to simple keyword commands such as "make the fins bigger", "disassemble the rocket" or "where is the motor". No API key is stored in this repository.
 
 ## Important
-The Aero assistant in this starter is **not connected to an external AI API**. Do not put a private API key in client-side React code. A production AI backend should be added separately, with an age-appropriate and policy-compliant provider and server-side secret handling.
 
-The rocket calculations and simulation are intentionally simplified and educational. They are not real-world flight certification, safety analysis, or construction instructions.
+The calculations and the simulation are simplified and educational. They are not a flight certification, a safety analysis, or construction instructions. Use only commercially made motors and follow your local rocketry club's rules and your country's laws.
+
+## Repository layout
+
+- `index.html`: the whole app
+- `legacy/`: an earlier, incomplete React/Vite starter, kept for reference
