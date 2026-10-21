@@ -221,7 +221,21 @@ canvas.chart{width:100%;height:170px;display:block}
 .empty h3{color:var(--ink);font-size:17px;margin-bottom:8px}
 
 /* projects */
-.proj{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.15s}
+.proj-del{position:absolute;top:10px;right:10px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:12px;padding:5px 10px;border-radius:7px;cursor:pointer}
+.proj-del:hover{border-color:var(--bad);color:var(--bad)} .proj-del.sure{background:var(--bad);border-color:var(--bad);color:#fff}
+.proj-menu-btn{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;z-index:2}
+.proj-menu-btn:hover{border-color:var(--accent);color:var(--accent)}
+.proj-menu{position:absolute;top:46px;right:10px;z-index:5;min-width:150px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:var(--shadow)}
+.proj-menu[hidden]{display:none}
+.proj-menu button{display:block;width:100%;text-align:left;background:none;border:none;color:var(--ink);padding:8px 10px;border-radius:6px;font-size:13.5px;cursor:pointer}
+.proj-menu button:hover{background:var(--surface-2)} .proj-menu .danger{color:var(--bad)}
+.proj-rename{width:100%;background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:4px 8px;color:var(--ink);font-size:16px;font-weight:600}
+.forge-chat-in .web-btn,.aero-in .web-btn{background:transparent;color:var(--muted);border:none;border-radius:7px;padding:0 10px;cursor:pointer;display:flex;align-items:center;transition:color .15s}
+.aero-in .web-btn{border-radius:0}
+.web-btn:hover{color:var(--ink)}
+.web-btn.on,.web-btn.on:hover{color:var(--accent)!important}
+.web-toggle{display:flex;gap:7px;align-items:center;margin-top:10px;font-size:13px;color:var(--muted);cursor:pointer}
+.proj{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.15s}
 .proj:hover{border-color:var(--accent)}
 .proj-thumb{height:130px;background:var(--surface-2);display:grid;place-items:center}
 .proj-meta{padding:14px}
@@ -305,6 +319,54 @@ canvas.chart{width:100%;height:170px;display:block}
 .qopt:hover{border-color:var(--accent)} .qopt.right{border-color:var(--ok);background:rgba(110,190,130,.15)} .qopt.wrong{border-color:var(--bad);background:rgba(221,107,107,.15)}
 .faq details{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:8px}
 .faq summary{cursor:pointer;font-weight:600;font-size:14.5px} .faq details p{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.6}
+
+.ai-set{margin-top:12px;font-size:13px;color:var(--muted)}
+.ai-set summary{cursor:pointer}
+.ai-set label{display:block;margin-top:8px}
+.ai-set input,.ai-set select{width:100%;margin-top:4px;padding:7px 10px;background:var(--surface);border:1px solid var(--line);border-radius:7px;color:var(--ink);font-size:13px}
+#aiNote{margin-top:8px;font-size:12px;line-height:1.5}
+.lv-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.lv-bar select{width:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:13px}
+#lvStatus{font-size:13px;padding:5px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+#lvStatus.ok{border-color:var(--ok);color:var(--ok)} #lvStatus.bad{border-color:var(--bad);color:var(--bad)} #lvStatus.warn{border-color:var(--warn);color:var(--warn)}
+.lv-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.lv-tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+.lv-tile .k{font-size:12px;color:var(--muted)} .lv-tile .v{font-family:var(--mono);font-size:22px;font-weight:600;margin-top:2px}
+.lv-tile .v small{font-size:12px;color:var(--muted);font-weight:400;margin-left:3px}
+.lv-main{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:980px){.lv-main{grid-template-columns:1fr}}
+.lv-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px}
+.lv-box h4{font-size:12.5px;color:var(--muted);margin-bottom:8px;font-weight:600;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.lv-box canvas{width:100%;display:block;border-radius:8px;background:var(--bg)}
+.lv-vid{position:relative;background:#000;border-radius:8px;overflow:hidden;aspect-ratio:16/9}
+.lv-vid video{width:100%;height:100%;object-fit:contain;display:block}
+#lvPlot{cursor:crosshair}
+.fw-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0;font-size:13.5px;color:var(--muted)}
+.fw-bar select{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 9px;font-size:13px;width:auto}
+.fw-bar label{display:flex;gap:6px;align-items:center}
+#fwChips{font-family:var(--mono);color:var(--accent);font-size:13px}
+.fw-wrap{position:relative;border:1px solid var(--line);border-radius:8px;background:var(--bg);overflow:hidden}
+.fw-wrap pre,.fw-wrap textarea{margin:0;padding:12px;font-family:var(--mono);font-size:12.5px;line-height:1.55;tab-size:2;white-space:pre;border:0;width:100%;height:620px;box-sizing:border-box}
+.fw-wrap pre{position:absolute;inset:0;overflow:hidden;pointer-events:none;color:var(--ink)}
+.fw-wrap textarea{position:relative;display:block;background:transparent;color:transparent;caret-color:var(--ink);resize:none;outline:none;overflow:auto}
+.fw-wrap textarea::selection{background:rgba(242,140,40,.35)}
+.tk-c{color:var(--muted);font-style:italic}.tk-s{color:#6dbf85}.tk-p{color:#c586c0}.tk-n{color:#f28c28}
+.tk-k{color:#5aa9e6;font-weight:600}.tk-t{color:#4ec9b0}.tk-f{color:#d9b95b}
+#fwChat{max-height:330px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:8px;font-size:13px;line-height:1.55}
+.fw-msg{padding:8px 11px;border-radius:9px;max-width:92%;white-space:pre-wrap;word-break:break-word}
+.fw-msg.u{align-self:flex-end;background:var(--accent-soft);border:1px solid var(--accent);color:var(--ink)}
+.fw-msg.a{align-self:flex-start;background:var(--surface-2);border:1px solid var(--line);color:var(--ink)}
+#fwSugg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+#fwSugg button{background:var(--surface-2);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:5px 11px;font-size:12px;cursor:pointer}
+#fwSugg button:hover{border-color:var(--accent);color:var(--accent)}
+#fwNote{font-size:12.5px;color:var(--warn);margin-bottom:8px}
+#fwInfo{font-size:13px;line-height:1.65;color:var(--muted)}
+#fwInfo b{color:var(--ink);display:block;margin-top:12px} #fwInfo ul{margin:4px 0 0 18px}
+#fwInfo code{background:var(--surface-2);padding:1px 6px;border-radius:4px;font-size:12px}
+#lvPause:disabled{opacity:.45;cursor:default}
+#lvHud{position:absolute;left:10px;bottom:10px;font-family:var(--mono);font-size:13px;color:#fff;text-shadow:0 1px 3px #000;line-height:1.5;pointer-events:none}
+#lvRaw{max-height:130px;overflow:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:pre-wrap;word-break:break-all}
+.lv-help code{background:var(--surface-2);padding:1px 6px;border-radius:4px;font-size:12px}
 </style>
 </head>
 <body>
@@ -319,6 +381,7 @@ canvas.chart{width:100%;height:170px;display:block}
       <button data-go="components">Components</button>
       <button data-go="simulation">Simulation</button>
       <button data-go="flightcomputer">Flight Computer</button>
+      <button data-go="live">Live</button>
       <button data-go="projects">Projects</button>
       <button data-go="about">About</button>
       <button class="theme-btn" id="themeBtn" title="Switch theme">☾</button>
@@ -444,8 +507,18 @@ canvas.chart{width:100%;height:170px;display:block}
       <div id="forgeChat"></div>
       <div class="forge-chat-in">
         <input type="text" id="forgeChatIn" placeholder="Ask anything, e.g. take the rocket apart">
+        <button type="button" id="webBtn" class="web-btn" title="Search the web" aria-label="Toggle web search" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg></button>
         <button id="forgeChatSend">Go</button>
       </div>
+      <input type="checkbox" id="webOn" hidden>
+      <div class="web-toggle" id="webState"></div>
+      <details class="ai-set"><summary>AI settings (optional)</summary>
+        <label>Provider<select id="aiProv"><option value="groq">Groq</option><option value="gemini">Google Gemini</option></select></label>
+        <label>API key<input type="password" id="aiKey" placeholder="Paste your key here (left blank)" autocomplete="off"></label>
+        <label>Model name<input type="text" id="aiModel" placeholder="blank = provider default" autocomplete="off"></label>
+        <div style="display:flex;gap:6px;margin-top:8px"><button class="mini-btn" id="aiSave">Save</button><button class="mini-btn" id="aiClear">Clear</button></div>
+        <p id="aiNote">Stored only in this browser. It is never uploaded to GitHub. Without a key the assistant uses simple keyword commands.</p>
+      </details>
 
       <button class="btn btn-primary" style="width:100%;margin-top:14px" id="simBtn">Run simulation</button>
       <button class="btn btn-ghost" style="width:100%;margin-top:8px" id="saveBtn">Save project</button>
@@ -549,10 +622,84 @@ canvas.chart{width:100%;height:170px;display:block}
         <div class="chart-box"><h4>Flight computer log</h4><div id="fsLog"></div></div>
       </div>
     </div>
+
+    <div class="panel-h" style="margin:44px 0 8px">Flight computer code</div>
+    <p class="lede" style="margin-bottom:6px">Code for the flight computer you picked above. It changes when you change the board, sensors or radio.
+      Copy it into the Arduino IDE, upload it, then connect the board on the <b>Live</b> page. It prints the same lines the Live page reads.</p>
+    <div class="fw-bar">
+      <span id="fwChips"></span>
+      <label>Language <select id="fwLang">
+        <optgroup label="Runs on the flight computer"><option value="cpp">Arduino C++</option><option value="micropython">MicroPython</option><option value="circuitpython">CircuitPython</option></optgroup>
+        <optgroup label="Runs on your computer (ground station)"><option value="python">Python</option><option value="javascript">JavaScript</option><option value="html">HTML</option><option value="css">CSS</option></optgroup></select></label>
+      <select id="fwWhich"><option value="rocket">Rocket (flight computer)</option><option value="rx">Ground receiver (LoRa)</option></select>
+      <label>Rate <select id="fwRate"><option>5</option><option selected>10</option><option>20</option></select> per second</label>
+      <label>Serial speed <select id="fwBaud"><option>9600</option><option selected>57600</option><option>115200</option></select></label>
+      <label><input type="checkbox" id="fwDeploy" checked> Parachute deployment</label>
+    </div>
+    <div class="fs-grid" style="grid-template-columns:1.5fr 1fr">
+      <div class="lv-box"><h4><span id="fwTitle">Sketch (.ino)</span> <span style="display:flex;gap:6px">
+        <button class="mini-btn" id="fwUndo" disabled>Undo AI change</button><button class="mini-btn" id="fwCopy">Copy</button><button class="mini-btn" id="fwDownload">Download</button><button class="mini-btn" id="fwRegen">Regenerate</button></span></h4>
+        <div id="fwNote"></div>
+        <div class="fw-wrap"><pre id="fwHL" aria-hidden="true"></pre><textarea id="fwCode" spellcheck="false" aria-label="Flight computer code"></textarea></div></div>
+      <div>
+        <div class="lv-box"><h4>Aero</h4>
+          <div id="fwChat"></div><div id="fwSugg"></div>
+          <div class="forge-chat-in"><input type="text" id="fwChatIn" placeholder="Tell it your parts and what they should do" autocomplete="off"><button id="fwChatSend">Send</button></div></div>
+        <div class="lv-box" style="margin-top:16px"><h4>Libraries and wiring</h4><div id="fwInfo"></div></div>
+      </div>
+    </div>
+    <div class="lv-box" style="margin-top:16px"><h4>Read this before you use it</h4>
+      <p style="font-size:13.5px;line-height:1.7;color:var(--muted)">This code is generated from templates and has <b>not been tested on real hardware</b>, so expect to adjust pins and library calls for your exact modules.
+      A parachute ejection charge is dangerous. Test with <b>no charge connected</b>, using an LED in place of the e-match, and follow your rocketry club&rsquo;s rules and your country&rsquo;s laws.
+      You can edit the code freely. Your edits are kept until you press Regenerate.</p></div>
   </div>
 </section>
 
 <!-- ============ PROJECTS ============ -->
+<section class="view" id="view-live">
+  <div class="page" style="max-width:1200px">
+    <h2>Live telemetry</h2>
+    <p class="lede">Connect your real flight computer or ground-station receiver and watch speed, altitude, distance, GPS track and camera footage as the flight happens.
+      No hardware yet? Press <b>Demo flight</b> to see it working.</p>
+    <div class="lv-bar">
+      <button class="btn btn-primary" id="lvSerial">Connect USB / serial</button>
+      <select id="lvBaud"><option>9600</option><option selected>57600</option><option>115200</option><option>230400</option></select>
+      <button class="btn btn-ghost" id="lvBle">Connect Bluetooth</button>
+      <button class="btn btn-ghost" id="lvDemo">Demo flight</button>
+      <button class="btn btn-ghost" id="lvPause" disabled>Pause</button>
+      <label class="btn btn-ghost" style="cursor:pointer">Load log file<input type="file" id="lvFile" accept=".csv,.txt,.log,.json,.jsonl" hidden></label>
+      <button class="btn btn-ghost" id="lvCsv">Download CSV</button>
+      <button class="btn btn-ghost" id="lvStop">Disconnect / clear</button>
+      <span id="lvStatus">Not connected</span>
+    </div>
+    <div class="lv-tiles" id="lvTiles"></div>
+    <div class="lv-main">
+      <div class="lv-box"><h4>GPS track <span id="lvCoord" style="font-family:var(--mono);font-weight:400">—</span></h4>
+        <canvas id="lvMap" width="640" height="400"></canvas>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <a class="mini-btn" id="lvGmap" target="_blank" rel="noopener" style="text-decoration:none">Open last position in Google Maps</a>
+          <button class="mini-btn" id="lvCopy">Copy coordinates</button></div></div>
+      <div class="lv-box"><h4>Footage
+          <span style="display:flex;gap:6px"><button class="mini-btn" id="lvCam">Start camera</button>
+          <button class="mini-btn" id="lvRec" disabled>Record</button>
+          <label class="mini-btn" style="cursor:pointer">Video file<input type="file" id="lvVidFile" accept="video/*" hidden></label></span></h4>
+        <div class="lv-vid"><video id="lvVid" autoplay muted playsinline></video><div id="lvHud"></div></div>
+        <select id="lvCamSel" style="margin-top:8px;width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:13px;display:none"></select></div>
+    </div>
+    <div class="lv-box" style="margin-bottom:16px"><h4>Altitude and speed <span><span style="color:var(--accent)">&#9632; altitude (m)</span> &nbsp; <span style="color:var(--data)">&#9632; speed (m/s)</span></span></h4>
+      <canvas id="lvPlot" width="1200" height="260"></canvas>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Hover to read exact values where your cursor meets each line. Click to pin a point, click a second point to compare them, and double-click to clear.</p></div>
+    <div class="lv-box lv-help" style="margin-bottom:16px"><h4>What to send from your flight computer</h4>
+      <p style="font-size:13.5px;line-height:1.7;color:var(--muted)">Send one reading per line, 5 to 20 times a second, ending in a newline. Either plain CSV in this order:<br>
+      <code>t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats</code><br>
+      or JSON lines such as <code>{"t_ms":1200,"lat":40.1,"lon":-100.2,"alt":152.3,"v":61.2,"batt":3.9,"sats":9}</code>.
+      You can also send a header line first with your own column names (lat, lon, alt, speed, batt and so on) and any fields you leave out are simply skipped.
+      USB works in Chrome or Edge on a computer. Bluetooth works with ESP32 or HM-10 style modules. For a radio link, plug the receiver of your LoRa or telemetry
+      radio into the computer by USB and connect to that. Open the page from your GitHub Pages address, not an embedded preview, or the browser may block USB, Bluetooth and the camera.</p></div>
+    <div class="lv-box"><h4>Raw data from the device</h4><div id="lvRaw">Nothing received yet.</div></div>
+  </div>
+</section>
+
 <section class="view" id="view-projects">
   <div class="page" style="max-width:1200px">
     <h2>Projects</h2>
@@ -641,6 +788,7 @@ canvas.chart{width:100%;height:170px;display:block}
   <div class="aero-sugg" id="aeroSugg"></div>
   <div class="aero-in">
     <input type="text" id="aeroIn" placeholder="Ask about your rocket…">
+    <button type="button" id="aeroWebBtn" class="web-btn" title="Search the web" aria-label="Toggle web search" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg></button>
     <button id="aeroSend">Send</button>
   </div>
 </div>
@@ -1364,10 +1512,61 @@ function runForgeCommand(text){
 }
 
 /* ---------- AI agent: understands anything, runs real actions ---------- */
+/* Paste your Cloudflare Worker address between the quotes, e.g. 'https://aeroforge-ai.yourname.workers.dev'. Never put an API key here. */
+const AI_ENDPOINT='https://aeroforge-chat.asermebratu4.workers.dev';
+let AGENT_WEB=false;
+function webSync(){
+  const on=$('webOn').checked;
+  document.querySelectorAll('.web-btn').forEach(b=>{b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+  $('webState').textContent=on?'🌐 Web search is ON for your questions':'🌐 Web search is off. Tap the globe button to turn it on.';
+}
+function webInit(){document.querySelectorAll('.web-btn').forEach(b=>b.onclick=()=>{$('webOn').checked=!$('webOn').checked;webSync();});webSync();}
+const wantsWeb=t=>{const c=$('webOn');return !!(c&&c.checked)||/\b(search the web|search online|google|look up|lookup|latest news|news about|on the internet)\b/i.test(t);};
+async function wikiSearch(text){
+  const q=text.replace(/\b(please|search( the web| online)?( for)?|google|look up|lookup|on the internet|online)\b/gi,'').trim()||text;
+  const r=await fetch('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrlimit=3&gsrsearch='+encodeURIComponent(q)+'&prop=extracts&exintro=1&explaintext=1&exsentences=3');
+  if(!r.ok)throw new Error('search '+r.status); const d=await r.json();
+  return Object.values((d.query&&d.query.pages)||{}).sort((a,b)=>a.index-b.index).map(p=>({title:p.title,text:(p.extract||'').trim()})).filter(p=>p.text);
+}
+async function webFallback(text){
+  const res=await wikiSearch(text); if(!res.length)return 'I searched Wikipedia but found nothing for that.';
+  return res[0].text+' — Source: Wikipedia, “'+res[0].title+'”.'+(res[1]?' See also: '+res.slice(1).map(x=>x.title).join(', ')+'.':'');
+}
+const aiGet=k=>{try{return localStorage.getItem('aeroforge_ai_'+k)||'';}catch(e){return '';}};
+const aiSet=(k,v)=>{try{v?localStorage.setItem('aeroforge_ai_'+k,v):localStorage.removeItem('aeroforge_ai_'+k);}catch(e){}};
+function aiInit(){
+  $('aiKey').value=aiGet('key'); $('aiModel').value=aiGet('model'); $('aiProv').value=aiGet('prov')||'groq';
+  $('aiSave').onclick=()=>{aiSet('prov',$('aiProv').value);aiSet('key',$('aiKey').value.trim());aiSet('model',$('aiModel').value.trim());_sample=undefined;
+    $('aiNote').textContent=aiGet('key')?'Saved in this browser only. Try asking the assistant something.':'No key saved, so the assistant uses keyword commands.';};
+  $('aiClear').onclick=()=>{aiSet('key','');aiSet('model','');$('aiKey').value='';$('aiModel').value='';_sample=undefined;$('aiNote').textContent='Cleared.';};
+}
 let _sample;
 async function getSample(){
   if(_sample!==undefined)return _sample;
-  try{_sample=(window.claude&&await window.claude.use('sample'))||null;}catch(e){_sample=null;}
+  try{
+    if(window.claude)_sample=await window.claude.use('sample')||null;
+    else if(AI_ENDPOINT)_sample={json:async prompt=>{
+      const r=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,json:true,web:!!AGENT_WEB})});
+      if(!r.ok){let m='AI service '+r.status; try{m=(await r.json()).error||m;}catch(e){} throw new Error(m);}
+      const d=await r.json(); const t=String(d.answer||d.text||'').replace(/```json|```/g,'').trim();
+      try{return JSON.parse(t);}catch(e){return {reply:t,actions:[]};}}};
+    else if(aiGet('key')&&aiGet('prov')!=='gemini')_sample={json:async prompt=>{
+      const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+aiGet('key')},
+        body:JSON.stringify({model:AGENT_WEB?'groq/compound-mini':(aiGet('model')||'llama-3.3-70b-versatile'),messages:[{role:'user',content:prompt}],response_format:{type:'json_object'},max_tokens:900,temperature:0.2})});
+      if(!r.ok)throw new Error('Groq '+r.status);
+      const d=await r.json(); const t=d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content;
+      try{return JSON.parse(String(t||'').replace(/```json|```/g,'').trim());}catch(e){return {reply:String(t||'').trim(),actions:[]};}}};
+    else if(aiGet('key'))_sample={json:async prompt=>{
+      const m=aiGet('model')||'gemini-flash-latest';
+      const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(m)+':generateContent',{method:'POST',
+        headers:{'Content-Type':'application/json','x-goog-api-key':aiGet('key')},
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{responseMimeType:'application/json',maxOutputTokens:700}})});
+      if(!r.ok)throw new Error('Gemini '+r.status);
+      const d=await r.json(); const t=d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts[0].text;
+      return JSON.parse(String(t||'').replace(/```json|```/g,'').trim());}};
+    else _sample=null;
+  }catch(e){_sample=null;}
   return _sample;
 }
 const NUM={dia:'sDia',len:'sLen',noseLen:'sNose',span:'sSpan',chord:'sChord',sweep:'sSweep'};
@@ -1479,6 +1678,10 @@ const AGENT_HIST=[];
 async function agent(text){
   const sample=await getSample(); if(!sample)return null;
   const a=analyse(D);
+  const grq=!!aiGet('key')&&aiGet('prov')!=='gemini'&&!window.claude&&!AI_ENDPOINT, web=wantsWeb(text);
+  let webCtx='',wiki=[];
+  if(web&&!grq&&!AI_ENDPOINT){ try{wiki=await wikiSearch(text);}catch(e){}
+    if(wiki.length)webCtx='Web results (Wikipedia), use them if relevant and name the source in your reply:\n'+wiki.map(w=>'- '+w.title+': '+w.text).join('\n')+'\n'; }
   const sys=`You are Aero, the assistant inside AeroForge, a model-rocket design app. You can do ANYTHING the user asks that the app supports, by emitting actions, and you can answer any rocketry question.
 Reply with ONLY a JSON object: {"reply": string, "actions": Action[]}. "reply" is plain text, friendly, under 90 words, saying what you did or answering the question. If the request is something the app cannot do, say so honestly and do the closest useful thing.
 Actions:
@@ -1486,27 +1689,23 @@ Actions:
 {"type":"explode","on":true|false} disassemble the rocket into separated components (nose cone, body tube, fins, nozzle, motor, avionics, parachute) / reassemble
 {"type":"isolate","part":P} show only one part (exploded); {"type":"hide","part":P}; {"type":"show","part":P}; {"type":"showAll"}
 {"type":"focus","part":P|null} zoom the camera in on one part and highlight it (use for 'zoom in on', 'show me', 'where is the engine/motor'; null = whole rocket); {"type":"cutaway","on":bool} see inside; {"type":"camera","view":"front|side|back|top|bottom|iso","zoom":number (multiplier, <1 closer)}; {"type":"spin","on":bool}
-{"type":"reset"}; {"type":"simulate"} run the flight sim; {"type":"save"}; {"type":"go","view":"home|forge|learn|components|simulation|flightcomputer|projects|about"}
+{"type":"reset"}; {"type":"simulate"} run the flight sim; {"type":"save"}; {"type":"go","view":"home|forge|learn|components|simulation|flightcomputer|live|projects|about"}
 Parts P: ${PARTS.join(', ')}.
 Settable keys:\n${agentSchema()}
 Several actions may be combined. When asked to disassemble, use explode (and describe the components in the reply).
 Current design: ${JSON.stringify(D)}. Liftoff ${Math.round(a.liftoff)} g, stability ${a.margin.toFixed(2)} cal, T/W ${a.tw.toFixed(1)}, apogee ${Math.round(a.apogee)} m, descent ${a.descent.toFixed(1)} m/s, cost $${a.cost}.
 Recent chat: ${JSON.stringify(AGENT_HIST.slice(-6))}
-User request: ${text}`;
+${webCtx}User request: ${text}`;
+  AGENT_WEB=web&&(grq||!!AI_ENDPOINT);
   const out=await sample.json(sys,{modelTier:'quick',cache:false});
   AGENT_HIST.push({user:text,assistant:out.reply});
   runActions(out.actions);
-  return String(out.reply||'Done.');
+  return String(out.reply||'Done.')+(wiki.length?' — Source: Wikipedia ('+wiki.map(w=>w.title).join(', ')+')':'');
 }
 
 async function forgeChatSend(){
-  const v=$('forgeChatIn').value.trim(); if(!v)return;
-  fcSay('u',v); $('forgeChatIn').value='';
-  fcSay('a','Thinking…'); const slot=$('forgeChat').lastChild;
-  let reply=null;
-  try{reply=await agent(v);}catch(e){console.warn(e);}
-  if(reply===null)reply=runForgeCommand(v)||"I couldn't match that. The AI helper isn't available here, so I can only do simple edits like 'make the fins bigger' or 'disassemble the rocket'.";
-  slot.textContent=reply; $('forgeChat').scrollTop=1e6;
+  const v=$('forgeChatIn').value.trim(); if(!v)return; $('forgeChatIn').value='';
+  return assistantSend(v);
 }
 $('forgeChatSend').onclick=forgeChatSend;
 $('forgeChatIn').addEventListener('keydown',e=>{if(e.key==='Enter')forgeChatSend();});
@@ -1840,6 +2039,7 @@ function renderFC(){
   else if(life<2) caps.push({lvl:'warn',h:'Tight battery margin',p:`${life.toFixed(1)} hours. Workable, but leaves little room if the rocket sits armed on the pad.`});
   else caps.push({lvl:'ok',h:'Battery margin is comfortable',p:`${life.toFixed(1)} hours covers setup, flight, and a long search.`});
   if(FS.ready){FS.t=0;fsBuild();}
+  if(typeof fwRender==='function')fwRender(false);
   $('fcCaps').innerHTML=caps.map(c=>
     `<div class="warn-card ${c.lvl==='ok'?'ok':c.lvl==='bad'?'bad':''}"><h5>${c.h}</h5><p>${c.p}</p></div>`).join('');
 }
@@ -1974,6 +2174,955 @@ function fsInit(){
   fsBuild();
 }
 
+
+/* ---------- live telemetry ---------- */
+const LV={samples:[],hdr:null,buf:'',t0:null,launch:null,pathM:0,maxAlt:0,maxV:0,maxG:0,packets:0,lastAt:0,
+  rate:[],raw:[],port:null,reader:null,ble:null,timer:null,stream:null,rec:null,dirty:true,mode:'idle',last:null};
+const LV_ALIAS={t:['t','time','time_s','t_s'],tms:['t_ms','ms','millis','time_ms'],lat:['lat','latitude'],lon:['lon','lng','long','longitude'],
+  alt:['alt','altitude','height','alt_m'],v:['v','speed','vel','speed_mps','velocity'],ax:['ax','ax_g'],ay:['ay','ay_g'],az:['az','az_g'],
+  g:['g','accel','acc'],batt:['batt','vbat','battery','volt','voltage','batt_v'],sats:['sats','satellites','sat']};
+const LV_DEFAULT=['tms','lat','lon','alt','v','ax','ay','az','batt','sats'];
+function lvNorm(o){
+  const k={}; Object.keys(o).forEach(x=>k[x.toLowerCase().trim()]=o[x]); const r={};
+  for(const c in LV_ALIAS){ for(const a of LV_ALIAS[c]){ if(k[a]!==undefined&&k[a]!==null&&k[a]!==''&&!isNaN(+k[a])){r[c]=+k[a];break;} } }
+  return r;
+}
+function lvStatus(msg,cls){const e=$('lvStatus'); e.textContent=msg; e.className=cls||'';}
+function lvLine(line){
+  line=line.trim(); if(!line)return;
+  LV.raw.push(line); if(LV.raw.length>40)LV.raw.shift();
+  let o=null;
+  if(line[0]==='{'){ try{o=JSON.parse(line);}catch(e){return;} }
+  else{
+    const f=line.split(',').map(x=>x.trim());
+    if(f.some(x=>x!==''&&isNaN(+x))){
+      if(f.every(x=>/^[a-z_][a-z0-9_]*$/i.test(x))){ LV.hdr=f.map(x=>x.toLowerCase()); }
+      return;
+    }
+    const h=LV.hdr||LV_DEFAULT.map(c=>LV_ALIAS[c][0]); o={}; f.forEach((x,i)=>{ if(h[i]!==undefined&&x!=='')o[h[i]]=x; });
+  }
+  lvIngest(lvNorm(o));
+}
+function lvIngest(p){
+  const now=performance.now(); if(LV.t0===null)LV.t0=now;
+  const t=p.tms!==undefined?p.tms/1000:(p.t!==undefined?p.t:(now-LV.t0)/1000);
+  const sm={t,lat:p.lat,lon:p.lon,alt:p.alt,batt:p.batt,sats:p.sats};
+  const gl=p.g!==undefined?p.g:(p.ax!==undefined||p.ay!==undefined||p.az!==undefined?Math.hypot(p.ax||0,p.ay||0,p.az||0):undefined);
+  sm.g=gl;
+  const okGps=Number.isFinite(p.lat)&&Number.isFinite(p.lon)&&Math.abs(p.lat)<=90&&Math.abs(p.lon)<=180&&!(p.lat===0&&p.lon===0);
+  const prev=LV.last;
+  if(okGps){
+    if(!LV.launch)LV.launch={lat:p.lat,lon:p.lon};
+    sm.x=(p.lon-LV.launch.lon)*111320*Math.cos(LV.launch.lat*Math.PI/180); sm.y=(p.lat-LV.launch.lat)*110540;
+    sm.dist=Math.hypot(sm.x,sm.y);
+    if(prev&&prev.x!==undefined)LV.pathM+=Math.hypot(sm.x-prev.x,sm.y-prev.y);
+  }
+  if(p.v!==undefined)sm.v=p.v;
+  else if(prev&&t>prev.t){ const dh=prev.x!==undefined&&sm.x!==undefined?Math.hypot(sm.x-prev.x,sm.y-prev.y):0;
+    const dv=(sm.alt!==undefined&&prev.alt!==undefined)?sm.alt-prev.alt:0; sm.v=Math.hypot(dh,dv)/(t-prev.t); }
+  if(sm.alt!==undefined)LV.maxAlt=Math.max(LV.maxAlt,sm.alt);
+  if(sm.v!==undefined)LV.maxV=Math.max(LV.maxV,sm.v);
+  if(sm.g!==undefined)LV.maxG=Math.max(LV.maxG,sm.g);
+  LV.samples.push(sm); if(LV.samples.length>20000)LV.samples.shift();
+  LV.last=sm; LV.packets++; LV.lastAt=now; LV.rate.push(now); LV.dirty=true;
+}
+function lvReset(){
+  Object.assign(LV,{samples:[],hdr:null,buf:'',t0:null,launch:null,pathM:0,maxAlt:0,maxV:0,maxG:0,packets:0,lastAt:0,rate:[],raw:[],last:null,pins:[],dirty:true});
+}
+async function lvDisconnect(){
+  if(LV.timer){clearInterval(LV.timer);LV.timer=null;}
+  try{ if(LV.reader){await LV.reader.cancel();} }catch(e){}
+  try{ if(LV.port){await LV.port.close();} }catch(e){}
+  try{ if(LV.ble&&LV.ble.gatt.connected)LV.ble.gatt.disconnect(); }catch(e){}
+  LV.reader=null;LV.port=null;LV.ble=null;LV.mode='idle'; LV.paused=false;
+  if($('lvPause')){$('lvPause').disabled=true;$('lvPause').textContent='Pause';}
+}
+function lvFeed(text){ LV.buf+=text; let i; while((i=LV.buf.indexOf('\n'))>=0){lvLine(LV.buf.slice(0,i));LV.buf=LV.buf.slice(i+1);} }
+async function lvSerial(){
+  if(!navigator.serial){lvStatus('USB needs Chrome or Edge on a computer','bad');return;}
+  try{
+    await lvDisconnect(); const port=await navigator.serial.requestPort(); await port.open({baudRate:+$('lvBaud').value});
+    lvReset(); LV.port=port; LV.mode='serial'; lvStatus('Connected by USB','ok');
+    const dec=new TextDecoderStream(); port.readable.pipeTo(dec.writable).catch(()=>{}); LV.reader=dec.readable.getReader();
+    (async()=>{ try{ for(;;){const r=await LV.reader.read(); if(r.done)break; lvFeed(r.value);} }catch(e){}
+      if(LV.mode==='serial')lvStatus('USB disconnected','warn'); })();
+  }catch(e){ lvStatus(e&&e.name==='NotFoundError'?'No device chosen':'Could not open the port: '+(e.message||e),'bad'); }
+}
+async function lvBle(){
+  if(!navigator.bluetooth){lvStatus('Bluetooth needs Chrome or Edge','bad');return;}
+  const NUS='6e400001-b5a3-f393-e0a9-e50e24dcca9e', NTX='6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+  try{
+    await lvDisconnect();
+    const dev=await navigator.bluetooth.requestDevice({filters:[{services:[NUS]},{services:[0xFFE0]}]});
+    const srv=await dev.gatt.connect(); let ch;
+    try{ ch=await (await srv.getPrimaryService(NUS)).getCharacteristic(NTX); }
+    catch(e){ ch=await (await srv.getPrimaryService(0xFFE0)).getCharacteristic(0xFFE1); }
+    lvReset(); LV.ble=dev; LV.mode='ble'; const dec=new TextDecoder();
+    ch.addEventListener('characteristicvaluechanged',ev=>lvFeed(dec.decode(ev.target.value)));
+    await ch.startNotifications(); lvStatus('Connected by Bluetooth','ok');
+    dev.addEventListener('gattserverdisconnected',()=>{ if(LV.mode==='ble')lvStatus('Bluetooth disconnected','warn'); });
+  }catch(e){ lvStatus(e&&e.name==='NotFoundError'?'No device chosen':'Bluetooth failed: '+(e.message||e),'bad'); }
+}
+async function lvDemo(){
+  await lvDisconnect(); lvReset(); LV.mode='demo';
+  const f=fly(D), pad=2, last=f.series[f.series.length-1].t+pad+1; let i=0, clock=0, lastP=performance.now();
+  LV.paused=false; $('lvPause').disabled=false; $('lvPause').textContent='Pause';
+  lvStatus('Demo flight running','ok');
+  LV.timer=setInterval(()=>{
+    const np=performance.now(); if(!LV.paused)clock+=(np-lastP)/1000; lastP=np; if(LV.paused)return;
+    const t=clock, ft=Math.max(0,t-pad);
+    while(i<f.series.length-1&&f.series[i].t<ft)i++;
+    const q=ft>0?f.series[i]:{h:0,v:0,a:0,t:0}, drift=ft*(q.h>0?1:0);
+    const east=3*drift*0.6+q.h*0.15, north=1.2*drift*0.4, hv=Math.hypot(3,1.2)*0.5;
+    const o={t_ms:Math.round(t*1000),lat:+(40+north/110540).toFixed(7),lon:+(-100+east/(111320*Math.cos(40*Math.PI/180))).toFixed(7),
+      alt:+q.h.toFixed(1),v:+Math.hypot(q.v,q.h>0?hv:0).toFixed(1),ax:0,ay:0,az:+(q.a+1).toFixed(2),batt:+(4.15-0.1*t/60).toFixed(2),sats:9};
+    lvLine(JSON.stringify(o));
+    if(t>last){clearInterval(LV.timer);LV.timer=null;LV.mode='idle';$('lvPause').disabled=true;lvStatus('Demo flight complete','warn');}
+  },100);
+}
+function lvFile(file){
+  const rd=new FileReader(); rd.onload=async()=>{ await lvDisconnect(); lvReset(); LV.mode='file';
+    String(rd.result).split(/\r?\n/).forEach(lvLine);
+    LV.lastAt=0; lvStatus(LV.packets?`Loaded ${LV.packets} readings from ${file.name}`:'No readable data in that file',LV.packets?'ok':'bad'); };
+  rd.readAsText(file);
+}
+function lvCsv(){
+  if(!LV.samples.length){lvStatus('Nothing to download yet','warn');return;}
+  const cols=['t','lat','lon','alt','v','g','batt','sats','x','y','dist'];
+  const csv=cols.join(',')+'\n'+LV.samples.map(s=>cols.map(c=>s[c]===undefined?'':(typeof s[c]==='number'?+s[c].toFixed(6):s[c])).join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='aeroforge-flight.csv'; a.click();
+}
+/* camera / footage */
+async function lvCam(){
+  try{
+    if(LV.stream)LV.stream.getTracks().forEach(t=>t.stop());
+    const sel=$('lvCamSel'), id=sel.value;
+    LV.stream=await navigator.mediaDevices.getUserMedia({video:id?{deviceId:{exact:id}}:true,audio:false});
+    const v=$('lvVid'); v.srcObject=LV.stream; v.controls=false; v.play();
+    const devs=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput');
+    sel.innerHTML=devs.map((d,i)=>`<option value="${d.deviceId}">${d.label||'Camera '+(i+1)}</option>`).join('');
+    const cur=LV.stream.getVideoTracks()[0].getSettings().deviceId; if(cur)sel.value=cur;
+    sel.style.display=devs.length>1?'block':'none'; $('lvRec').disabled=false; $('lvCam').textContent='Restart camera';
+  }catch(e){ lvStatus(e&&e.name==='NotAllowedError'?'Camera blocked here. Open the page from your own web address (for example GitHub Pages) and allow the camera when asked.':'Camera unavailable: '+(e.message||e),'bad'); }
+}
+function lvRecToggle(){
+  if(LV.rec){LV.rec.stop();return;}
+  if(!LV.stream||!window.MediaRecorder)return;
+  const chunks=[]; LV.rec=new MediaRecorder(LV.stream); LV.rec.ondataavailable=e=>chunks.push(e.data);
+  LV.rec.onstop=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(chunks,{type:'video/webm'}));a.download='aeroforge-footage.webm';a.click();LV.rec=null;$('lvRec').textContent='Record';};
+  LV.rec.start(); $('lvRec').textContent='Stop and save';
+}
+/* drawing */
+const lvCss=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function lvSize(c){const r=c.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);
+  if(r.width&&(c.width!==Math.round(r.width*d)||c.height!==Math.round(r.height*d))){c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);} return d;}
+function lvDrawMap(){
+  const c=$('lvMap'); c.style.aspectRatio='8 / 5'; const d=lvSize(c), x=c.getContext('2d'), W=c.width,H=c.height;
+  x.clearRect(0,0,W,H); x.font=`${11*d}px ui-monospace,monospace`;
+  const pts=LV.samples.filter(s=>s.x!==undefined);
+  if(!pts.length){x.fillStyle=lvCss('--muted');x.fillText('Waiting for GPS fix…',16*d,28*d);return;}
+  let xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),minX=Math.min(...xs,0),maxX=Math.max(...xs,0),minY=Math.min(...ys,0),maxY=Math.max(...ys,0);
+  const span=Math.max(maxX-minX,maxY-minY,30)*1.25, cx=(minX+maxX)/2, cy=(minY+maxY)/2, sc=Math.min(W,H)/span;
+  const px=v=>W/2+(v-cx)*sc, py=v=>H/2-(v-cy)*sc;
+  x.strokeStyle=lvCss('--line');x.lineWidth=1*d;
+  for(let g=-10;g<=10;g++){const gx=px(Math.round(cx/(span/8))*(span/8)+g*(span/8)),gy=py(Math.round(cy/(span/8))*(span/8)+g*(span/8));
+    x.beginPath();x.moveTo(gx,0);x.lineTo(gx,H);x.moveTo(0,gy);x.lineTo(W,gy);x.stroke();}
+  x.strokeStyle=lvCss('--accent');x.lineWidth=2.5*d;x.beginPath();
+  pts.forEach((p,i)=>i?x.lineTo(px(p.x),py(p.y)):x.moveTo(px(p.x),py(p.y)));x.stroke();
+  x.fillStyle=lvCss('--ok');x.fillRect(px(0)-5*d,py(0)-5*d,10*d,10*d);x.fillStyle=lvCss('--muted');x.fillText('launch',px(0)+9*d,py(0)+4*d);
+  const L=pts[pts.length-1]; x.fillStyle=lvCss('--data');x.beginPath();x.arc(px(L.x),py(L.y),6*d,0,7);x.fill();
+  const nice=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(n=>n*sc>60*d)||5000;
+  x.strokeStyle=lvCss('--ink');x.lineWidth=2*d;x.beginPath();x.moveTo(16*d,H-18*d);x.lineTo(16*d+nice*sc,H-18*d);x.stroke();
+  x.fillStyle=lvCss('--ink');x.fillText(nice>=1000?nice/1000+' km':nice+' m',16*d,H-24*d);
+  x.fillText('N ↑',W-34*d,20*d);
+}
+function lvNice(v){ if(!(v>0))return 1; const p=Math.pow(10,Math.floor(Math.log10(v))),f=v/p; return (f<=1?1:f<=2?2:f<=5?5:10)*p; }
+function lvDrawPlot(){
+  const c=$('lvPlot'); c.style.aspectRatio='1200 / 320'; const d=lvSize(c),x=c.getContext('2d'),W=c.width,H=c.height; x.clearRect(0,0,W,H);
+  const S=LV.samples, has=S.length>1;
+  const t0=has?S[0].t:0, span=has?Math.max(S[S.length-1].t-t0,5):10;
+  const aMax=lvNice(has?Math.max(LV.maxAlt,1):100), vMax=lvNice(has?Math.max(LV.maxV,1):50);
+  const L=58*d,R=W-58*d,T=12*d,B=H-28*d, X=t=>L+(t-t0)/span*(R-L), YA=a=>B-a/aMax*(B-T), YV=v=>B-v/vMax*(B-T);
+  x.font=`${11*d}px ui-monospace,monospace`; x.lineWidth=1*d;
+  for(let i=0;i<=5;i++){ const y=B-i/5*(B-T);
+    x.strokeStyle=lvCss('--line'); x.beginPath(); x.moveTo(L,y); x.lineTo(R,y); x.stroke();
+    x.fillStyle=lvCss('--accent'); x.textAlign='right'; x.fillText(+(aMax*i/5).toFixed(1),L-8*d,y+4*d);
+    x.fillStyle=lvCss('--data'); x.textAlign='left'; x.fillText(+(vMax*i/5).toFixed(1),R+8*d,y+4*d); }
+  const step=[1,2,5,10,20,30,60,120,300,600].find(q=>span/q<=10)||600; x.textAlign='center';
+  for(let t=0;t<=span+1e-6;t+=step){ const px=X(t0+t);
+    x.strokeStyle=lvCss('--line'); x.beginPath(); x.moveTo(px,T); x.lineTo(px,B); x.stroke();
+    x.fillStyle=lvCss('--muted'); x.fillText(t+' s',px,B+16*d); }
+  x.strokeStyle=lvCss('--muted'); x.beginPath(); x.moveTo(L,T); x.lineTo(L,B); x.lineTo(R,B); x.lineTo(R,T); x.stroke();
+  if(!has){ x.fillStyle=lvCss('--muted'); x.textAlign='center'; x.fillText('Waiting for data. Press Demo flight to see a sample.',(L+R)/2,(T+B)/2); return; }
+  const line=(key,col,fy)=>{x.strokeStyle=col;x.lineWidth=2*d;x.beginPath();let st=false;
+    S.forEach(s=>{if(s[key]===undefined)return;const px=X(s.t),py=fy(s[key]); st?x.lineTo(px,py):(x.moveTo(px,py),st=true);});x.stroke();};
+  line('alt',lvCss('--accent'),YA); line('v',lvCss('--data'),YV);
+  LV.map={t0,span,L,R,W};
+  const nearest=tt=>{let b=S[0]; S.forEach(q=>{if(Math.abs(q.t-tt)<Math.abs(b.t-tt))b=q;}); return b;};
+  const mark=(best,pin)=>{
+    const px=X(best.t); x.lineWidth=1*d; x.strokeStyle=pin?lvCss('--data'):lvCss('--ink'); x.setLineDash(pin?[]:[4*d,4*d]);
+    x.beginPath(); x.moveTo(px,T); x.lineTo(px,B); x.stroke(); x.setLineDash([]);
+    const pt=(val,fy,col,left)=>{ if(val===undefined)return; const py=fy(val);
+      x.strokeStyle=col; x.setLineDash([2*d,3*d]); x.beginPath(); x.moveTo(left?L:R,py); x.lineTo(px,py); x.stroke(); x.setLineDash([]);
+      x.fillStyle=col; x.beginPath(); x.arc(px,py,5*d,0,7); x.fill(); x.strokeStyle=lvCss('--bg'); x.lineWidth=2*d; x.stroke(); x.lineWidth=1*d;
+      const lab=String(+val.toFixed(1)), w=x.measureText(lab).width+10*d, lx=left?L-w-2*d:R+2*d;
+      x.fillStyle=col; x.fillRect(lx,py-9*d,w,18*d); x.fillStyle='#111'; x.textAlign='center'; x.fillText(lab,lx+w/2,py+4*d); };
+    pt(best.alt,YA,lvCss('--accent'),true); pt(best.v,YV,lvCss('--data'),false);
+    const tl=(best.t-t0).toFixed(1)+' s', tw=x.measureText(tl).width+10*d;
+    x.fillStyle=pin?lvCss('--data'):lvCss('--ink'); x.fillRect(px-tw/2,B+2*d,tw,18*d); x.fillStyle='#111'; x.textAlign='center'; x.fillText(tl,px,B+15*d);
+  };
+  const box=(txt,bx,by)=>{ const tw=x.measureText(txt).width+16*d; bx=Math.min(Math.max(bx,L),R-tw);
+    x.fillStyle=lvCss('--surface'); x.fillRect(bx,by,tw,22*d); x.strokeStyle=lvCss('--line'); x.lineWidth=1*d; x.strokeRect(bx,by,tw,22*d);
+    x.fillStyle=lvCss('--ink'); x.textAlign='left'; x.fillText(txt,bx+8*d,by+15*d); };
+  const pins=(LV.pins||[]).map(nearest); pins.forEach(q=>mark(q,true));
+  if(pins.length===2){ const [p1,p2]=pins, f=(u,v)=>(u!==undefined&&v!==undefined)?(v-u).toFixed(1):'-';
+    box(`Between pins:  \u0394t ${(p2.t-p1.t).toFixed(1)} s   \u0394alt ${f(p1.alt,p2.alt)} m   \u0394speed ${f(p1.v,p2.v)} m/s`,L+6*d,B-30*d); }
+  if(LV.hx!=null){ const tt=t0+((LV.hx*W-L)/(R-L))*span;
+    if(tt>=t0&&tt<=t0+span){ const best=nearest(tt); mark(best,false);
+      box(`t ${(best.t-t0).toFixed(1)} s   alt ${best.alt!==undefined?best.alt.toFixed(1):'-'} m   speed ${best.v!==undefined?best.v.toFixed(1):'-'} m/s`,X(best.t)-110*d,T+4*d); } }
+}
+const lvFmt=(v,n=1)=>v==null||!isFinite(v)?'—':v.toFixed(n);
+function lvFrame(){
+  const now=performance.now(), L=LV.last, S=LV.samples;
+  LV.rate=LV.rate.filter(t=>now-t<2000); const hz=LV.rate.length/2;
+  const live=LV.mode==='serial'||LV.mode==='ble'||LV.mode==='demo';
+  if(live&&LV.lastAt&&now-LV.lastAt>3000&&LV.mode!=='demo')lvStatus('No signal for '+Math.round((now-LV.lastAt)/1000)+' s','warn');
+  const flightT=S.length?S[S.length-1].t-S[0].t:0;
+  const T=[['Speed',lvFmt(L&&L.v),'m/s'],['Altitude',lvFmt(L&&L.alt),'m'],['Distance from launch',lvFmt(L&&L.dist,0),'m'],
+    ['Distance travelled',LV.launch?lvFmt(LV.pathM,0):'—','m'],['Max altitude',LV.maxAlt?lvFmt(LV.maxAlt):'—','m'],['Max speed',LV.maxV?lvFmt(LV.maxV):'—','m/s'],
+    ['Acceleration',lvFmt(L&&L.g,2),'g'],['Max acceleration',LV.maxG?lvFmt(LV.maxG,2):'—','g'],['Battery',lvFmt(L&&L.batt,2),'V'],
+    ['Satellites',L&&L.sats!==undefined?L.sats:'—',''],['Flight time',S.length?flightT.toFixed(1):'—','s'],['Data rate',hz?hz.toFixed(0):'—','Hz']];
+  $('lvTiles').innerHTML=T.map(t=>`<div class="lv-tile"><div class="k">${t[0]}</div><div class="v">${t[1]}<small>${t[2]}</small></div></div>`).join('');
+  $('lvCoord').textContent=L&&L.lat!==undefined?L.lat.toFixed(6)+', '+L.lon.toFixed(6):'no GPS fix yet';
+  const hasPos=L&&L.lat!==undefined&&L.lon!==undefined; $('lvGmap').style.opacity=hasPos?1:.4;
+  if(hasPos)$('lvGmap').href=`https://www.google.com/maps?q=${L.lat},${L.lon}`;
+  $('lvHud').innerHTML=L?`T+${flightT.toFixed(1)} s<br>${lvFmt(L.v)} m/s &nbsp; ${lvFmt(L.alt)} m`:'';
+  $('lvRaw').textContent=LV.raw.length?LV.raw.slice(-12).join('\n'):'Nothing received yet.';
+  lvDrawMap(); lvDrawPlot();
+}
+function lvInit(){
+  $('lvBaud').value='57600'; $('lvSerial').onclick=lvSerial; $('lvBle').onclick=lvBle; $('lvDemo').onclick=lvDemo;
+  $('lvPause').onclick=()=>{ if(LV.mode!=='demo')return; LV.paused=!LV.paused;
+    $('lvPause').textContent=LV.paused?'Resume':'Pause'; lvStatus(LV.paused?'Demo paused':'Demo flight running',LV.paused?'warn':'ok'); }; $('lvCsv').onclick=lvCsv;
+  $('lvStop').onclick=async()=>{await lvDisconnect();lvReset();lvStatus('Not connected');lvFrame();};
+  $('lvFile').onchange=e=>{ if(e.target.files[0])lvFile(e.target.files[0]); e.target.value=''; };
+  const pl=$('lvPlot'); pl.onmousemove=e=>{const r=pl.getBoundingClientRect();LV.hx=(e.clientX-r.left)/r.width;}; pl.onmouseleave=()=>{LV.hx=null;};
+  pl.onclick=e=>{ const m=LV.map; if(!m||LV.samples.length<2)return; const r=pl.getBoundingClientRect(), cx=(e.clientX-r.left)/r.width*m.W;
+    const tt=m.t0+((cx-m.L)/(m.R-m.L))*m.span; if(tt<m.t0||tt>m.t0+m.span)return;
+    let b=LV.samples[0]; LV.samples.forEach(q=>{if(Math.abs(q.t-tt)<Math.abs(b.t-tt))b=q;});
+    LV.pins=LV.pins||[]; if(LV.pins.length>=2)LV.pins=[]; LV.pins.push(b.t); };
+  pl.ondblclick=()=>{LV.pins=[];};
+  $('lvCam').onclick=lvCam; $('lvCamSel').onchange=lvCam; $('lvRec').onclick=lvRecToggle;
+  $('lvVidFile').onchange=e=>{const f=e.target.files[0]; if(!f)return; const v=$('lvVid'); if(LV.stream){LV.stream.getTracks().forEach(t=>t.stop());LV.stream=null;}
+    v.srcObject=null; v.src=URL.createObjectURL(f); v.muted=false; v.controls=true; v.play(); e.target.value='';};
+  $('lvCopy').onclick=()=>{const L=LV.last; if(L&&L.lat!==undefined)navigator.clipboard.writeText(L.lat+', '+L.lon).then(()=>lvStatus('Coordinates copied','ok'),()=>{});};
+  (function loop(){requestAnimationFrame(loop); if($('view-live').classList.contains('on'))lvFrame();})();
+}
+
+
+/* ---------- flight computer code generator ---------- */
+const FW={edited:false};
+const FW_PINS={
+  nano:{pyro:5,arm:6,cs:10,rst:9,dio0:2,adcRef:'5.0',adcMax:'1023.0',adcSetup:'',
+    inc:'#include <SoftwareSerial.h>',gpsDecl:'SoftwareSerial gpsSerial(4, 3);  // GPS TX -> D4, GPS RX -> D3',gpsDef:'#define GPS_SERIAL gpsSerial',
+    i2c:'A4 = SDA, A5 = SCL',gps:'GPS TX to D4, GPS RX to D3',spi:'D13 = SCK, D12 = MISO, D11 = MOSI, D10 = CS',
+    note:'The Nano is a 5 V board. Use sensor and LoRa boards that accept 5 V logic, or add level shifters. Memory is tight when every part is fitted.',core:''},
+  pico:{pyro:15,arm:14,cs:17,rst:20,dio0:21,adcRef:'3.3',adcMax:'4095.0',adcSetup:'  analogReadResolution(12);',
+    inc:'',gpsDecl:'',gpsDef:'#define GPS_SERIAL Serial1',
+    i2c:'GP4 = SDA, GP5 = SCL',gps:'GPS TX to GP1, GPS RX to GP0',spi:'GP18 = SCK, GP16 = MISO, GP19 = MOSI, GP17 = CS',
+    note:'',core:'Install the board package "Raspberry Pi Pico/RP2040" by Earle F. Philhower, III.'},
+  teensy:{pyro:5,arm:6,cs:10,rst:9,dio0:2,adcRef:'3.3',adcMax:'1023.0',adcSetup:'',
+    inc:'',gpsDecl:'',gpsDef:'#define GPS_SERIAL Serial1',
+    i2c:'pin 18 = SDA, pin 19 = SCL',gps:'GPS TX to pin 0, GPS RX to pin 1',spi:'pin 13 = SCK, 12 = MISO, 11 = MOSI, 10 = CS',
+    note:'',core:'Install Teensyduino from pjrc.com.'}
+};
+function fwGen(which){
+  const B=FC.board, P=FW_PINS[B], has=id=>FC.sensors.includes(id), lora=FC.radio==='lora', aprs=FC.radio==='aprs';
+  const hz=+$('fwRate').value||10, baud=+$('fwBaud').value||57600;
+  const bd=has('baro'), im=has('imu'), gp=has('gps'), deploy=bd&&$('fwDeploy').checked, ifc=(c,t)=>c?t:'\u0001';
+  const bname=FC_PARTS.board.find(x=>x.id===B).name, rname=FC_PARTS.radio.find(x=>x.id===FC.radio).name;
+  const sens=FC.sensors.map(id=>FC_PARTS.sensor.find(x=>x.id===id).name).join(', ')||'none';
+  const loraPins=`const int LORA_CS = ${P.cs};\nconst int LORA_RST = ${P.rst};\nconst int LORA_DIO0 = ${P.dio0};\n#define LORA_FREQ 433E6   // CHANGE for your country and module: 433E6, 868E6 or 915E6`;
+  if(which==='rx'){
+    return `/*
+  AeroForge ground receiver (generated)
+  Board: ${bname}
+  Receives the rocket's LoRa packets and prints each one on USB serial.
+  Plug this board into your computer and connect to it on the AeroForge Live page.
+  Not tested on real hardware.
+*/
+#include <SPI.h>
+#include <LoRa.h>
+
+${loraPins}
+
+void setup() {
+  Serial.begin(${baud});
+  LoRa.setPins(LORA_CS, LORA_RST, LORA_DIO0);
+  if (!LoRa.begin(LORA_FREQ)) {
+    Serial.println("# LoRa failed to start");
+    while (true) {}
+  }
+}
+
+void loop() {
+  int size = LoRa.parsePacket();
+  if (size) {
+    while (LoRa.available()) Serial.write(LoRa.read());
+    Serial.println();
+  }
+}
+`;
+  }
+  const code=`/*
+  AeroForge flight computer (generated)
+  Board:   ${bname}
+  Sensors: ${sens}
+  Radio:   ${rname}
+
+  Prints one line per reading in the format the AeroForge Live page reads:
+  t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats
+  Parts you did not fit are left empty.
+
+  Not tested on real hardware. Bench-test first with NO ejection charge connected.
+*/
+#include <Wire.h>
+${ifc(bd,'#include <Adafruit_BMP3XX.h>')}
+${ifc(im,'#include "bmi088.h"')}
+${ifc(gp,'#include <TinyGPSPlus.h>\n'+P.inc)}
+${ifc(lora,'#include <SPI.h>\n#include <LoRa.h>')}
+
+// ---- Pins (change to match your wiring) ----
+const int PYRO_PIN = ${P.pyro};   // to the MOSFET gate through a 220 ohm resistor
+const int ARM_PIN  = ${P.arm};   // connect to GND to arm (switch or jumper)
+const int BATT_PIN = A0;  // battery through a 2:1 resistor divider
+const float ADC_REF = ${P.adcRef};
+const float ADC_MAX = ${P.adcMax};
+const float DIVIDER = 2.0;
+${ifc(lora,loraPins)}
+
+// ---- Settings ----
+const unsigned long SAMPLE_MS = 20;               // sensor loop, 50 per second
+const unsigned long TELEM_MS  = ${Math.round(1000/hz)};              // telemetry, ${hz} per second
+const unsigned long PYRO_MS   = 600;              // how long the pyro output stays on
+const float LAUNCH_ALT_M = 20.0;                  // never fire below this height
+const float DROP_M = 3.0;                         // fall this far below the top = apogee
+
+${ifc(bd,'Adafruit_BMP3XX bmp;')}
+${ifc(im,'Bmi088Accel accel(Wire, 0x18);')}
+${ifc(gp,'TinyGPSPlus gps;\n'+P.gpsDecl+'\n'+P.gpsDef)}
+
+float groundHpa = 1013.25;
+float altM = 0, lastAlt = 0, maxAlt = 0, vSpeed = 0;
+float axG = 0, ayG = 0, azG = 0;
+int fallCount = 0;
+bool launched = false, fired = false, armed = false;
+unsigned long lastSample = 0, lastTelem = 0, firedAt = 0, launchAt = 0;
+
+float readBatt() {
+  return analogRead(BATT_PIN) * (ADC_REF / ADC_MAX) * DIVIDER;
+}
+
+String makeLine(unsigned long now) {
+  String s;
+  s.reserve(110);
+  s += now;
+  s += ',';
+${ifc(gp,'  if (gps.location.isValid()) s += String(gps.location.lat(), 6);')}
+  s += ',';
+${ifc(gp,'  if (gps.location.isValid()) s += String(gps.location.lng(), 6);')}
+  s += ',';
+${ifc(bd,'  s += String(altM, 1);')}
+  s += ',';
+${ifc(bd,'  s += String(fabs(vSpeed), 1);')}
+  s += ',';
+${ifc(im,'  s += String(axG, 2);')}
+  s += ',';
+${ifc(im,'  s += String(ayG, 2);')}
+  s += ',';
+${ifc(im,'  s += String(azG, 2);')}
+  s += ',';
+  s += String(readBatt(), 2);
+  s += ',';
+${ifc(gp,'  if (gps.satellites.isValid()) s += gps.satellites.value();')}
+  return s;
+}
+
+void sendTelemetry(unsigned long now) {
+  String line = makeLine(now);
+  Serial.println(line);
+${ifc(lora,'  LoRa.beginPacket();\n  LoRa.print(line);\n  LoRa.endPacket(true);   // true = do not wait')}
+${ifc(aprs,'  // APRS: this needs a ham licence and a tracker or modem module. Pass the position\n  // from this line to your tracker as its manual describes.')}
+}
+
+${ifc(deploy,`// Detects apogee from the barometer and fires the parachute output once.
+void flightLogic(unsigned long now) {
+  if (!launched) {
+    if (altM > LAUNCH_ALT_M) { launched = true; launchAt = now; }
+    return;
+  }
+  if (fired) return;
+  if (altM > maxAlt) maxAlt = altM;
+  fallCount = (altM < maxAlt - DROP_M) ? fallCount + 1 : 0;
+  if (fallCount >= 5 && now - launchAt > 1500 && armed) {
+    digitalWrite(PYRO_PIN, HIGH);
+    fired = true;
+    firedAt = now;
+  }
+}`)}
+${ifc(!deploy,`// Parachute deployment is OFF in this sketch. ${bd?'Tick "Parachute deployment" above to add it.':'Add a barometer to detect apogee and deploy a parachute.'}`)}
+
+void setup() {
+  Serial.begin(${baud});
+  Wire.begin();
+${P.adcSetup}
+  pinMode(PYRO_PIN, OUTPUT);
+  digitalWrite(PYRO_PIN, LOW);
+  pinMode(ARM_PIN, INPUT_PULLUP);
+${ifc(gp,'  GPS_SERIAL.begin(9600);')}
+${ifc(bd,`  if (!bmp.begin_I2C()) {
+    Serial.println("# BMP390 not found, check wiring");
+  } else {
+    bmp.setTemperatureOversampling(BMP3_OVERSAMPLING_8X);
+    bmp.setPressureOversampling(BMP3_OVERSAMPLING_4X);
+    bmp.setIIRFilterCoeff(BMP3_IIR_FILTER_COEFF_3);
+    bmp.setOutputDataRate(BMP3_ODR_50_HZ);
+    delay(300);
+    float sum = 0; int n = 0;                       // average the ground pressure
+    for (int i = 0; i < 50; i++) {
+      if (bmp.performReading()) { sum += bmp.pressure / 100.0; n++; }
+      delay(20);
+    }
+    if (n > 0) groundHpa = sum / n;
+  }`)}
+${ifc(im,`  if (accel.begin() < 0) {
+    Serial.println("# BMI088 not found, check wiring");
+  } else {
+    accel.setRange(Bmi088Accel::RANGE_24G);
+  }`)}
+${ifc(lora,`  LoRa.setPins(LORA_CS, LORA_RST, LORA_DIO0);
+  if (!LoRa.begin(LORA_FREQ)) Serial.println("# LoRa failed to start");`)}
+  Serial.println("t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats");
+  lastSample = lastTelem = millis();
+}
+
+void loop() {
+  unsigned long now = millis();
+${ifc(gp,'  while (GPS_SERIAL.available()) gps.encode(GPS_SERIAL.read());')}
+  armed = (digitalRead(ARM_PIN) == LOW);
+
+  if (now - lastSample >= SAMPLE_MS) {
+    float dt = (now - lastSample) / 1000.0;
+    lastSample = now;
+${ifc(bd,`    if (bmp.performReading()) {
+      altM = bmp.readAltitude(groundHpa);
+      vSpeed = 0.8 * vSpeed + 0.2 * ((altM - lastAlt) / dt);
+      lastAlt = altM;
+    }`)}
+${ifc(im,`    if (accel.readSensor() > 0) {
+      axG = accel.getAccelX_mss() / 9.80665;
+      ayG = accel.getAccelY_mss() / 9.80665;
+      azG = accel.getAccelZ_mss() / 9.80665;
+    }`)}
+${ifc(deploy,'    flightLogic(now);')}
+  }
+${ifc(deploy,'  if (fired && digitalRead(PYRO_PIN) == HIGH && now - firedAt >= PYRO_MS) digitalWrite(PYRO_PIN, LOW);')}
+
+  if (now - lastTelem >= TELEM_MS) {
+    lastTelem = now;
+    sendTelemetry(now);
+  }
+}
+`;
+  return code.replace(/^\u0001\n/gm,'').replace(/\n[ \t]*\n(?:[ \t]*\n)+/g,'\n\n');
+}
+function fwInfo(){
+  const B=FC.board, P=FW_PINS[B], has=id=>FC.sensors.includes(id), lora=FC.radio==='lora', aprs=FC.radio==='aprs';
+  const libs=[]; if(P.core)libs.push(P.core);
+  if(has('baro'))libs.push('<b style="display:inline;margin:0">Adafruit BMP3XX Library</b> (also install Adafruit Unified Sensor and Adafruit BusIO if asked)');
+  if(has('imu'))libs.push('<b style="display:inline;margin:0">BMI088</b> by Bolder Flight Systems');
+  if(has('gps'))libs.push('<b style="display:inline;margin:0">TinyGPSPlus</b> by Mikal Hart');
+  if(lora)libs.push('<b style="display:inline;margin:0">LoRa</b> by Sandeep Mistry');
+  const wire=[];
+  if(has('baro')||has('imu'))wire.push(`Barometer and IMU: ${P.i2c}, plus 3.3 V and GND. They share the same two wires.`);
+  if(has('gps'))wire.push(`GPS: ${P.gps}, plus power and GND.`);
+  if(lora)wire.push(`LoRa module (3.3 V only): ${P.spi}, RST = ${P.rst}, DIO0 = ${P.dio0}.`);
+  wire.push(`Parachute output: pin ${P.pyro} to the MOSFET gate through a 220 ohm resistor. The MOSFET switches the e-match from the battery.`);
+  wire.push(`Arming switch: pin ${P.arm} to GND arms it. Left open, the parachute never fires.`);
+  wire.push('Battery sense: battery to A0 through two equal resistors (a 2:1 divider), so the voltage reads correctly.');
+  return `<b>Install in the Arduino IDE (Library Manager)</b><ul>${libs.length?libs.map(l=>'<li>'+l+'</li>').join(''):'<li>Nothing extra for this setup.</li>'}</ul>
+    <b>Wiring</b><ul>${wire.map(w=>'<li>'+w+'</li>').join('')}</ul>
+    ${P.note?'<b>Note</b><ul><li>'+P.note+'</li></ul>':''}
+    ${aprs?'<b>APRS</b><ul><li>Needs a ham licence and a tracker module. The sketch only prints the data and leaves a comment where the tracker hook goes.</li></ul>':''}
+    <b>Using it</b><ul><li>Save the file in a folder with the same name as the file, upload it, then open the Live page and press Connect USB.</li>${lora?'<li>For the radio link, upload the Ground receiver sketch to a second board and connect that one on the Live page.</li>':''}</ul>`;
+}
+
+/* ---------- code highlighting + code assistant ---------- */
+const FW_KW=new Set('if else for while do switch case break continue return static const volatile struct enum class public private new delete'.split(' '));
+const FW_TY=new Set('void int float double bool boolean char byte long short unsigned signed String uint8_t uint16_t uint32_t size_t'.split(' '));
+const FW_CO=new Set('HIGH LOW OUTPUT INPUT INPUT_PULLUP true false NULL A0 A1 A2 A3 LED_BUILTIN'.split(' '));
+function fwHlCpp(src){
+  const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const re=/(\/\*[\s\S]*?\*\/|\/\/[^\n]*)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])')|(^[ \t]*#[^\n]*)|\b(0x[0-9a-fA-F]+|\d+\.?\d*(?:[eE][+-]?\d+)?[fFuUlL]*)\b|\b([A-Za-z_]\w*)(?=\s*\()|\b([A-Za-z_]\w*)\b/gm;
+  let out='',last=0,m; re.lastIndex=0;
+  while((m=re.exec(src))){
+    out+=esc(src.slice(last,m.index)); last=re.lastIndex; const t=esc(m[0]);
+    if(m[1])out+='<span class="tk-c">'+t+'</span>';
+    else if(m[2])out+='<span class="tk-s">'+t+'</span>';
+    else if(m[3])out+='<span class="tk-p">'+t+'</span>';
+    else if(m[4])out+='<span class="tk-n">'+t+'</span>';
+    else if(m[5])out+=FW_KW.has(m[5])?'<span class="tk-k">'+t+'</span>':FW_TY.has(m[5])?'<span class="tk-t">'+t+'</span>':'<span class="tk-f">'+t+'</span>';
+    else if(m[6])out+=FW_KW.has(m[6])?'<span class="tk-k">'+t+'</span>':FW_TY.has(m[6])?'<span class="tk-t">'+t+'</span>':FW_CO.has(m[6])?'<span class="tk-n">'+t+'</span>':t;
+    else out+=t;
+  }
+  return out+esc(src.slice(last))+'\n';
+}
+
+function fwTok(src,re,cls){
+  const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  let out='',last=0,m; re.lastIndex=0;
+  while((m=re.exec(src))){
+    if(m[0]===''){re.lastIndex++;continue;}
+    out+=esc(src.slice(last,m.index)); last=re.lastIndex; const c=cls(m);
+    out+=c?'<span class="'+c+'">'+esc(m[0])+'</span>':esc(m[0]);
+  }
+  return out+esc(src.slice(last))+'\n';
+}
+function fwHlPy(src){
+  const kw=new Set('def class import from as if elif else for while return try except finally with in not and or is pass break continue lambda global nonlocal yield raise assert del async await'.split(' ')), co=new Set('True False None self'.split(' '));
+  return fwTok(src,/(#[^\n]*)|("{3}[\s\S]*?"{3}|'{3}[\s\S]*?'{3}|"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*')|\b(\d+\.?\d*(?:[eE][+-]?\d+)?)\b|(@\w+)|\b([A-Za-z_]\w*)(?=\s*\()|\b([A-Za-z_]\w*)\b/g,
+    m=>m[1]?'tk-c':m[2]?'tk-s':m[3]?'tk-n':m[4]?'tk-p':m[5]?(kw.has(m[5])?'tk-k':'tk-f'):(kw.has(m[6])?'tk-k':co.has(m[6])?'tk-n':null));
+}
+function fwHlJs(src){
+  const kw=new Set('const let var function return if else for while do switch case break continue class new await async import export from try catch finally throw of in typeof instanceof delete void default extends static'.split(' ')), co=new Set('true false null undefined this NaN Infinity'.split(' '));
+  return fwTok(src,/(\/\*[\s\S]*?\*\/|\/\/[^\n]*)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|\b(0x[0-9a-fA-F]+|\d+\.?\d*(?:[eE][+-]?\d+)?)\b|\b([A-Za-z_$][\w$]*)(?=\s*\()|\b([A-Za-z_$][\w$]*)\b/g,
+    m=>m[1]?'tk-c':m[2]?'tk-s':m[3]?'tk-n':m[4]?(kw.has(m[4])?'tk-k':'tk-f'):(kw.has(m[5])?'tk-k':co.has(m[5])?'tk-n':null));
+}
+function fwHlCss(src){
+  return fwTok(src,/(\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*')|(#[0-9a-fA-F]{3,8}\b)|(@[\w-]+)|([\w-]+)(?=\s*:)|(-?\d+\.?\d*(?:px|rem|em|%|ms|s|vh|vw|fr|deg)?)|([.#][A-Za-z_][\w-]*)/g,
+    m=>m[1]?'tk-c':m[2]?'tk-s':m[3]?'tk-n':m[4]?'tk-k':m[5]?'tk-t':m[6]?'tk-n':'tk-f');
+}
+function fwHlHtml(src){
+  return fwTok(src,/(<!\x2d\x2d[\s\S]*?\x2d\x2d>)|(<\/?[A-Za-z][\w-]*)|(\/?>)|("[^"]*"|'[^']*')|([A-Za-z_:][\w:.-]*)(?=\s*=)/g,
+    m=>m[1]?'tk-c':m[2]?'tk-k':m[3]?'tk-p':m[4]?'tk-s':'tk-t');
+}
+function fwHighlight(src){
+  const f={cpp:fwHlCpp,micropython:fwHlPy,circuitpython:fwHlPy,python:fwHlPy,javascript:fwHlJs,css:fwHlCss,html:fwHlHtml}[FW.lang]||fwHlCpp;
+  return f(src);
+}
+
+const FW_LABEL={cpp:'Arduino C++',micropython:'MicroPython',circuitpython:'CircuitPython',python:'Python',javascript:'JavaScript',html:'HTML',css:'CSS'};
+const FW_FENCE={cpp:'cpp',micropython:'python',circuitpython:'python',python:'python',javascript:'javascript',html:'html',css:'css'};
+const FW_EXT={cpp:'.ino',micropython:'.py',circuitpython:'.py',python:'.py',javascript:'.js',html:'.html',css:'.css'};
+const FW_FILE={cpp:'aeroforge_flight_computer',micropython:'main',circuitpython:'code',python:'aeroforge_ground_station',javascript:'app',html:'index',css:'style'};
+const FW_NOTE={
+  python:'This Python script runs on your computer, not on the board. It reads the telemetry the flight computer prints and saves it to a CSV file. To run Python on the board itself, pick MicroPython.',
+  javascript:'This JavaScript runs in the browser on your computer. Use it with the HTML and CSS options: save all three files in one folder.',
+  html:'This is the page for a telemetry dashboard. Save it as index.html next to style.css and app.js (pick CSS and JavaScript for those), then open it in Chrome or Edge.',
+  css:'This is the style sheet for the dashboard page. Save it as style.css next to index.html and app.js.'};
+function fwPy(){ const baud=+$('fwBaud').value||57600; return String.raw`# AeroForge ground station (Python)
+# Runs on YOUR COMPUTER. It reads the telemetry lines the flight computer prints on USB serial,
+# shows them, and saves them to flight_log.csv.
+#
+#   Install:  pip install pyserial
+#   Run:      python aeroforge_ground_station.py COM5            (Windows)
+#             python3 aeroforge_ground_station.py /dev/ttyACM0   (Mac or Linux)
+
+import sys
+import csv
+import serial
+
+PORT = sys.argv[1] if len(sys.argv) > 1 else "COM5"
+BAUD = ${baud}
+HEADER = ["t_ms", "lat", "lon", "alt_m", "speed_mps", "ax_g", "ay_g", "az_g", "batt_v", "sats"]
+
+
+def parse(line):
+    parts = line.split(",")
+    if len(parts) != len(HEADER):
+        return None
+    try:
+        return {k: (float(v) if v.strip() else None) for k, v in zip(HEADER, parts)}
+    except ValueError:
+        return None  # the header line, or a message that starts with #
+
+
+def num(value, fallback=0.0):
+    return fallback if value is None else value
+
+
+max_alt = 0.0
+with serial.Serial(PORT, BAUD, timeout=1) as ser, open("flight_log.csv", "w", newline="") as log:
+    writer = csv.writer(log)
+    writer.writerow(HEADER)
+    print("Listening on", PORT, "(press Ctrl+C to stop)")
+    try:
+        while True:
+            text = ser.readline().decode("utf-8", "ignore").strip()
+            if not text:
+                continue
+            row = parse(text)
+            if row is None:
+                print(text)
+                continue
+            writer.writerow(["" if row[k] is None else row[k] for k in HEADER])
+            log.flush()
+            max_alt = max(max_alt, num(row["alt_m"]))
+            print("t=%.1fs  alt=%.1f m  speed=%.1f m/s  max alt=%.1f m" % (
+                num(row["t_ms"]) / 1000, num(row["alt_m"]), num(row["speed_mps"]), max_alt))
+    except KeyboardInterrupt:
+        print("Saved to flight_log.csv")
+`; }
+function fwJs(){ const baud=+$('fwBaud').value||57600; return String.raw`// app.js - AeroForge telemetry dashboard script (runs in Chrome or Edge on your computer).
+// It connects to the flight computer over USB serial (Web Serial) and fills in the tiles in index.html.
+
+const BAUD = ${baud};
+const HEADER = ["t_ms", "lat", "lon", "alt_m", "speed_mps", "ax_g", "ay_g", "az_g", "batt_v", "sats"];
+const el = (id) => document.getElementById(id);
+let maxAlt = 0;
+let lines = [];
+
+function parseLine(text) {
+  const parts = text.split(",");
+  if (parts.length !== HEADER.length) return null;
+  const row = {};
+  for (let i = 0; i < HEADER.length; i++) {
+    const v = parts[i].trim();
+    if (v !== "" && isNaN(Number(v))) return null;   // the header line or a message
+    row[HEADER[i]] = v === "" ? null : Number(v);
+  }
+  return row;
+}
+
+function show(value, digits) {
+  return value === null || value === undefined ? "-" : value.toFixed(digits);
+}
+
+function handle(text) {
+  if (!text) return;
+  lines.push(text);
+  if (lines.length > 12) lines.shift();
+  el("log").textContent = lines.join("\n");
+  const row = parseLine(text);
+  if (!row) return;
+  if (row.alt_m !== null) maxAlt = Math.max(maxAlt, row.alt_m);
+  el("alt").textContent = show(row.alt_m, 1);
+  el("speed").textContent = show(row.speed_mps, 1);
+  el("max").textContent = show(maxAlt, 1);
+  el("g").textContent = Math.hypot(row.ax_g || 0, row.ay_g || 0, row.az_g || 0).toFixed(2);
+  el("batt").textContent = show(row.batt_v, 2);
+  el("sats").textContent = row.sats === null ? "-" : String(row.sats);
+  el("time").textContent = show(row.t_ms === null ? null : row.t_ms / 1000, 1);
+}
+
+async function connect() {
+  if (!("serial" in navigator)) {
+    el("status").textContent = "Use Chrome or Edge on a computer";
+    return;
+  }
+  try {
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: BAUD });
+    el("status").textContent = "Connected";
+    const decoder = new TextDecoderStream();
+    port.readable.pipeTo(decoder.writable);
+    const reader = decoder.readable.getReader();
+    let buffer = "";
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += value;
+      let i;
+      while ((i = buffer.indexOf("\n")) >= 0) {
+        handle(buffer.slice(0, i).trim());
+        buffer = buffer.slice(i + 1);
+      }
+    }
+    el("status").textContent = "Disconnected";
+  } catch (err) {
+    el("status").textContent = "Could not connect: " + err.message;
+  }
+}
+
+el("connect").addEventListener("click", connect);
+`; }
+function fwHtml(){ return String.raw`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rocket telemetry</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Rocket telemetry</h1>
+  <p class="hint">Keep this file, style.css and app.js in one folder. Open it in Chrome or Edge, then press Connect.</p>
+  <button id="connect">Connect USB</button>
+  <span id="status">Not connected</span>
+
+  <div class="grid">
+    <div class="tile"><span class="k">Altitude</span><span class="v" id="alt">-</span><span class="u">m</span></div>
+    <div class="tile"><span class="k">Speed</span><span class="v" id="speed">-</span><span class="u">m/s</span></div>
+    <div class="tile"><span class="k">Max altitude</span><span class="v" id="max">-</span><span class="u">m</span></div>
+    <div class="tile"><span class="k">Acceleration</span><span class="v" id="g">-</span><span class="u">g</span></div>
+    <div class="tile"><span class="k">Battery</span><span class="v" id="batt">-</span><span class="u">V</span></div>
+    <div class="tile"><span class="k">Satellites</span><span class="v" id="sats">-</span><span class="u"></span></div>
+    <div class="tile"><span class="k">Flight time</span><span class="v" id="time">-</span><span class="u">s</span></div>
+  </div>
+
+  <pre id="log">Waiting for data...</pre>
+  <script src="app.js">${'<'+'/script>'}
+</body>
+</html>
+`; }
+function fwCss(){ return String.raw`/* style.css - styles for the AeroForge telemetry dashboard */
+:root {
+  --bg: #111820;
+  --card: #1a2430;
+  --line: #2b394a;
+  --ink: #eef2f6;
+  --muted: #8b98a8;
+  --accent: #f28c28;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+}
+
+h1 { margin: 0 0 6px; }
+.hint { color: var(--muted); margin: 0 0 16px; }
+
+button {
+  background: var(--accent);
+  color: #1b1b1b;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#status { margin-left: 12px; color: var(--muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.tile {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.k { display: block; color: var(--muted); font-size: 13px; }
+.v { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.u { margin-left: 4px; color: var(--muted); }
+
+#log {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  overflow: auto;
+}
+`; }
+const FW_TEMPLATES={python:fwPy,javascript:fwJs,html:fwHtml,css:fwCss};
+
+function fwUiForLang(){
+  const cpp=FW.lang==='cpp', lora=FC.radio==='lora';
+  $('fwWhich').style.display=(cpp&&lora)?'':'none';
+  $('fwRate').parentElement.style.display=cpp?'':'none';
+  $('fwDeploy').parentElement.style.display=cpp?'':'none';
+  $('fwLang').value=FW.lang;
+  $('fwTitle').textContent=FW_LABEL[FW.lang]+' ('+FW_FILE[FW.lang]+FW_EXT[FW.lang]+')';
+  $('fwInfo').innerHTML=cpp?fwInfo():fwInfoLang();
+}
+function fwInfoLang(){
+  const L=FW.lang;
+  const t={
+    micropython:['Flash MicroPython onto the board (Thonny can do this), then save this file on it as <code>main.py</code>.','Libraries are added with <code>mip</code> or by copying their files to the board. Check each one exists for your exact sensor.','Pins differ between boards, so check the pin numbers in the code.'],
+    circuitpython:['Install CircuitPython on the board, then save this file on the CIRCUITPY drive as <code>code.py</code>.','Copy the libraries it imports from the CircuitPython library bundle into the <code>lib</code> folder.','Pins differ between boards, so check the pin names in the code.'],
+    python:['Install Python from python.org, then run <code>pip install pyserial</code>.','Run it with the port name: <code>python aeroforge_ground_station.py COM5</code>.','It saves <code>flight_log.csv</code>, which you can load on the Live page with Load log file.'],
+    javascript:['Save as <code>app.js</code> in the same folder as <code>index.html</code> and <code>style.css</code>.','Needs Chrome or Edge, because they have Web Serial.','If the browser refuses to open a USB port from a file, serve the folder from localhost or HTTPS.'],
+    html:['Save as <code>index.html</code> in a folder with <code>style.css</code> and <code>app.js</code>.','Pick CSS and JavaScript in the language menu to get those two files.','Open it in Chrome or Edge and press Connect USB.'],
+    css:['Save as <code>style.css</code> next to <code>index.html</code>.','Change the colours at the top of the file in the <code>:root</code> block.']}[L]||[];
+  return '<b>Using this '+FW_LABEL[L]+' code</b><ul>'+t.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+}
+function fwDetectLang(text){
+  const t=text.toLowerCase();
+  if(/micro ?python/.test(t))return 'micropython'; if(/circuit ?python/.test(t))return 'circuitpython';
+  if(/\bpython\b/.test(t))return 'python'; if(/\b(javascript|js|node)\b/.test(t))return 'javascript';
+  if(/\bhtml\b/.test(t))return 'html'; if(/\bcss\b/.test(t))return 'css';
+  if(/arduino|c\+\+|cpp/.test(t))return 'cpp'; return null;
+}
+function fwParse(raw){
+  const n=(raw.match(/```/g)||[]).length;
+  const m=raw.match(/```[A-Za-z+#]*[ \t]*\r?\n([\s\S]*?)```/);
+  const note=raw.replace(/```[\s\S]*?```/g,'').replace(/```[\s\S]*$/,'').trim();
+  return {note,code:m?m[1].replace(/\s+$/,''):null,truncated:n%2===1&&!m};
+}
+function fwValid(code){ return FW.lang==='cpp'?(/void\s+setup\s*\(/.test(code)&&/void\s+loop\s*\(/.test(code)):code.length>30; }
+async function fwSetLang(lang){
+  const prev=FW.lang; if(lang===prev)return true;
+  if(lang==='cpp'){ FW.prev=$('fwCode').value; FW.prevLang=prev; FW.lang='cpp'; FW.edited=false; fwUiForLang(); fwRender(true); $('fwUndo').disabled=false; return true; }
+  if(FW_TEMPLATES[lang]){
+    FW.prev=$('fwCode').value; FW.prevLang=prev; FW.lang=lang; FW.edited=false; fwUiForLang(); fwSetCode(FW_TEMPLATES[lang]());
+    $('fwNote').textContent=FW_NOTE[lang]; $('fwUndo').disabled=false; return true;
+  }
+  const base=prev==='cpp'?$('fwCode').value:fwGen('rocket');
+  $('fwNote').textContent='Translating to '+FW_LABEL[lang]+'…';
+  const prompt=`Translate this flight computer program into ${FW_LABEL[lang]}. Keep the same behaviour: the sensors, the arming switch, apogee detection, the pyro safety checks, and the serial line format t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats printed once per reading. Use libraries that really exist for ${FW_LABEL[lang]} and say which to install. If a part has no good library, leave a clear TODO comment instead of inventing one. Reply with one to three short sentences, then ONE complete code block.\n${FENCE}\n${base}\n${FENCE}`;
+  let raw=null;
+  try{ raw=await aiText(prompt,6000); }catch(e){ $('fwNote').textContent='The AI service replied: '+((e&&e.message)||e); return false; }
+  if(raw===null){ $('fwNote').textContent=FW_LABEL[lang]+' needs the AI to translate the sketch. Open AI settings on the Forge page and add a key, or connect your Worker.'; return false; }
+  const r=fwParse(raw);
+  if(!r.code||r.truncated||r.code.length<30){ $('fwNote').textContent=r.truncated?'The reply was cut off, so nothing changed. Raise the Worker token limit and try again.':'The AI did not return code, so nothing changed.'; return false; }
+  FW.prev=$('fwCode').value; FW.prevLang=prev; FW.lang=lang; fwUiForLang(); fwSetCode(r.code+'\n'); FW.edited=true; $('fwUndo').disabled=false;
+  $('fwNote').textContent=(r.note||'Translated.')+' (AI translation, not tested. Check pins and libraries.)'; return true;
+}
+function fwPaint(){ const ta=$('fwCode'),pre=$('fwHL'); pre.innerHTML=fwHighlight(ta.value); pre.scrollTop=ta.scrollTop; pre.scrollLeft=ta.scrollLeft; }
+function fwSetCode(text){ $('fwCode').value=text; fwPaint(); }
+const FENCE=String.fromCharCode(96).repeat(3);
+FW.prev=null; FW.prevLang='cpp'; FW.lang='cpp'; FW.hist=AGENT_HIST;
+function fwSay(role,text){
+  const d=document.createElement('div'); d.className='fw-msg '+role; d.textContent=text;
+  $('fwChat').appendChild(d); $('fwChat').scrollTop=1e6; return d;
+}
+async function aiText(prompt,max){
+  const sample=await getSample(); if(!sample)return null;
+  if(window.claude){ const o=await sample.json(prompt+'\n\nReturn JSON {"text": string} where text is your complete reply.',{modelTier:'quick',cache:false}); return String(o.text||''); }
+  if(AI_ENDPOINT){
+    const r=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,json:false,web:false,max:max})});
+    if(!r.ok){let m='AI service '+r.status; try{m=(await r.json()).error||m;}catch(e){} throw new Error(m);}
+    const d=await r.json(); return String(d.answer||d.text||'');
+  }
+  if(aiGet('key')&&aiGet('prov')!=='gemini'){
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+aiGet('key')},
+      body:JSON.stringify({model:aiGet('model')||'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],max_tokens:Math.min(max,8000),temperature:0.2})});
+    if(!r.ok)throw new Error('Groq '+r.status);
+    const d=await r.json(); return String((d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'');
+  }
+  if(aiGet('key')){
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(aiGet('model')||'gemini-flash-latest')+':generateContent',
+      {method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':aiGet('key')},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:max}})});
+    if(!r.ok)throw new Error('Gemini '+r.status);
+    const d=await r.json(); const c=d.candidates&&d.candidates[0]&&d.candidates[0].content; return String((c&&c.parts&&c.parts[0]&&c.parts[0].text)||'');
+  }
+  return null;
+}
+function fwPrompt(text,code){
+  const bname=FC_PARTS.board.find(x=>x.id===FC.board).name, rname=FC_PARTS.radio.find(x=>x.id===FC.radio).name;
+  const sens=FC.sensors.map(id=>FC_PARTS.sensor.find(x=>x.id===id).name).join(', ')||'none';
+  return `You are Aero, the assistant inside AeroForge. You are writing ${FW_LABEL[FW.lang]} code for a model-rocket flight computer (the code shown in the editor).
+The user tells you which components they use and what those components should do. Update the sketch to do it.
+Current setup picked in the app: board ${bname}; sensors ${sens}; radio ${rname}.
+If the user names parts that are not in that list (for example an ESP32, a BMP280, an SD card, a buzzer, an LED), write the code for them directly and say which library to install and how to wire them.
+Keep the serial output line format t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats, because the AeroForge Live page reads it. Extra info can go on lines starting with #.
+Safety: keep the pyro output LOW at start, keep the arming check and the minimum launch altitude check, and never make it fire on the pad. If the request would make it fire unsafely, refuse that part and explain why.
+Reply format: one to four short sentences saying what you changed and anything the user must wire or install. Then ONE complete updated sketch in a single ${FENCE}${FW_FENCE[FW.lang]} code block. Always give the whole sketch, never a fragment. If the user only asked a question, answer it with no code block.
+Current code:
+${FENCE}${FW_FENCE[FW.lang]}
+${code}
+${FENCE}
+Earlier in this chat: ${JSON.stringify(FW.hist.slice(-4))}
+User request: ${text}`;
+}
+
+const ESC_H=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function sayAll(role,text){
+  fcSay(role,text); const f=$('forgeChat').lastChild;
+  aeroSay(role,ESC_H(text)); const a=$('aeroBody').lastChild;
+  const w=fwSay(role,text);
+  return {set(t){ f.textContent=t; a.innerHTML=ESC_H(t).replace(/\n/g,'<br>'); w.textContent=t;
+    $('forgeChat').scrollTop=1e6; $('aeroBody').scrollTop=1e6; $('fwChat').scrollTop=1e6; }};
+}
+function isCodeRequest(t){
+  const app=/\b(take (it |the rocket )?apart|disassembl\w*|explode|zoom|go to|open the|run the sim\w*|simulate|save (it|the project)|reset|camera|show (me )?(the )?(inside|outside)|cutaway|where is)\b/i;
+  if(app.test(t))return false;
+  const words=/\b(code|coding|sketch|firmware|program|script|arduino|cpp|python|micropython|circuitpython|javascript|js|typescript|html|css|rust|java|library|libraries|compile|upload|serial|baud|pin|pins|wiring|buzzer|led|servo|sd card|bmp280|bmp390|bme280|bno055|esp32|esp8266|neopixel|beep|blink|logging)\b/i;
+  const onFc=$('view-flightcomputer')&&$('view-flightcomputer').classList.contains('on');
+  return words.test(t)||/c\+\+/i.test(t)||(onFc&&/\b(make|add|change|use|write|when|after|turn|fire|set|log)\b/i.test(t));
+}
+async function fwHandle(text,slot){
+  const L=fwDetectLang(text);
+  if(L&&L!==FW.lang&&/\b(convert|translate|switch|change|rewrite|port)\b/i.test(text)){
+    const ok=await fwSetLang(L); fwUiForLang();
+    slot.set(ok?'Done. The editor on the Flight Computer page now shows '+FW_LABEL[L]+'.':'I could not switch to '+FW_LABEL[L]+'. '+$('fwNote').textContent); return;
+  }
+  let raw=null;
+  try{ raw=await aiText(fwPrompt(text,$('fwCode').value),6000); }
+  catch(e){ slot.set('The AI service replied: '+((e&&e.message)||e)); return; }
+  if(raw===null){ slot.set('Writing code needs the AI. Open "AI settings" on the Forge page and add a key, or connect your Worker. You can still pick parts and a language on the Flight Computer page and edit the code by hand.'); return; }
+  const r=fwParse(raw);
+  if(r.truncated){ slot.set((r.note?r.note+'\n\n':'')+'The reply was cut off before the code finished, so your code is unchanged. Raise the Worker token limit (see my instructions) and try again.'); return; }
+  if(r.code&&fwValid(r.code)){
+    FW.prev=$('fwCode').value; FW.prevLang=FW.lang; fwSetCode(r.code+'\n'); FW.edited=true; $('fwUndo').disabled=false;
+    $('fwNote').textContent='Code updated by Aero. Press Undo AI change to go back.';
+    const onFc=$('view-flightcomputer').classList.contains('on');
+    slot.set((r.note||'Done.')+'\n\nThe code is updated'+(onFc?' on the left.':'. Open the Flight Computer page to see it.'));
+    FW.hist.push({user:text,assistant:r.note.slice(0,300)});
+  } else { slot.set(raw.trim()||'No reply.'); FW.hist.push({user:text,assistant:raw.slice(0,300)}); }
+}
+async function assistantSend(text){
+  text=String(text||'').trim(); if(!text)return;
+  const slot=(sayAll('u',text),sayAll('a','Thinking…'));
+  if(isCodeRequest(text)){ await fwHandle(text,slot); return; }
+  let reply=null; window.AI_ERR='';
+  try{reply=await agent(text);}catch(e){console.warn(e);window.AI_ERR=(e&&e.message)||'';}
+  if(reply===null&&wantsWeb(text)){try{reply=await webFallback(text);}catch(e){}}
+  if(reply===null)reply=runForgeCommand(text)||(window.AI_ERR?'The AI service replied: '+window.AI_ERR+'. ':'')+"I couldn't match that. The AI helper isn't available here, so I can only do simple edits like 'make the fins bigger' or 'disassemble the rocket'.";
+  slot.set(reply);
+}
+async function fwChatSend(text){ text=String(text||$('fwChatIn').value).trim(); if(!text)return; $('fwChatIn').value=''; return assistantSend(text); }
+function fwRender(force){
+  if(!$('fwCode'))return;
+  const bname=FC_PARTS.board.find(x=>x.id===FC.board).name, rname=FC_PARTS.radio.find(x=>x.id===FC.radio).name;
+  const sens=FC.sensors.map(id=>FC_PARTS.sensor.find(x=>x.id===id).name.replace(/ \(.*\)/,'')).join(' + ')||'no sensors';
+  $('fwChips').textContent=bname+' \u00b7 '+sens+' \u00b7 '+rname;
+  const lora=FC.radio==='lora'; if(!lora)$('fwWhich').value='rocket'; fwUiForLang();
+  const hasBaro=FC.sensors.includes('baro'); $('fwDeploy').disabled=!hasBaro;
+  $('fwDeploy').parentElement.style.opacity=hasBaro?1:.5;
+  if(FW.edited&&!force){ $('fwNote').textContent='You edited this code, so it was not replaced. Press Regenerate to update it for the current parts.'; return; }
+  if(FW.lang==='micropython'||FW.lang==='circuitpython'){
+    if(force){ const l=FW.lang; FW.lang='cpp'; fwSetLang(l).then(ok=>{ if(!ok)FW.lang=l; fwUiForLang(); }); }
+    return;
+  }
+  fwSetCode(FW.lang==='cpp'?fwGen($('fwWhich').value):FW_TEMPLATES[FW.lang]()); FW.edited=false; $('fwNote').textContent=FW.lang==='cpp'?'':FW_NOTE[FW.lang]||'';
+}
+function fwInit(){
+  ['fwWhich','fwRate','fwBaud','fwDeploy'].forEach(id=>$(id).onchange=()=>fwRender(false));
+  const ta=$('fwCode');
+  ta.oninput=()=>{FW.edited=true;fwPaint();};
+  ta.onscroll=()=>{const pre=$('fwHL');pre.scrollTop=ta.scrollTop;pre.scrollLeft=ta.scrollLeft;};
+  ta.onkeydown=e=>{ if(e.key==='Tab'){e.preventDefault();const a=ta.selectionStart,b=ta.selectionEnd;ta.value=ta.value.slice(0,a)+'  '+ta.value.slice(b);ta.selectionStart=ta.selectionEnd=a+2;FW.edited=true;fwPaint();} };
+  $('fwUndo').onclick=()=>{ if(FW.prev!==null){ FW.lang=FW.prevLang||'cpp'; fwUiForLang(); fwSetCode(FW.prev); FW.prev=null; $('fwUndo').disabled=true; FW.edited=true; $('fwNote').textContent='Undid the last change.'; } };
+  $('fwLang').onchange=async()=>{ await fwSetLang($('fwLang').value); fwUiForLang(); };
+  $('fwSugg').innerHTML=['I use a BMP280 and a buzzer. Beep after landing.','Turn an LED on at apogee','Log every reading to an SD card','Fire the parachute 2 seconds after apogee'].map(t=>'<button>'+t+'</button>').join('');
+  $('fwSugg').querySelectorAll('button').forEach(b=>b.onclick=()=>fwChatSend(b.textContent));
+  $('fwChatSend').onclick=()=>fwChatSend(); $('fwChatIn').onkeydown=e=>{if(e.key==='Enter')fwChatSend();};
+  fwSay('a','Tell me which parts you are using and what you want them to do, and I will change the code. For example: "I have a BMP280 and a buzzer, beep once a second after landing."');
+  $('fwRegen').onclick=()=>fwRender(true);
+  $('fwCopy').onclick=async()=>{ const t=$('fwCode').value;
+    try{await navigator.clipboard.writeText(t);}catch(e){$('fwCode').select();document.execCommand('copy');}
+    $('fwNote').textContent='Copied.'; setTimeout(()=>{if($('fwNote').textContent==='Copied.')$('fwNote').textContent='';},1500); };
+  $('fwDownload').onclick=()=>{ const name=(FW.lang==='cpp'&&$('fwWhich').value==='rx')?'aeroforge_ground_receiver':FW_FILE[FW.lang];
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([$('fwCode').value],{type:'text/plain'})); a.download=name+FW_EXT[FW.lang]; a.click(); };
+  fwRender(true);
+}
+
 /* ---------- projects ---------- */
 function renderProjects(){
   const list=store.get('projects',[]);
@@ -1985,13 +3134,44 @@ function renderProjects(){
   }
   $('projGrid').innerHTML=list.map(p=>`
     <div class="proj" data-id="${p.id}">
+      <button class="proj-menu-btn" data-menu="${p.id}" aria-label="Project options" aria-haspopup="true">⋯</button>
+      <div class="proj-menu" data-for="${p.id}" hidden>
+        <button data-act="rename">Rename</button><button data-act="duplicate">Duplicate</button><button data-act="delete" class="danger">Delete</button>
+      </div>
       <div class="proj-thumb">${thumbSVG(p.design)}</div>
       <div class="proj-meta">
-        <h4>${p.name}</h4>
+        <h4>${String(p.name).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}</h4>
         <div class="d">${new Date(p.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}</div>
         <div class="s">${p.apogee} m · ${p.margin} cal</div>
       </div>
     </div>`).join('');
+  const grid=$('projGrid'), closeMenus=()=>grid.querySelectorAll('.proj-menu').forEach(m=>m.hidden=true);
+  if(!window._pmClose){window._pmClose=true;document.addEventListener('click',()=>document.querySelectorAll('.proj-menu').forEach(m=>m.hidden=true));}
+  grid.querySelectorAll('.proj-menu-btn').forEach(b=>b.onclick=e=>{
+    e.stopPropagation(); const m=grid.querySelector('.proj-menu[data-for="'+b.dataset.menu+'"]'); const was=!m.hidden; closeMenus(); m.hidden=was;
+  });
+  grid.querySelectorAll('.proj-menu').forEach(m=>{
+    m.onclick=e=>e.stopPropagation();
+    m.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
+      const id=m.dataset.for, act=btn.dataset.act, all=store.get('projects',[]), p=all.find(x=>String(x.id)===id);
+      if(!p)return;
+      if(act==='delete'){
+        if(btn.dataset.sure!=='1'){btn.dataset.sure='1';btn.textContent='Click again to confirm';
+          setTimeout(()=>{btn.dataset.sure='';btn.textContent='Delete';},3000);return;}
+        store.set('projects',all.filter(x=>String(x.id)!==id)); renderProjects(); toast('Project deleted');
+      }else if(act==='duplicate'){
+        const copy={...p,id:Date.now(),name:String(p.name).slice(0,50)+' copy',date:new Date().toISOString()};
+        all.splice(all.indexOf(p)+1,0,copy); store.set('projects',all); renderProjects(); toast('Project duplicated');
+      }else if(act==='rename'){
+        closeMenus(); const h=grid.querySelector('.proj[data-id="'+id+'"] h4'); if(!h)return;
+        const inp=document.createElement('input'); inp.className='proj-rename'; inp.value=p.name; inp.maxLength=60; inp.onclick=e=>e.stopPropagation();
+        h.replaceWith(inp); inp.focus(); inp.select(); let done=false;
+        const finish=ok=>{if(done)return;done=true;const v=inp.value.trim();
+          if(ok&&v&&v!==p.name){p.name=v;store.set('projects',all);toast('Renamed');} renderProjects();};
+        inp.onkeydown=e=>{if(e.key==='Enter')finish(true);if(e.key==='Escape')finish(false);}; inp.onblur=()=>finish(true);
+      }
+    });
+  });
   $('projGrid').querySelectorAll('.proj').forEach(el=>el.onclick=()=>{
     const p=store.get('projects',[]).find(x=>x.id==el.dataset.id);
     if(!p)return; D={...DEFAULT,...p.design}; syncControls(); update(); go('forge');
@@ -2068,13 +3248,8 @@ function aeroAnswer(q){
   return `I can explain stability, thrust-to-weight, fins, motors, recovery, altitude, and cost — and how each one relates to what you have built.<br><br>${ctx}<br><br>Which of those would you like to go into?`;
 }
 async function aeroSend(){
-  const v=$('aeroIn').value.trim(); if(!v)return;
-  aeroSay('u',v); $('aeroIn').value='';
-  aeroSay('a','Thinking…'); const slot=$('aeroBody').lastChild;
-  let r=null;
-  try{r=await agent(v);}catch(e){console.warn(e);}
-  slot.innerHTML=r===null?aeroAnswer(v):r.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\n/g,'<br>');
-  $('aeroBody').scrollTop=1e6;
+  const v=$('aeroIn').value.trim(); if(!v)return; $('aeroIn').value='';
+  return assistantSend(v);
 }
 $('aeroBtn').onclick=()=>{
   const p=$('aeroPanel'); p.classList.toggle('open');
@@ -2093,7 +3268,7 @@ $('aeroSugg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
 /* ---------- boot ---------- */
 $('hsParts').textContent=CATALOG.length;
 $('hsLessons').textContent=LESSONS.length;
-initPartUI(); initLearn(); renderLessons(); renderComps(); renderFC(); update(); fsInit();
+initPartUI(); initLearn(); renderLessons(); renderComps(); renderFC(); update(); fsInit(); lvInit(); aiInit(); webInit(); fwInit();
 const _go0=go; go=function(v){_go0(v); if(v==='flightcomputer'){FS.t=0;FS.play=false;$('fsPlay').textContent='▶ Play';fsBuild();}};
 setTimeout(()=>{hero.fit();forge.fit();},80);
 const start=location.hash.replace('#','');
