@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f28c28">
 <title>AeroForge — Design. Learn. Explore.</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20120%20120%22%3E%3Cdefs%3E%3ClinearGradient%20id=%22fvBg%22%20x1=%220%22%20y1=%220%22%20x2=%221%22%20y2=%221%22%3E%3Cstop%20offset=%220%22%20stop-color=%22%23202b3a%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22%230e141c%22/%3E%3C/linearGradient%3E%3ClinearGradient%20id=%22fvFl%22%20x1=%220%22%20y1=%220%22%20x2=%220%22%20y2=%221%22%3E%3Cstop%20offset=%220%22%20stop-color=%22%23ffd166%22/%3E%3Cstop%20offset=%22.5%22%20stop-color=%22%23f28c28%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22%23e8553a%22%20stop-opacity=%220%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx=%2260%22%20cy=%2260%22%20r=%2256%22%20fill=%22url(%23fvBg)%22%20stroke=%22%23f28c28%22%20stroke-width=%223%22/%3E%3Ccircle%20cx=%2260%22%20cy=%2260%22%20r=%2245%22%20fill=%22none%22%20stroke=%22%23f28c28%22%20stroke-opacity=%22.4%22%20stroke-width=%221.5%22%20stroke-dasharray=%222%206%22%20stroke-linecap=%22round%22/%3E%3Ccircle%20cx=%2222%22%20cy=%2230%22%20r=%221.6%22%20fill=%22%23f1ece4%22%20fill-opacity=%22.8%22/%3E%3Ccircle%20cx=%2296%22%20cy=%2224%22%20r=%221.2%22%20fill=%22%23f1ece4%22%20fill-opacity=%22.7%22/%3E%3Ccircle%20cx=%22100%22%20cy=%2278%22%20r=%221.5%22%20fill=%22%23f1ece4%22%20fill-opacity=%22.6%22/%3E%3Ccircle%20cx=%2218%22%20cy=%2282%22%20r=%221.1%22%20fill=%22%23f1ece4%22%20fill-opacity=%22.6%22/%3E%3Cg%3E%3Cg%3E%3Cpath%20class=%22flame%22%20d=%22M52%2086%20Q60%20116%2068%2086%20Q60%2095%2052%2086Z%22%20fill=%22url(%23fvFl)%22/%3E%3Cpath%20d=%22M48%2070%20L36%2092%20L50%2085Z%22%20fill=%22%23f28c28%22/%3E%3Cpath%20d=%22M72%2070%20L84%2092%20L70%2085Z%22%20fill=%22%23f28c28%22/%3E%3Cpath%20d=%22M60%2014%20C71%2028%2074%2050%2072%2086%20L48%2086%20C46%2050%2049%2028%2060%2014Z%22%20fill=%22%23f1ece4%22/%3E%3Cpath%20d=%22M60%2014%20C65%2020%2069%2027%2071%2036%20L49%2036%20C51%2027%2055%2020%2060%2014Z%22%20fill=%22%23f28c28%22/%3E%3Crect%20x=%2248%22%20y=%2274%22%20width=%2224%22%20height=%225%22%20fill=%22%23f28c28%22%20fill-opacity=%22.9%22/%3E%3Ccircle%20cx=%2260%22%20cy=%2255%22%20r=%228%22%20fill=%22%23202b3a%22%20stroke=%22%23f28c28%22%20stroke-width=%222.5%22/%3E%3Ccircle%20cx=%2258%22%20cy=%2253%22%20r=%222.6%22%20fill=%22%237fc3f0%22%20fill-opacity=%22.9%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,7 +83,7 @@ nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,
   #heroCanvas{height:44vh;order:-1}}
 
 /* ---------- forge ---------- */
-.forge{display:grid;grid-template-columns:230px 1fr 300px;height:calc(100vh - 60px)}
+.forge{display:grid;grid-template-columns:var(--railW,230px) 1fr var(--anaW,300px);height:calc(100vh - 60px);position:relative}
 .rail,.analysis{background:var(--surface);overflow-y:auto;padding:18px}
 .rail{border-right:1px solid var(--line)}
 .analysis{border-left:1px solid var(--line)}
@@ -367,13 +368,72 @@ canvas.chart{width:100%;height:170px;display:block}
 #lvHud{position:absolute;left:10px;bottom:10px;font-family:var(--mono);font-size:13px;color:#fff;text-shadow:0 1px 3px #000;line-height:1.5;pointer-events:none}
 #lvRaw{max-height:130px;overflow:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:pre-wrap;word-break:break-all}
 .lv-help code{background:var(--surface-2);padding:1px 6px;border-radius:4px;font-size:12px}
+.est-note{font-size:12px;color:var(--muted);margin:-4px 0 10px;line-height:1.45}
+.backup-banner{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:12px 16px;margin:0 0 16px;font-size:13.5px;line-height:1.6}
+.backup-banner[hidden]{display:none}
+.proj-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px;font-size:13px;color:var(--muted)}
+.guide{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px;line-height:1.55}
+.guide[hidden],#guideOpen[hidden]{display:none!important}
+.guide-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.guide p{margin:0 0 8px}
+.gs-row{display:flex;gap:5px;margin-bottom:10px}
+.gs{flex:1;height:5px;border-radius:99px;background:var(--surface-2)}.gs.on{background:var(--accent)}.gs.done{background:var(--ok)}
+.guide table{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:12.5px}
+.guide th,.guide td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}.guide th:first-child,.guide td:first-child{text-align:left}
+.guide th{color:var(--muted);font-weight:600}
+.guide .up{color:var(--ok)}.guide .down{color:var(--warn)}
+.guide-pulse{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px;animation:gpulse 1.4s ease-in-out infinite}
+@keyframes gpulse{50%{outline-color:transparent}}
+.hero-note{font-size:13.5px;color:var(--muted);margin-top:14px;max-width:560px;line-height:1.6}
+@media(prefers-reduced-motion:reduce){.guide-pulse{animation:none}}
+.af-logo{display:block;overflow:visible;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none}
+.af-slot{display:inline-flex;line-height:0}
+.af-hero{display:flex;margin:0 0 14px}
+.af-logo .rk{transform-box:view-box;transform-origin:60px 60px;transition:transform .18s ease-out}
+.af-logo .fly{transform-box:view-box;transform-origin:60px 60px}
+.af-logo .flame{transform-box:view-box;transform-origin:60px 86px;transform:scaleY(.82)}
+.af-logo:hover .flame,.af-logo:focus-visible .flame,.af-logo.launch .flame{animation:aflick .22s ease-in-out infinite alternate}
+.af-logo:focus-visible{filter:drop-shadow(0 0 4px var(--accent))}
+.af-logo.launch .fly{animation:aflift 1.05s cubic-bezier(.5,0,.9,.4) forwards}
+.af-logo.land .fly{animation:afland .6s ease-out}
+.af-logo.launch .flame{transform:scaleY(1.7)}
+.af-logo .puff{fill:#f1ece4;fill-opacity:.75;animation:afpuff .9s ease-out forwards}
+@keyframes aflick{from{transform:scaleY(.9)}to{transform:scaleY(1.25)}}
+@keyframes aflift{0%{transform:translateY(0)}25%{transform:translateY(2px)}100%{transform:translateY(-150px);opacity:0}}
+@keyframes afland{from{transform:translateY(70px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes afpuff{from{opacity:.8}to{transform:translate(var(--dx),22px) scale(3.2);opacity:0}}
+.brand .af-logo{margin-right:2px}
+@media(prefers-reduced-motion:reduce){.af-logo *{animation:none!important;transition:none!important}}
+.tb-sum{font-size:13.5px;margin:0 0 8px;font-weight:600}
+.tb-row{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5}
+.tb-ic{flex:0 0 18px;font-weight:700}.tb-ok{color:var(--ok)}.tb-warn{color:var(--warn)}.tb-bad{color:var(--bad)}
+.tb-row small{display:block;color:var(--muted);font-size:12px}
+#fwTestOut pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;font-family:var(--mono);font-size:12px;overflow:auto;margin:10px 0 0}
+#fwScen{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:5px 8px;font-size:12.5px;width:auto;max-width:260px}
+.splitter{position:absolute;top:0;bottom:0;width:14px;cursor:col-resize;z-index:6;touch-action:none;display:flex;align-items:center;justify-content:center;outline:none}
+#splitL{left:calc(var(--railW,230px) - 7px)} #splitR{right:calc(var(--anaW,300px) - 7px)}
+.splitter::before{content:"";width:4px;height:56px;border-radius:99px;background:var(--line);transition:background .15s,height .15s}
+.splitter:hover::before,.splitter.drag::before,.splitter:focus-visible::before{background:var(--accent);height:96px}
+@media(max-width:1100px){.splitter{display:none}}
+.paint-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
+.paint-tools button,.paint-row button{background:var(--surface-2);border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:7px 4px;font-size:12.5px;cursor:pointer}
+.paint-tools button:hover,.paint-row button:hover{border-color:var(--accent)}
+.paint-tools button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.paint-sw{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.paint-sw button{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.paint-sw button.on{border-color:var(--ink)}
+.paint-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.paint-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
+.paint-sel{width:100%;margin-top:4px;padding:7px 9px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:7px;font-size:13px}
+body.painting #forgeCanvas{cursor:crosshair}
+#paintToggle.on{background:var(--accent);color:#1b1b1b;border-color:var(--accent)}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-in">
-    <button class="brand" data-go="home"><span class="brand-dot"></span>AeroForge</button>
+    <button class="brand" data-go="home"><span class="af-slot" data-size="30" aria-hidden="true"></span>AeroForge</button>
     <button class="menu-btn" id="menuBtn">☰</button>
     <div class="nav-links" id="navLinks">
       <button data-go="forge">Forge</button>
@@ -393,14 +453,17 @@ canvas.chart{width:100%;height:170px;display:block}
 <section class="view on" id="view-home">
   <div class="hero">
     <div>
+      <div class="af-slot af-hero" data-size="132" data-big="1" title="Click the rocket"></div>
       <h1>Welcome to AeroForge.</h1>
       <div class="tag">Design. Learn. Explore.</div>
       <p>Build a rocket from real parts, watch the engineering respond as you change it, and find out why
          each choice matters. No prior rocketry knowledge needed — start from the default rocket and make it yours.</p>
       <div class="cta-row">
-        <button class="btn btn-primary" data-go="forge">Start designing</button>
+        <button class="btn btn-primary" id="homeGuide">Start your first flight (4 steps)</button>
+        <button class="btn btn-ghost" data-go="forge">Skip to designing</button>
         <button class="btn btn-ghost" data-go="learn">Explore learning</button>
       </div>
+      <p class="hero-note">New here? You do not need to explore every tab. We will walk you through one small task: open the default rocket, change the fins, see what changed, and run a simulation.</p>
       <div class="hero-stats">
         <div><span class="n" id="hsParts">—</span><span class="l">Components in catalog</span></div>
         <div><span class="n" id="hsLessons">—</span><span class="l">Lessons</span></div>
@@ -414,7 +477,15 @@ canvas.chart{width:100%;height:170px;display:block}
 <!-- ============ FORGE ============ -->
 <section class="view full" id="view-forge">
   <div class="forge">
+    <div class="splitter" id="splitL" role="separator" aria-orientation="vertical" aria-label="Resize the Parts panel. Double-click to reset." tabindex="0" title="Drag to resize. Double-click to reset."></div>
+    <div class="splitter" id="splitR" role="separator" aria-orientation="vertical" aria-label="Resize the Analysis panel. Double-click to reset." tabindex="0" title="Drag to resize. Double-click to reset."></div>
     <aside class="rail">
+      <div class="guide" id="guide" hidden>
+        <div class="guide-h"><b>First flight guide</b><button class="mini-btn" id="guideClose" aria-label="Close the guide">&#10005;</button></div>
+        <div class="gs-row" id="guideDots"></div>
+        <div id="guideBody"></div>
+      </div>
+      <button class="mini-btn" id="guideOpen" style="margin-bottom:12px" hidden>Start the first-flight guide</button>
       <div class="panel-h">Parts</div>
 
       <details class="grp" open><summary>Body</summary><div class="grp-body">
@@ -464,6 +535,28 @@ canvas.chart{width:100%;height:170px;display:block}
         <label class="ctl"><div class="row"><span>Roll stripe</span></div>
           <div class="chips" id="stripeChips"></div></label>
       </div></details>
+      <details class="grp" id="paintGrp"><summary>Paint studio</summary><div class="grp-body">
+        <button class="btn btn-ghost" id="paintToggle" style="width:100%">Start painting</button>
+        <p class="paint-hint" id="paintHint">Turn painting on, then drag on the rocket. Drag the dark background to rotate it.</p>
+        <div class="paint-tools" id="paintTools">
+          <button data-tool="brush" class="on">Brush</button><button data-tool="spray">Spray</button><button data-tool="eraser">Eraser</button>
+          <button data-tool="fill">Fill</button><button data-tool="band">Band</button><button data-tool="stamp">Stamp</button>
+          <button data-tool="pick">Pick colour</button>
+        </div>
+        <label class="ctl"><div class="row"><span>Brush size</span><span class="v" id="vPaintSize">12 mm</span></div>
+          <input type="range" id="paintSize" min="2" max="80" step="1" value="12"></label>
+        <div class="paint-sw" id="paintSwatches"></div>
+        <label class="ctl"><div class="row"><span>Colour</span><input type="color" id="paintColor" value="#e8553a" style="width:46px;height:26px;border:none;background:none;padding:0"></div></label>
+        <label class="ctl"><div class="row"><span>Mirror around the tube</span></div>
+          <select id="paintSym" class="paint-sel"><option value="1">Off</option><option value="2">2 ways</option><option value="3">3 ways</option><option value="4">4 ways</option><option value="6">6 ways</option></select></label>
+        <label class="ctl"><div class="row"><span>Stamp shape</span></div>
+          <select id="paintStamp" class="paint-sel"><option value="star">Star</option><option value="circle">Dot</option><option value="heart">Heart</option><option value="bolt">Lightning</option><option value="ring">Ring</option></select></label>
+        <label class="ctl"><div class="row"><span>Fill surface and Add image use</span></div>
+          <select id="paintTarget" class="paint-sel"><option value="body">Body tube</option><option value="nose">Nose cone</option></select></label>
+        <div class="paint-row"><button id="paintUndo">Undo</button><button id="paintFillAll">Fill surface</button><button id="paintImg">Add image</button><button id="paintRemove">Remove paint</button></div>
+        <input type="file" id="paintFile" accept="image/*" hidden>
+        <p class="paint-hint">The fins use the fin colour above. Paint is saved with your project, and images you add stay on your computer.</p>
+      </div></details>
 
       <button class="btn btn-ghost" style="width:100%;margin-top:6px" id="resetBtn">Reset to default rocket</button>
     </aside>
@@ -478,6 +571,7 @@ canvas.chart{width:100%;height:170px;display:block}
 
     <aside class="analysis">
       <div class="panel-h">Analysis</div>
+      <p class="est-note">Estimates from a simplified model, not measurements.</p>
 
       <div class="stab-wrap">
         <div class="stab-top">
@@ -565,8 +659,8 @@ canvas.chart{width:100%;height:170px;display:block}
 <section class="view" id="view-simulation">
   <div class="page" style="max-width:1200px">
     <h2>Simulation</h2>
-    <p class="lede">A physics-based estimate of how your current Forge design would fly. Assumptions are listed
-      under the report — read them before trusting any number.</p>
+    <p class="lede">A rough estimate from a simplified model. It is not a measurement and not a prediction of a real flight. The assumptions are listed
+      under the report. Use it to compare designs, not to decide whether a launch is safe.</p>
     <div id="simContent"></div>
   </div>
 </section>
@@ -593,8 +687,8 @@ canvas.chart{width:100%;height:170px;display:block}
     </div>
 
     <div class="panel-h" style="margin:38px 0 8px">Schematic simulator</div>
-    <p class="lede" style="margin-bottom:16px">Your flight computer wired up as a schematic, running a real flight of the rocket
-      you designed in Forge. Watch power, sensor buses and the parachute pyro channel switch on as the flight unfolds.
+    <p class="lede" style="margin-bottom:16px">Your flight computer wired up as a schematic, running a simulated flight of the rocket
+      you designed in Forge (an estimate, not a real flight). Watch power, sensor buses and the parachute pyro channel switch on as the flight unfolds.
       Change parts above and the schematic rewires itself.</p>
     <div class="fs-top">
       <button class="btn btn-primary" id="fsPlay">▶ Play</button>
@@ -648,6 +742,11 @@ canvas.chart{width:100%;height:170px;display:block}
         <div class="lv-box" style="margin-top:16px"><h4>Libraries and wiring</h4><div id="fwInfo"></div></div>
       </div>
     </div>
+    <div class="lv-box" style="margin-top:16px" id="fwTestBox"><h4>Test bench <span style="display:flex;gap:6px;align-items:center">
+        <select id="fwScen"><option value="nominal">Normal flight (your Forge rocket)</option><option value="disarmed">Arming switch left open</option><option value="noise1">Barometer noise &plusmn;1.5 m</option><option value="noise2">Rough barometer data (&plusmn;6 m)</option><option value="dropout">Barometer freezes after burnout</option><option value="pad">Pad test (rocket stays on the ground)</option><option value="spike">One bad reading on the pad (+30 m)</option></select>
+        <button class="mini-btn" id="fwRun">Run tests</button></span></h4>
+      <p style="font-size:12.5px;line-height:1.6;color:var(--muted);margin:0 0 10px">This reads the text of your code and runs a simple model of its flight logic against an <b>estimated</b> flight of your Forge rocket. It does <b>not</b> run your code on a board and it cannot prove the code is safe. Compile it, then bench-test it with no charge connected.</p>
+      <div id="fwTestOut"><p style="color:var(--muted);font-size:13px">Press Run tests.</p></div></div>
     <div class="lv-box" style="margin-top:16px"><h4>Read this before you use it</h4>
       <p style="font-size:13.5px;line-height:1.7;color:var(--muted)">This code is generated from templates and has <b>not been tested on real hardware</b>, so expect to adjust pins and library calls for your exact modules.
       A parachute ejection charge is dangerous. Test with <b>no charge connected</b>, using an LED in place of the e-match, and follow your rocketry club&rsquo;s rules and your country&rsquo;s laws.
@@ -660,7 +759,7 @@ canvas.chart{width:100%;height:170px;display:block}
   <div class="page" style="max-width:1200px">
     <h2>Live telemetry</h2>
     <p class="lede">Connect your real flight computer or ground-station receiver and watch speed, altitude, distance, GPS track and camera footage as the flight happens.
-      No hardware yet? Press <b>Demo flight</b> to see it working.</p>
+      No hardware yet? Press <b>Demo flight</b> to see it working with simulated data.</p>
     <div class="lv-bar">
       <button class="btn btn-primary" id="lvSerial">Connect USB / serial</button>
       <select id="lvBaud"><option>9600</option><option selected>57600</option><option>115200</option><option>230400</option></select>
@@ -703,7 +802,13 @@ canvas.chart{width:100%;height:170px;display:block}
 <section class="view" id="view-projects">
   <div class="page" style="max-width:1200px">
     <h2>Projects</h2>
-    <p class="lede">Saved designs live in this browser only. Clearing site data or switching device removes them.</p>
+    <p class="lede">Saved designs live in this browser only. Export a backup regularly: clearing site data or switching device removes them.</p>
+    <div id="backupBanner" class="backup-banner" hidden></div>
+    <div class="proj-tools">
+      <button class="btn btn-ghost" id="projExport">Export all (backup)</button>
+      <label class="btn btn-ghost" style="cursor:pointer">Import<input type="file" id="projImport" accept=".json,application/json" hidden></label>
+      <span id="projBackupInfo"></span>
+    </div>
     <div class="cards" id="projGrid"></div>
   </div>
 </section>
@@ -744,9 +849,10 @@ canvas.chart{width:100%;height:170px;display:block}
       <div class="card"><h3>Learn</h3><p>Fifteen lessons, a quiz and a glossary that take you from the basics to a first launch.</p></div>
       <div class="card"><h3>Projects</h3><p>Save designs and come back to them later, all stored in your browser.</p></div>
     </div>
-    <h2 style="margin-top:44px;font-size:22px">How the numbers work</h2>
+    <h2 style="margin-top:44px;font-size:22px">How the numbers are estimated</h2>
     <div class="empty" style="margin-top:14px;text-align:left">
-      <p><b>Flight:</b> every 10 ms the simulator adds up thrust, weight and drag, divides by the current mass to get acceleration, and steps speed and height forward.</p>
+      <p><b>Important:</b> these are estimates from simplified formulas. They have not been validated against real flights.</p>
+      <p style="margin-top:8px"><b>Flight:</b> every 10 ms the simulator adds up thrust, weight and drag, divides by the current mass to get acceleration, and steps speed and height forward.</p>
       <p style="margin-top:8px"><b>Drag:</b> ½ × air density × speed² × drag coefficient × frontal area, with density falling off with altitude.</p>
       <p style="margin-top:8px"><b>Stability:</b> the distance between the centre of gravity and a simplified centre of pressure, expressed in body diameters.</p>
       <p style="margin-top:8px"><b>Flight computer:</b> battery life is capacity divided by total current draw, and the pyro pulse sags the voltage by current times the battery’s internal resistance.</p>
@@ -760,9 +866,9 @@ canvas.chart{width:100%;height:170px;display:block}
     <div class="faq" style="margin-top:14px">
       <details><summary>Can the assistant really do anything?</summary><p>It can do anything the app supports: change any design setting, take the rocket apart, zoom into parts, rotate the view, run the simulation, save, and switch pages. It also answers rocketry questions. Anything outside the app it will tell you it cannot do.</p></details>
       <details><summary>Is my data uploaded anywhere?</summary><p>Projects and progress stay in your own browser. Only the text you type to the assistant is sent for it to answer.</p></details>
-      <details><summary>How accurate is the simulation?</summary><p>It is good for comparing designs. It leaves out wind during ascent, angle of attack, transonic drag and fin flutter, so real flights will differ.</p></details>
+      <details><summary>How good are the numbers?</summary><p>They are rough estimates from a simplified model. They have not been checked against real flight data, so they are not measurements and should not be used to decide whether a launch is safe. The model leaves out wind during ascent, angle of attack, transonic drag, fin flutter and more. Use it to compare designs and to learn.</p></details>
       <details><summary>Why is my rocket flagged as unstable?</summary><p>The centre of pressure is too close to, or ahead of, the centre of gravity. Add fin area, sweep the fins back or move weight forward, then check the margin again.</p></details>
-      <details><summary>Why does the flight computer need a barometer?</summary><p>It is how the computer knows when the rocket has stopped climbing. Without it, the parachute never fires.</p></details>
+      <details><summary>Why does AeroForge need a barometer to deploy a parachute?</summary><p>This is specific to how AeroForge models the flight computer, not a rule for every rocket. In this app, deployment is triggered when the barometer detects apogee, so the simulator and the generated code will not deploy without one. Real rockets can use other methods, such as accelerometer-based detection, a timer, or the motor's own ejection charge, and each has its own trade-offs.</p></details>
     </div>
   </div>
 </section>
@@ -867,10 +973,10 @@ const LESSONS = [
    b:["A rocket goes up because its motor pushes exhaust down. That push is thrust, and it has to beat the rocket's weight before anything leaves the pad.",
       "Once moving, air resistance — drag — starts fighting back, and it grows with the square of speed. Double your speed and drag roughly quadruples.",
       "Weight and drag are fixed by your design. Thrust comes from the motor you choose. Most design work is really about making the first two small enough for the third to do its job."]},
-  {t:'Thrust-to-weight ratio', s:'The single number that decides whether your launch is safe or scary.',
+  {t:'Thrust-to-weight ratio', s:'A useful guideline for how quickly the rocket leaves the rod. It is not the only thing that makes a launch safe.',
    b:["Divide your motor's average thrust by the rocket's weight at liftoff. That ratio tells you how hard the rocket accelerates off the rod.",
-      "Below about 5:1 the rocket leaves the rod slowly. Fins only work once air is flowing fast over them, so a slow launch means the rocket can tip before it becomes stable.",
-      "Anything above roughly 5:1 is usually safe. Very high ratios are fine structurally but waste altitude to drag."]},
+      "As a rough guideline, below about 5:1 the rocket may leave the rod slowly. Fins only work once air is flowing fast over them, so a slow launch can let the rocket tip before it becomes stable.",
+      "Meeting that guideline does not make a launch safe on its own. Safety depends on several things together: stability, the length of the launch rod or rail, wind, how strong the airframe is, whether the motor and recovery system work as intended, the launch site, and your club's rules. Very high ratios can also waste altitude to drag."]},
   {t:'Centre of gravity and centre of pressure', s:'Why a rocket weathercocks instead of tumbling.',
    b:["Centre of gravity (CG) is where the rocket's mass balances. Centre of pressure (CP) is where aerodynamic force effectively acts.",
       "If CP sits behind CG, any small tilt creates a force that pushes the nose back into the wind — the rocket self-corrects. If CP is ahead of CG, the same tilt makes it worse, and the rocket tumbles.",
@@ -888,7 +994,7 @@ const LESSONS = [
       "Descent rate depends on chute area and rocket mass. Doubling the chute diameter roughly halves the landing speed.",
       "Bigger chutes drift further in wind. Dual deployment solves this: a small drogue at apogee, then the main chute low down, so the rocket spends less time drifting."]},
   {t:'Flight computers', s:'Sensing the flight and deciding when to act.',
-   b:["A flight computer reads a barometer to track altitude. When altitude stops increasing, it has found apogee and fires the recovery charge.",
+   b:["One common approach is for a flight computer to read a barometer to track altitude. When the altitude stops increasing, it has found apogee and can fire the recovery charge. Other designs use accelerometers, timers or the motor's own ejection charge. AeroForge's simulator uses the barometer method.",
       "Adding an accelerometer makes apogee detection faster and more reliable, because pressure alone lags slightly behind the real peak.",
       "Everything draws current. Battery life has to cover setup on the pad, the flight itself, and the search afterwards — not just the 20 seconds in the air."]},
   {t:'Anatomy of a rocket', s:'Every part, what it does, and where it lives.',
@@ -910,7 +1016,7 @@ const LESSONS = [
   {t:'Wind, weathercocking and launch angle', s:'Why rockets lean into the wind.',
    b:["A stable rocket turns its nose into the wind as it climbs. This is called weathercocking, and it is the same stability that keeps it pointing straight in calm air.",
       "The stronger the wind and the slower the launch, the more the rocket tilts, and the less altitude you get. A fast, high thrust-to-weight launch tilts less.",
-      "Launch a few degrees away from people and into the wind, and never above 20 km/h of wind for a first flight. The parachute then drifts further than the rocket went up, so pick a big, open field."]},
+      "Launch a few degrees away from people and into the wind, and a common guideline for a first flight is to avoid winds above about 20 km/h (follow your club's rules). The parachute then drifts further than the rocket went up, so pick a big, open field."]},
   {t:'Reading the flight computer schematic', s:'Following power, sensors and the parachute charge.',
    b:["Start at the battery. Power flows through the regulator to a steady 3.3 V that feeds the microcontroller and sensors. Sensors talk to the microcontroller over shared buses such as I²C.",
       "The pyro channel is separate and carries a lot more current. The microcontroller drives a MOSFET through a small gate resistor, and the MOSFET lets the battery push about an amp through the e-match, which sets off the ejection charge.",
@@ -920,7 +1026,7 @@ const LESSONS = [
       "Launch outdoors in an open area, well clear of people, trees, power lines and buildings. Use a launch rod or rail, a blast deflector and an electrical igniter with a long lead.",
       "Check the stability margin and the parachute before every flight, count down aloud, and wait for the rocket to be safe before walking up to it. Follow your local rocketry club's rules and your country's laws."]},
   {t:'Your first flight checklist', s:'Everything to check before you press the button.',
-   b:["Design: stability margin of 1 to 2 calibers, thrust-to-weight above 5:1, and a descent speed under about 6 m/s. Forge flags each of these.",
+   b:["Design: stability margin of 1 to 2 calibers, thrust-to-weight around 5:1 or more as a guideline, and a descent speed under about 6 m/s. Forge flags each of these, but passing them does not make a launch safe.",
       "Build: fins straight and firmly attached, parachute folded and loose in the tube, ejection charge in place, motor held in so it cannot slide out.",
       "Pad: flight computer armed last, battery charged, wind calm, area clear, countdown from five. Afterwards, wait, then approach and disarm everything before touching the rocket."]},
 ];
@@ -1087,7 +1193,7 @@ function notes(a){
   if(a.tw<3) out.push({lvl:'bad',h:'Not enough thrust',
     p:`Thrust-to-weight is only ${a.tw.toFixed(1)}:1. The rocket will barely accelerate off the pad, and fins need airspeed before they stabilise anything. Step up a motor class or cut mass.`,why:'Thrust-to-weight ratio'});
   else if(a.tw<5) out.push({lvl:'warn',h:'Low thrust-to-weight',
-    p:`${a.tw.toFixed(1)}:1 is below the usual 5:1 guideline. It will fly, but expect a slow, wobbly departure from the rod.`,why:'Thrust-to-weight ratio'});
+    p:`${a.tw.toFixed(1)}:1 is below the usual 5:1 guideline. It may still fly, but it could leave the rod slowly and wobble.`,why:'Thrust-to-weight ratio'});
 
   if(a.descent>7) out.push({lvl:'warn',h:'Hard landing',
     p:`Estimated descent rate is ${a.descent.toFixed(1)} m/s. Above about 6 m/s, fins and airframes start breaking on landing. A larger parachute would soften it.`,why:'Recovery'});
@@ -1184,9 +1290,11 @@ function applyView(g){
   });
 }
 
-function tube(rt,rb,wall,h,mat,seg=40){
+const PAINT={body:{on:false,cv:null,tex:null},nose:{on:false,cv:null,tex:null},mode:false,tool:'brush',color:'#e8553a',size:12,sym:1,stamp:'star',undo:[],st:null};
+function paintApply(mat,surf){ const P=PAINT[surf]; if(P&&P.on&&P.tex){ mat.map=P.tex; mat.color.set(0xffffff); mat.needsUpdate=true; } }
+function tube(rt,rb,wall,h,mat,seg=40,tag){
   const g=new THREE.Group();
-  g.add(new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg,1,true),mat));
+  const outer=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg,1,true),mat); if(tag)outer.userData.paint=tag; g.add(outer);
   g.add(new THREE.Mesh(new THREE.CylinderGeometry(rt-wall,rb-wall,h,seg,1,true),mat));
   const ring=(ri,ro,y,sx)=>{const m=new THREE.Mesh(new THREE.RingGeometry(ri,ro,seg),mat);m.rotation.x=sx*Math.PI/2;m.position.y=y;g.add(m);};
   ring(rt-wall,rt,h/2,-1); ring(rb-wall,rb,-h/2,1);
@@ -1204,7 +1312,7 @@ function buildRocket(group, d, showMarkers, cutaway){
     ? new THREE.MeshStandardMaterial({color:new THREE.Color(d.cBody),roughness:fin.rough,metalness:fin.metal,
         transparent:true,opacity:0.16,depthWrite:false,side:THREE.DoubleSide})
     : Object.assign(mk(d.cBody),{side:THREE.DoubleSide});
-  const body=tube(r,r,r*0.1,bodyH,bodyMat);
+  const body=tube(r,r,r*0.1,bodyH,bodyMat,40,'body'); if(!cutaway)paintApply(bodyMat,'body');
   body.position.y=bodyH/2; body.userData.part='body'; group.add(body);
 
   const wall=r*0.08, outer=[], inner=[];
@@ -1216,7 +1324,7 @@ function buildRocket(group, d, showMarkers, cutaway){
     ? new THREE.MeshStandardMaterial({color:new THREE.Color(d.cNose),roughness:fin.rough,metalness:fin.metal,
         transparent:true,opacity:0.16,depthWrite:false,side:THREE.DoubleSide})
     : Object.assign(mk(d.cNose),{side:THREE.DoubleSide});
-  const nose=new THREE.Mesh(noseGeo,noseMat);
+  const nose=new THREE.Mesh(noseGeo,noseMat); nose.userData.paint='nose'; if(!cutaway)paintApply(noseMat,'nose');
   nose.position.y=bodyH;
   nose.userData.part='nose'; group.add(nose);
 
@@ -1599,7 +1707,7 @@ function runActions(list){
       else if(a.type==='camera'){const V={front:[0,0],side:[Math.PI/2,0],back:[Math.PI,0],top:[0,1.35],bottom:[0,-1.35],iso:[.7,.25]}[a.view];
         if(V){forge.rotY=V[0];forge.rotX=V[1];} if(a.zoom)forge._z=+a.zoom;}
       else if(a.type==='spin'){forge.spin=a.on===false?0:0.008;}
-      else if(a.type==='reset'){D={...DEFAULT};VIEW.target=0;VIEW.hidden.clear();VIEW.isolate=null;}
+      else if(a.type==='reset'){D={...DEFAULT};paintRemove(false);VIEW.target=0;VIEW.hidden.clear();VIEW.isolate=null;}
       else if(a.type==='simulate'){$('simBtn').click();}
       else if(a.type==='save'){$('saveBtn').click();}
       else if(a.type==='go'&&$('view-'+a.view)){go(a.view);}
@@ -1664,6 +1772,7 @@ $('partBar').querySelectorAll('button').forEach(b=>b.onclick=()=>focusPart(b.dat
 (()=>{const rc=new THREE.Raycaster(),cv=forge.canvas;let dx=0,dy=0;
   cv.addEventListener('pointerdown',e=>{dx=e.clientX;dy=e.clientY;});
   cv.addEventListener('pointerup',e=>{
+    if(PAINT.mode)return;
     if(Math.hypot(e.clientX-dx,e.clientY-dy)>5)return;
     const r=cv.getBoundingClientRect();
     rc.setFromCamera(new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1),forge.cam);
@@ -1731,6 +1840,7 @@ const forge=makeScene($('forgeCanvas')); forge.group.userData.exp=true;
 
 let cutawayOn=false;
 function update(){
+  try{guideCheck();}catch(e){}
   const a=analyse(D);
   buildRocket(forge.group,D,!cutawayOn,cutawayOn);
   buildRocket(hero.group,D,false,false);
@@ -1764,9 +1874,9 @@ $('saveBtn').onclick=()=>{
   const list=store.get('projects',[]);
   const a=analyse(D);
   list.unshift({id:Date.now(),name:'Rocket '+(list.length+1),date:new Date().toISOString(),
-    design:{...D},apogee:Math.round(a.apogee),margin:+a.margin.toFixed(2)});
-  store.set('projects',list.slice(0,40));
-  toast('Project saved to this browser');
+    design:{...D,paint:paintExport()||undefined},apogee:Math.round(a.apogee),margin:+a.margin.toFixed(2)});
+  try{ localStorage.setItem('aeroforge:projects',JSON.stringify(list.slice(0,100))); }catch(e){ toast('Not enough browser storage to save this. Export a backup, then delete some projects.'); return; }
+  toast('Project saved to this browser. Remember to export a backup from the Projects page.');
 };
 
 /* ---------- learn ---------- */
@@ -1789,15 +1899,15 @@ const GLOSSARY=[
 ['Ogive','A smooth, curved, pointed nose shape with low drag.'],
 ['Pyro channel','The circuit on a flight computer that fires an igniter or ejection charge.'],
 ['Stability margin','The gap between CG and CP in calibers. About 1 to 2 is the usual target.'],
-['Thrust-to-weight','Average thrust divided by liftoff weight. Above about 5:1 is safe.'],
+['Thrust-to-weight','Average thrust divided by liftoff weight. About 5:1 or more is a common guideline, not a guarantee of a safe launch.'],
 ['Weathercocking','A stable rocket turning its nose into the wind as it climbs.']];
 const QUIZ=[
 {q:'Where should the centre of pressure be compared with the centre of gravity?',o:['Behind it (closer to the tail)','Ahead of it (closer to the nose)','At exactly the same point'],a:0,w:'CP behind CG makes any tilt push the nose back into line.'},
 {q:'What does the second part of a motor code like C6-5 mean?',o:['The ejection delay in seconds','The motor weight in grams','The number of fins to use'],a:0,w:'The number after the dash is the delay before the ejection charge fires.'},
 {q:'If you double your speed, drag roughly\u2026',o:['doubles','quadruples','stays the same'],a:1,w:'Drag grows with the square of speed.'},
-{q:'Which sensor lets a flight computer detect apogee?',o:['GPS only','Barometer','Radio'],a:1,w:'A barometer tracks altitude, so the computer notices when it stops rising.'},
+{q:'Which sensor does AeroForge use to detect apogee?',o:['GPS only','Barometer','Radio'],a:1,w:'In AeroForge the barometer tracks altitude, so the computer notices when it stops rising. Real rockets can also use other methods.'},
 {q:'Why does the pyro channel have its own MOSFET?',o:['It carries far more current than a microcontroller pin can','To make the LED blink','To measure altitude'],a:0,w:'The MOSFET lets a tiny signal switch an amp-level current through the e-match.'},
-{q:'What is a safe thrust-to-weight ratio to aim for?',o:['Below 2:1','Above about 5:1','Exactly 1:1'],a:1,w:'Above about 5:1 the rocket is moving fast enough for the fins to work off the rod.'}];
+{q:'Which statement about thrust-to-weight ratio is best?',o:['A ratio above 5:1 guarantees a safe launch','It is one useful guideline, but safety also depends on stability, wind, the rod or rail, and more','It is the only number you need to check'],a:1,w:'About 5:1 is a common guideline for leaving the rod fast enough for the fins to work, but a safe launch depends on several factors together.'}];
 let quizI=0,quizScore=0;
 function renderQuiz(){
   const box=$('quizBox');
@@ -2031,8 +2141,8 @@ function renderFC(){
   $('fcCost').innerHTML='$'+cost;
 
   const caps=[];
-  if(ss.some(s=>s.id==='baro')) caps.push({lvl:'ok',h:'Can detect apogee',p:'The barometer tracks altitude, so the computer knows when the rocket stops climbing.'});
-  else caps.push({lvl:'bad',h:'Cannot detect apogee',p:'Without a barometer there is no way to know when to deploy recovery. Add one.'});
+  if(ss.some(s=>s.id==='baro')) caps.push({lvl:'ok',h:'Can detect apogee (AeroForge method)',p:'In AeroForge the barometer tracks altitude, so the computer knows when the rocket stops climbing and deployment is available.'});
+  else caps.push({lvl:'warn',h:'No deployment in AeroForge',p:'AeroForge only deploys from barometer-detected apogee, so this simulator and the generated code will not fire the parachute. This is how the app works. Real rockets can use other methods, such as other sensors, a timer or the motor\'s ejection charge.'});
   if(ss.some(s=>s.id==='imu')) caps.push({lvl:'ok',h:'Faster apogee detection',p:'The IMU catches the transition sooner than pressure alone, which lags slightly behind the real peak.'});
   if(ss.some(s=>s.id==='gps')&&r.id==='rnone') caps.push({lvl:'warn',h:'GPS with no radio',p:'Position is only readable after you find the rocket. Add a radio to use it during the search.'});
   if(life<1) caps.push({lvl:'bad',h:'Battery too small',p:`About ${(life*60).toFixed(0)} minutes of runtime. That has to cover pad setup, flight, and searching. Use a larger battery.`});
@@ -2105,7 +2215,7 @@ function fsBuild(){
                        :{t:tDet+.3,m:`Battery sag to ${vmin.toFixed(2)} V — MCU stays up`,k:'ok'});
       ev.push({t:tDet+.9,m:`Parachute out · descending ${f.descent.toFixed(1)} m/s`,k:'ok'});}
     else ev.push({t:tDet+.2,m:'Pyro inhibited by arming switch — no parachute!',k:'bad'});
-  } else ev.push({t:tAp+.3,m:'No barometer: apogee never detected, no deployment',k:'bad'});
+  } else ev.push({t:tAp+.3,m:'No barometer: in this simulator apogee is not detected, so there is no deployment',k:'bad'});
   ev.push({t:tLand,m:deploy?'Landed':'Impact at high speed',k:deploy?'ok':'bad'});
   if(r.id!=='rnone')ev.push({t:tLand+.5,m:'Radio beacon running for recovery',k:''});
   FS.ev=ev.sort((a,c)=>a.t-c.t); FS.logN=-1;
@@ -2515,7 +2625,7 @@ ${ifc(gp,'TinyGPSPlus gps;\n'+P.gpsDecl+'\n'+P.gpsDef)}
 float groundHpa = 1013.25;
 float altM = 0, lastAlt = 0, maxAlt = 0, vSpeed = 0;
 float axG = 0, ayG = 0, azG = 0;
-int fallCount = 0;
+int fallCount = 0, launchCount = 0;
 bool launched = false, fired = false, armed = false;
 unsigned long lastSample = 0, lastTelem = 0, firedAt = 0, launchAt = 0;
 
@@ -2558,7 +2668,9 @@ ${ifc(aprs,'  // APRS: this needs a ham licence and a tracker or modem module. P
 ${ifc(deploy,`// Detects apogee from the barometer and fires the parachute output once.
 void flightLogic(unsigned long now) {
   if (!launched) {
-    if (altM > LAUNCH_ALT_M) { launched = true; launchAt = now; }
+    // Needs 5 readings in a row above the launch height, so one bad reading cannot start it.
+    launchCount = (altM > LAUNCH_ALT_M) ? launchCount + 1 : 0;
+    if (launchCount >= 5) { launched = true; launchAt = now; }
     return;
   }
   if (fired) return;
@@ -2570,7 +2682,7 @@ void flightLogic(unsigned long now) {
     firedAt = now;
   }
 }`)}
-${ifc(!deploy,`// Parachute deployment is OFF in this sketch. ${bd?'Tick "Parachute deployment" above to add it.':'Add a barometer to detect apogee and deploy a parachute.'}`)}
+${ifc(!deploy,`// Parachute deployment is OFF in this sketch. ${bd?'Tick "Parachute deployment" above to add it.':'AeroForge deploys only from barometer-detected apogee, so add a barometer to enable deployment.'}`)}
 
 void setup() {
   Serial.begin(${baud});
@@ -2648,7 +2760,7 @@ function fwInfo(){
   if(has('gps'))wire.push(`GPS: ${P.gps}, plus power and GND.`);
   if(lora)wire.push(`LoRa module (3.3 V only): ${P.spi}, RST = ${P.rst}, DIO0 = ${P.dio0}.`);
   wire.push(`Parachute output: pin ${P.pyro} to the MOSFET gate through a 220 ohm resistor. The MOSFET switches the e-match from the battery.`);
-  wire.push(`Arming switch: pin ${P.arm} to GND arms it. Left open, the parachute never fires.`);
+  wire.push(`Arming switch: pin ${P.arm} to GND arms it. Left open, this sketch will not fire the parachute output.`);
   wire.push('Battery sense: battery to A0 through two equal resistors (a 2:1 divider), so the voltage reads correctly.');
   return `<b>Install in the Arduino IDE (Library Manager)</b><ul>${libs.length?libs.map(l=>'<li>'+l+'</li>').join(''):'<li>Nothing extra for this setup.</li>'}</ul>
     <b>Wiring</b><ul>${wire.map(w=>'<li>'+w+'</li>').join('')}</ul>
@@ -2946,7 +3058,7 @@ function fwUiForLang(){
   $('fwWhich').style.display=(cpp&&lora)?'':'none';
   $('fwRate').parentElement.style.display=cpp?'':'none';
   $('fwDeploy').parentElement.style.display=cpp?'':'none';
-  $('fwLang').value=FW.lang;
+  $('fwLang').value=FW.lang; $('fwScen').style.display=cpp?'':'none';
   $('fwTitle').textContent=FW_LABEL[FW.lang]+' ('+FW_FILE[FW.lang]+FW_EXT[FW.lang]+')';
   $('fwInfo').innerHTML=cpp?fwInfo():fwInfoLang();
 }
@@ -3087,6 +3199,111 @@ async function assistantSend(text){
   slot.set(reply);
 }
 async function fwChatSend(text){ text=String(text||$('fwChatIn').value).trim(); if(!text)return; $('fwChatIn').value=''; return assistantSend(text); }
+
+/* ---------- test bench for the generated code ---------- */
+function fwBenchParams(code){
+  const num=(re,d)=>{const m=code.match(re);return m?+m[1]:d;};
+  return {sample:num(/SAMPLE_MS\s*=\s*(\d+)/,20),telem:num(/TELEM_MS\s*=\s*(\d+)/,100),pyro:num(/PYRO_MS\s*=\s*(\d+)/,600),
+    launch:num(/LAUNCH_ALT_M\s*=\s*([\d.]+)/,20),drop:num(/DROP_M\s*=\s*([\d.]+)/,3),fallN:num(/fallCount\s*>=\s*(\d+)/,5),
+    minFlight:num(/launchAt\s*>\s*(\d+)/,0),launchN:num(/launchCount\s*>=\s*(\d+)/,1),
+    hasFire:/digitalWrite\(\s*PYRO_PIN\s*,\s*HIGH\s*\)/.test(code),needsArm:/&&\s*armed\b/.test(code)};
+}
+function fwBalanced(code,o,c){ let n=0; for(const ch of code){ if(ch===o)n++; else if(ch===c){n--; if(n<0)return false;} } return n===0; }
+function fwStaticChecks(code){
+  const P=fwBenchParams(code), r=[], add=(s,l,d)=>r.push({s,l,d:d||''});
+  add(/void\s+setup\s*\(/.test(code)&&/void\s+loop\s*\(/.test(code)?'ok':'bad','Has setup() and loop()');
+  add(fwBalanced(code,'{','}')&&fwBalanced(code,'(',')')?'ok':'bad','Brackets are balanced','A missing bracket would stop it compiling.');
+  add(code.includes('t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats')?'ok':'warn','Prints the 10-column header the Live page reads','Without it the Live page uses its default column order.');
+  if(!P.hasFire){ add('warn','No parachute output in this sketch','Nothing to test for firing. This is fine if you deploy another way.'); return r; }
+  add(/pinMode\(\s*PYRO_PIN[^;]*;\s*digitalWrite\(\s*PYRO_PIN\s*,\s*LOW\s*\)/.test(code)?'ok':'bad','Parachute output is set LOW at start','It should never switch on by itself at power-up.');
+  add(P.needsArm?'ok':'bad','Checks the arming switch before firing','Without this the output can fire while you are working on the pad.');
+  add(/LAUNCH_ALT_M/.test(code)&&/launched/.test(code)?'ok':'bad','Will not fire before the rocket has climbed','A launch-height check protects it on the pad.');
+  add(P.launchN>=3?'ok':'warn','Needs several readings in a row to detect launch','Reads in a row needed: '+P.launchN+'. One bad barometer reading should not start the flight logic.');
+  add(P.minFlight>=500?'ok':'warn','Waits a minimum time after launch before firing','Waiting '+P.minFlight+' ms. A short wait leaves little margin.');
+  add((code.match(/digitalWrite\(\s*PYRO_PIN\s*,\s*LOW\s*\)/g)||[]).length>=2&&/PYRO_MS/.test(code)?'ok':'warn','Switches the output off again after the pulse','A pulse that never ends can overheat the e-match driver.');
+  return r;
+}
+function fwBench(code,scen){
+  const P=fwBenchParams(code), f=fly(D), PAD=2, ser=f.series, last=ser[ser.length-1].t;
+  const burnT=f.burn+PAD, apT=(f.apT!=null?f.apT:f.burn+5)+PAD;
+  const hAt=t=>{ const q=t-PAD; if(q<=0||q>=last)return 0; let lo=0,hi=ser.length-1; while(hi-lo>1){const m=(lo+hi)>>1; if(ser[m].t<=q)lo=m; else hi=m;}
+    const k=(q-ser[lo].t)/((ser[hi].t-ser[lo].t)||1); return ser[lo].h+(ser[hi].h-ser[lo].h)*k; };
+  let seed=12345; const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0; return seed/4294967296;};
+  const amp={nominal:0.3,noise1:1.5,noise2:6,dropout:0.3,disarmed:0.3,pad:0.5,spike:0.3}[scen]||0.3, armed=scen!=='disarmed';
+  let launched=false,launchCount=0,fired=false,fallCount=0,maxAlt=0,launchAt=0,firedAt=-1,firedAlt=0,frozen=null,launchedAt=-1;
+  for(let ms=0; ms<=(last+PAD+1)*1000; ms+=P.sample){
+    const t=ms/1000, hTrue=(scen==='pad'||scen==='spike')?0:hAt(t);
+    let baro=hTrue+(rnd()-.5)*2*amp;
+    if(scen==='dropout'&&t>burnT){ if(frozen===null)frozen=baro; baro=frozen; }
+    if(scen==='spike'&&Math.abs(t-3)<P.sample/2000)baro+=30;
+    if(!launched){ launchCount=(baro>P.launch)?launchCount+1:0; if(launchCount>=P.launchN){launched=true;launchAt=ms;launchedAt=t;} continue; }
+    if(fired)continue;
+    if(baro>maxAlt)maxAlt=baro;
+    fallCount=(baro<maxAlt-P.drop)?fallCount+1:0;
+    if(fallCount>=P.fallN&&ms-launchAt>P.minFlight&&(armed||!P.needsArm)&&P.hasFire){ fired=true; firedAt=t; firedAlt=hTrue; }
+  }
+  return {P,f,apT,burnT,fired,firedAt,firedAlt,launched,launchedAt,hAt,armed,scen};
+}
+function fwBenchChecks(R){
+  const r=[], add=(s,l,d)=>r.push({s,l,d:d||''}), {P}=R, T=t=>t.toFixed(2)+' s', onPad=R.fired&&R.firedAlt<P.launch/2;
+  if(!P.hasFire){ add('warn','No parachute output to test','This sketch never switches the parachute output on.'); return r; }
+  if(R.scen==='disarmed'){ add(!R.fired?'ok':'bad','Did not fire with the arming switch open', R.fired?'It fired at '+T(R.firedAt)+' even though the switch was open.':'The output stayed off.'); return r; }
+  if(R.scen==='pad'||R.scen==='spike'){
+    add(!R.fired?'ok':'bad','Stayed off on the pad', R.fired?'It fired at '+T(R.firedAt)+' while the rocket was on the ground.':(R.scen==='spike'?'One bad +30 m reading did not start the flight logic.':'Noise on the pad did not trigger it.'));
+    return r; }
+  if(R.scen==='dropout'){
+    add(R.fired?'ok':'warn','Parachute fired when the barometer froze', R.fired?'It fired at '+T(R.firedAt)+'.':'It never fired. With a frozen barometer this sketch has no backup, such as a timer. Consider adding one.'); return r; }
+  add(!onPad?'ok':'bad','Stayed off on the pad', onPad?'It fired on the ground.':'The output stayed off until the rocket climbed.');
+  add(R.fired?'ok':'bad','Parachute output fired', R.fired?'Fired at '+T(R.firedAt)+' (estimated apogee at '+T(R.apT)+').':'It never fired in this run.');
+  if(R.fired){
+    const dly=R.firedAt-R.apT;
+    add(dly>=-0.05?'ok':'bad','Did not fire before apogee', dly>=-0.05?'Fired '+dly.toFixed(2)+' s after apogee.':'Fired '+(-dly).toFixed(2)+' s BEFORE apogee, while still climbing, at about '+R.firedAlt.toFixed(0)+' m. Noisy readings can look like a fall to this logic.');
+    add(dly<=1.5?'ok':'warn','Fired within 1.5 s after apogee', 'Delay: '+dly.toFixed(2)+' s. A late deployment means a faster descent when the parachute opens.');
+  }
+  return r;
+}
+function fwExampleLines(R){
+  const has=id=>FC.sensors.includes(id), ser=R.f.series, lines=['t_ms,lat,lon,alt_m,speed_mps,ax_g,ay_g,az_g,batt_v,sats'];
+  [0.5,R.burnT+1,R.apT,R.apT+3].forEach(t=>{
+    const h=R.hAt(t), q=Math.max(0,t-2), i=Math.min(ser.length-1,Math.max(0,ser.findIndex(x=>x.t>=q))), a=ser[i]?ser[i].a:0, v=ser[i]?Math.abs(ser[i].v):0;
+    lines.push([Math.round(t*1000),has('gps')?'40.000000':'',has('gps')?'-100.000000':'',has('baro')?h.toFixed(1):'',has('baro')?v.toFixed(1):'',has('imu')?'0.00':'',has('imu')?'0.00':'',has('imu')?(a+1).toFixed(2):'',(3.98).toFixed(2),has('gps')?'9':''].join(','));
+  });
+  return lines.join('\n');
+}
+function fwRunTests(){
+  const code=$('fwCode').value, out=$('fwTestOut'), L=FW.lang, rows=[];
+  const note=t=>out.insertAdjacentHTML('beforeend','<p style="font-size:12.5px;color:var(--muted);margin-top:10px">'+t+'</p>');
+  if(L==='cpp'){
+    rows.push(...fwStaticChecks(code));
+    let R=null; try{ R=fwBench(code,$('fwScen').value); rows.push(...fwBenchChecks(R)); }catch(e){ rows.push({s:'warn',l:'Flight model could not run',d:String((e&&e.message)||e)}); }
+    fwTestRender(rows);
+    if(R){ out.insertAdjacentHTML('beforeend','<pre>'+ESC_H(fwExampleLines(R))+'</pre>'); note('Example output lines for this sketch, modelled from the estimated flight. Values are illustrative.'); }
+  } else if(L==='javascript'){
+    try{ new Function(code); rows.push({s:'ok',l:'JavaScript has no syntax errors',d:'It was compiled but not run.'}); }catch(e){ rows.push({s:'bad',l:'JavaScript syntax error',d:String(e.message)}); }
+    rows.push({s:fwBalanced(code,'{','}')&&fwBalanced(code,'(',')')?'ok':'bad',l:'Brackets are balanced'}); fwTestRender(rows);
+  } else if(L==='html'){
+    const doc=new DOMParser().parseFromString(code,'text/html'), ids=[...doc.querySelectorAll('[id]')].map(e=>e.id);
+    rows.push({s:doc.body&&doc.body.children.length?'ok':'bad',l:'Page parsed',d:doc.querySelectorAll('*').length+' elements found.'});
+    rows.push({s:doc.querySelector('link[rel=stylesheet]')?'ok':'warn',l:'Links a style sheet',d:'Save the CSS as style.css next to this file.'});
+    rows.push({s:doc.querySelector('script[src]')?'ok':'warn',l:'Links a script',d:'Save the JavaScript as app.js next to this file.'});
+    rows.push({s:'ok',l:'Element ids available to the script',d:ids.join(', ')||'none'}); fwTestRender(rows);
+  } else if(L==='css'){
+    let n=0,okc=true; try{ const sh=new CSSStyleSheet(); sh.replaceSync(code); n=sh.cssRules.length; }catch(e){ okc=false; rows.push({s:'bad',l:'CSS could not be parsed',d:String(e.message)}); }
+    if(okc)rows.push({s:n?'ok':'warn',l:'CSS parsed',d:n+' rules found.'});
+    rows.push({s:fwBalanced(code,'{','}')?'ok':'bad',l:'Braces are balanced'}); fwTestRender(rows);
+  } else {
+    rows.push({s:fwBalanced(code,'(',')')&&fwBalanced(code,'[',']')&&fwBalanced(code,'{','}')?'ok':'bad',l:'Brackets are balanced'});
+    rows.push({s:/\t/.test(code)&&/^ +\S/m.test(code)?'bad':'ok',l:'Indentation is consistent',d:'Mixing tabs and spaces breaks Python.'});
+    if(/pyro|fire/i.test(code))rows.push({s:/arm/i.test(code)?'ok':'bad',l:'Mentions an arming check before firing'});
+    fwTestRender(rows); note('Python cannot be run or compiled here, so these are text checks only. Run it on the board and watch the serial output.');
+  }
+}
+function fwTestRender(rows){
+  const bad=rows.filter(r=>r.s==='bad').length, warn=rows.filter(r=>r.s==='warn').length, ok=rows.length-bad-warn;
+  $('fwTestOut').innerHTML='<div class="tb-sum '+(bad?'tb-bad':warn?'tb-warn':'tb-ok')+'">'+ok+' passed, '+warn+' to look at, '+bad+' failed</div>'
+    +rows.map(r=>'<div class="tb-row"><span class="tb-ic tb-'+r.s+'">'+(r.s==='ok'?'\u2713':r.s==='warn'?'!':'\u2717')+'</span><span>'+ESC_H(r.l)+(r.d?'<small>'+ESC_H(r.d)+'</small>':'')+'</span></div>').join('');
+}
+
 function fwRender(force){
   if(!$('fwCode'))return;
   const bname=FC_PARTS.board.find(x=>x.id===FC.board).name, rname=FC_PARTS.radio.find(x=>x.id===FC.radio).name;
@@ -3109,6 +3326,7 @@ function fwInit(){
   ta.onscroll=()=>{const pre=$('fwHL');pre.scrollTop=ta.scrollTop;pre.scrollLeft=ta.scrollLeft;};
   ta.onkeydown=e=>{ if(e.key==='Tab'){e.preventDefault();const a=ta.selectionStart,b=ta.selectionEnd;ta.value=ta.value.slice(0,a)+'  '+ta.value.slice(b);ta.selectionStart=ta.selectionEnd=a+2;FW.edited=true;fwPaint();} };
   $('fwUndo').onclick=()=>{ if(FW.prev!==null){ FW.lang=FW.prevLang||'cpp'; fwUiForLang(); fwSetCode(FW.prev); FW.prev=null; $('fwUndo').disabled=true; FW.edited=true; $('fwNote').textContent='Undid the last change.'; } };
+  $('fwRun').onclick=fwRunTests;
   $('fwLang').onchange=async()=>{ await fwSetLang($('fwLang').value); fwUiForLang(); };
   $('fwSugg').innerHTML=['I use a BMP280 and a buzzer. Beep after landing.','Turn an LED on at apogee','Log every reading to an SD card','Fire the parachute 2 seconds after apogee'].map(t=>'<button>'+t+'</button>').join('');
   $('fwSugg').querySelectorAll('button').forEach(b=>b.onclick=()=>fwChatSend(b.textContent));
@@ -3123,8 +3341,353 @@ function fwInit(){
   fwRender(true);
 }
 
+
+/* ---------- export, import and backup reminder ---------- */
+function projPayload(list){ return {app:'AeroForge',version:1,exported:new Date().toISOString(),projects:list}; }
+function projDownload(obj,name){
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)],{type:'application/json'})); a.download=name; a.click();
+}
+function projClean(p){
+  if(!p||typeof p!=='object'||!p.design||typeof p.design!=='object')return null;
+  const d={...DEFAULT};
+  for(const k in DEFAULT){
+    const v=p.design[k], def=DEFAULT[k];
+    if(typeof def==='number'){ const n=+v; if(v===null||v===''||!Number.isFinite(n))continue; const el=NUM[k]?$(NUM[k]):null; d[k]=el?Math.max(+el.min,Math.min(+el.max,n)):n; }
+    else if(typeof def==='string'){
+      if(typeof v!=='string')continue;
+      if(SEL[k]){ if([...$(SEL[k]).options].some(o=>o.value===v))d[k]=v; }
+      else if(k==='nose'){ if(NOSE_SHAPES.some(n=>n.id===v))d[k]=v; }
+      else if(k==='stripe'){ if(['none','band','lines'].includes(v))d[k]=v; }
+      else if(/^c[A-Z]/.test(k)){ if(/^#[0-9a-f]{6}$/i.test(v))d[k]=v; }
+      else if(v.length<40)d[k]=v;
+    }
+  }
+  if(![3,4,6].includes(d.finCount))d.finCount=DEFAULT.finCount;
+  const okImg=v=>typeof v==='string'&&v.length<600000&&/^data:image\/(jpeg|png);base64,[A-Za-z0-9+\/=]+$/.test(v);
+  if(p.design.paint&&typeof p.design.paint==='object'){ const pn={}; if(okImg(p.design.paint.body))pn.body=p.design.paint.body; if(okImg(p.design.paint.nose))pn.nose=p.design.paint.nose; if(pn.body||pn.nose)d.paint=pn; }
+  const a=analyse(d), dt=new Date(p.date);
+  return {name:String(p.name||'Imported rocket').replace(/[\u0000-\u001f]/g,'').slice(0,60),date:isNaN(dt)?new Date().toISOString():dt.toISOString(),
+    design:d,apogee:Math.round(a.apogee),margin:+a.margin.toFixed(2)};
+}
+function projExportAll(){
+  const list=store.get('projects',[]); if(!list.length){toast('Nothing to export yet. Save a project first.');return;}
+  projDownload(projPayload(list),'aeroforge-backup-'+new Date().toISOString().slice(0,10)+'.json');
+  store.set('lastBackup',Date.now()); backupUpdate(); toast('Backup downloaded. Keep the file somewhere safe.');
+}
+function projImport(file){
+  if(file.size>2e6){toast('That file is too big to be a backup');return;}
+  const rd=new FileReader();
+  rd.onload=()=>{
+    let obj; try{obj=JSON.parse(rd.result);}catch(e){toast('That is not a valid backup file');return;}
+    const arr=Array.isArray(obj)?obj:(obj&&Array.isArray(obj.projects)?obj.projects:null);
+    if(!arr){toast('No projects found in that file');return;}
+    const clean=[]; let skipped=0;
+    arr.slice(0,200).forEach(x=>{let c=null; try{c=projClean(x);}catch(e){} c?clean.push(c):skipped++;});
+    if(!clean.length){toast('No valid projects found in that file');return;}
+    const cur=store.get('projects',[]);
+    if(cur.length+clean.length>100){toast('That would pass the limit of 100 projects. Delete some first.');return;}
+    const base=Date.now(); clean.forEach((c,i)=>{c.id=base+i;});
+    store.set('projects',clean.concat(cur)); renderProjects();
+    toast('Imported '+clean.length+' project'+(clean.length===1?'':'s')+(skipped?' ('+skipped+' skipped)':''));
+  };
+  rd.readAsText(file);
+}
+function backupUpdate(){
+  const b=$('backupBanner'); if(!b)return;
+  const n=store.get('projects',[]).length, last=store.get('lastBackup',0), days=last?(Date.now()-last)/864e5:Infinity;
+  $('projBackupInfo').textContent=last?'Last backup: '+new Date(last).toLocaleDateString():'No backup yet';
+  if(n&&days>7){
+    b.hidden=false;
+    b.innerHTML='<b>Back up your projects.</b> They are saved only in this browser, so clearing site data or switching device would delete them. '
+      +(last?'Your last backup was '+Math.floor(days)+' days ago.':'You have not made a backup yet.')+' <button class="mini-btn" id="bkNow">Export now</button>';
+    $('bkNow').onclick=projExportAll;
+  } else b.hidden=true;
+}
+function projToolsInit(){
+  $('projExport').onclick=projExportAll;
+  $('projImport').onchange=e=>{ if(e.target.files[0])projImport(e.target.files[0]); e.target.value=''; };
+  backupUpdate();
+}
+
+
+/* ---------- first flight guide ---------- */
+const G={step:0,base:null};
+const guideState=()=>store.get('guide',{});
+const guideSave=o=>store.set('guide',{...guideState(),...o});
+function guideShow(show){
+  $('guide').hidden=!show; $('guideOpen').hidden=show;
+  $('guideOpen').textContent=guideState().done?'Replay the first-flight guide':'Start the first-flight guide (4 steps)';
+}
+function guideStart(){ go('forge'); G.step=1; G.base=null; guideSave({dismissed:false}); guideShow(true); guideRender(); }
+function finsChanged(){ const b=G.base; return !!b&&(D.span!==b.span||D.chord!==b.chord||D.sweep!==b.sweep||D.finCount!==b.finCount); }
+function guideCheck(){ if(G.step===2&&finsChanged()){ G.step=3; guideRender(); toast('The fins changed. Now see what that did.'); } }
+function guidePulse(){
+  document.querySelectorAll('.guide-pulse').forEach(e=>e.classList.remove('guide-pulse'));
+  const g=[...document.querySelectorAll('details.grp')].find(x=>/Fins/.test(x.querySelector('summary').textContent));
+  if(g){ g.open=true; g.scrollIntoView({block:'nearest',behavior:'smooth'}); }
+  const l=$('sSpan').closest('label'); if(l)l.classList.add('guide-pulse');
+}
+function guideCompare(){
+  const a=analyse(G.base), b=analyse(D);
+  const row=(name,x,y,dig,unit,goodUp)=>{ const d=y-x, cls=Math.abs(d)<1e-9?'':(d>0===goodUp?'up':'down');
+    return `<tr><td>${name}</td><td>${x.toFixed(dig)}</td><td>${y.toFixed(dig)}</td><td class="${cls}">${d>0?'+':''}${d.toFixed(dig)} ${unit}</td></tr>`; };
+  const dm=b.margin-a.margin, dh=b.apogee-a.apogee, dw=b.liftoff-a.liftoff;
+  const notes=[];
+  notes.push(Math.abs(dm)<0.01?'Stability margin barely moved.':`Stability margin ${dm>0?'rose':'fell'} from ${a.margin.toFixed(2)} to ${b.margin.toFixed(2)} calibers. Fin changes move the centre of pressure, and a larger margin generally means the rocket is more stable (1 to 2 calibers is the usual target).`);
+  notes.push(Math.abs(dh)<0.5?'Estimated apogee barely changed.':`Estimated apogee went ${dh>0?'up':'down'} by about ${Math.abs(Math.round(dh))} m. Fins add stability but also weight and drag, so there is often a trade-off.`);
+  notes.push(Math.abs(dw)>=0.5?`Liftoff mass changed by ${dw>0?'+':''}${dw.toFixed(0)} g.`:'');
+  return `<table><tr><th></th><th>Before</th><th>Now</th><th>Change</th></tr>`
+    +row('Stability (cal)',a.margin,b.margin,2,'',true)+row('Thrust-to-weight',a.tw,b.tw,1,'',true)
+    +row('Liftoff mass',a.liftoff,b.liftoff,0,'g',false)+row('Est. apogee',a.apogee,b.apogee,0,'m',true)+row('Descent speed',a.descent,b.descent,1,'m/s',false)
+    +`</table><p>${notes.filter(Boolean).join(' ')}</p><p style="color:var(--muted)">These are estimates from a simplified model, not measurements.</p>`;
+}
+function guideRender(){
+  const st=G.step, el=$('guideBody');
+  $('guideDots').innerHTML=[1,2,3,4].map(i=>`<span class="gs ${st>i||st===5?'done':(st===i?'on':'')}"></span>`).join('');
+  if(st===1){
+    el.innerHTML='<p><b>Step 1 of 4: Open the default rocket</b></p><p>You start from a small default rocket: a cardboard body, three fins and a D12 motor. This replaces the design on screen. Your saved projects are not touched.</p><button class="btn btn-primary" id="gOpen">Open the default rocket</button>';
+    $('gOpen').onclick=()=>{ D={...DEFAULT}; paintRemove(false); syncControls(); update(); G.base={...D}; G.step=2; guideRender(); guidePulse(); };
+  } else if(st===2){
+    el.innerHTML='<p><b>Step 2 of 4: Change the fins</b></p><p>The Fins group is open in the Parts list below. Drag <b>Fin span</b> (the highlighted slider) to make the fins bigger or smaller. Any fin control works.</p><button class="mini-btn" id="gDo">Do it for me</button>';
+    $('gDo').onclick=()=>{ if(!G.base)G.base={...D}; D.span=Math.min(+$('sSpan').max,G.base.span+3); syncControls(); update(); };
+  } else if(st===3){
+    el.innerHTML='<p><b>Step 3 of 4: See what changed</b></p>'+guideCompare()+'<button class="btn btn-primary" id="gNext">Next: run a simulation</button>';
+    $('gNext').onclick=()=>{ G.step=4; guideRender(); };
+  } else if(st===4){
+    el.innerHTML='<p><b>Step 4 of 4: Run a simulation</b></p><p>The simulation estimates how this rocket would fly: how high, how fast and how it lands. It lists its assumptions, so read them.</p><button class="btn btn-primary" id="gSim">Run the simulation</button>';
+    $('gSim').onclick=()=>{ G.step=5; guideSave({done:true}); guideRender(); $('simBtn').click(); };
+  } else {
+    el.innerHTML='<p><b>You finished your first flight.</b></p><p>You opened a rocket, changed it, compared the results and ran a simulation. Next you could change the motor, save your design with Save project, or read the lesson on stability.</p><button class="mini-btn" id="gLearn">Open Learn</button> <button class="mini-btn" id="gAgain">Start again</button>';
+    $('gLearn').onclick=()=>go('learn'); $('gAgain').onclick=guideStart;
+  }
+}
+function guideInit(){
+  $('guideClose').onclick=()=>{ guideSave({dismissed:true}); document.querySelectorAll('.guide-pulse').forEach(e=>e.classList.remove('guide-pulse')); guideShow(false); };
+  $('guideOpen').onclick=guideStart; $('homeGuide').onclick=guideStart;
+  const st=guideState(); if(!st.dismissed&&!st.done){ G.step=1; guideShow(true); guideRender(); } else guideShow(false);
+}
+
+
+/* ---------- interactive logo ---------- */
+function afLogoSVG(id){
+  return `<svg class="af-logo" viewBox="0 0 120 120" role="img" aria-label="AeroForge logo. Click to launch the rocket." tabindex="0">
+<defs>
+<linearGradient id="${id}Bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#202b3a"/><stop offset="1" stop-color="#0e141c"/></linearGradient>
+<linearGradient id="${id}Fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset=".5" stop-color="#f28c28"/><stop offset="1" stop-color="#e8553a" stop-opacity="0"/></linearGradient>
+</defs>
+<circle cx="60" cy="60" r="56" fill="url(#${id}Bg)" stroke="#f28c28" stroke-width="3"/>
+<circle cx="60" cy="60" r="45" fill="none" stroke="#f28c28" stroke-opacity=".4" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
+<circle cx="22" cy="30" r="1.6" fill="#f1ece4" fill-opacity=".8"/><circle cx="96" cy="24" r="1.2" fill="#f1ece4" fill-opacity=".7"/><circle cx="100" cy="78" r="1.5" fill="#f1ece4" fill-opacity=".6"/><circle cx="18" cy="82" r="1.1" fill="#f1ece4" fill-opacity=".6"/>
+<g class="rk"><g class="fly">
+<path class="flame" d="M52 86 Q60 116 68 86 Q60 95 52 86Z" fill="url(#${id}Fl)"/>
+<path d="M48 70 L36 92 L50 85Z" fill="#f28c28"/><path d="M72 70 L84 92 L70 85Z" fill="#f28c28"/>
+<path d="M60 14 C71 28 74 50 72 86 L48 86 C46 50 49 28 60 14Z" fill="#f1ece4"/>
+<path d="M60 14 C65 20 69 27 71 36 L49 36 C51 27 55 20 60 14Z" fill="#f28c28"/>
+<rect x="48" y="74" width="24" height="5" fill="#f28c28" fill-opacity=".9"/>
+<circle cx="60" cy="55" r="8" fill="#202b3a" stroke="#f28c28" stroke-width="2.5"/><circle cx="58" cy="53" r="2.6" fill="#7fc3f0" fill-opacity=".9"/>
+</g></g>
+<g class="smoke"></g>
+</svg>`;
+}
+const AF_REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function afLaunch(svg){
+  if(svg.classList.contains('launch'))return;
+  svg.classList.remove('land'); svg.classList.add('launch');
+  if(!AF_REDUCED){
+    const sm=svg.querySelector('.smoke');
+    for(let i=0;i<7;i++){ const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('class','puff'); c.setAttribute('cx',48+Math.random()*24); c.setAttribute('cy',92+Math.random()*8); c.setAttribute('r',3+Math.random()*3);
+      c.style.setProperty('--dx',((Math.random()-.5)*46)+'px'); c.style.animationDelay=(i*0.05)+'s'; sm.appendChild(c); setTimeout(()=>c.remove(),1300); }
+  }
+  setTimeout(()=>{ svg.classList.remove('launch'); svg.classList.add('land'); setTimeout(()=>svg.classList.remove('land'),700); }, AF_REDUCED?200:1150);
+}
+function afLogoInit(){
+  const logos=[];
+  document.querySelectorAll('.af-slot').forEach((slot,i)=>{
+    const size=+slot.dataset.size||32; slot.innerHTML=afLogoSVG('af'+i);
+    const svg=slot.firstElementChild; svg.setAttribute('width',size); svg.setAttribute('height',size);
+    if(slot.closest('button')){svg.removeAttribute('tabindex');svg.removeAttribute('role');svg.setAttribute('aria-hidden','true');}
+    svg.addEventListener('click',()=>afLaunch(svg));
+    svg.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();afLaunch(svg);} });
+    logos.push(svg);
+  });
+  // The rocket tilts toward the pointer.
+  if(!AF_REDUCED)document.addEventListener('pointermove',e=>{
+    logos.forEach(svg=>{ const r=svg.getBoundingClientRect(); if(!r.width||r.bottom<0||r.top>innerHeight)return;
+      const dx=(e.clientX-(r.left+r.width/2)), dy=(e.clientY-(r.top+r.height/2));
+      const ang=Math.max(-22,Math.min(22,Math.atan2(dx,Math.max(60,Math.abs(dy)+60))*60));
+      svg.querySelector('.rk').style.transform='rotate('+ang.toFixed(1)+'deg)'; });
+  },{passive:true});
+}
+
+
+/* ---------- paint studio ---------- */
+const PAINT_PX={body:{W:512,H:1024},nose:{W:512,H:512}};
+const PAINT_SW=['#e8553a','#f28c28','#f6c945','#6dbf85','#3aa6b9','#5aa9e6','#7a6cf0','#c586c0','#f1ece4','#9aa5b1','#2b3440','#111111'];
+function paintDims(surf){ const C=Math.PI*D.dia/1000; return surf==='body'?{C,L:D.len/100,vs:1}:{C,L:Math.max(D.noseLen/100,0.02),vs:16/34}; }
+function paintBase(surf){ return surf==='body'?D.cBody:D.cNose; }
+function paintInit(surf){
+  const P=PAINT[surf]; if(P.on)return false;
+  const sz=PAINT_PX[surf], cv=document.createElement('canvas'); cv.width=sz.W; cv.height=sz.H;
+  const x=cv.getContext('2d'); x.fillStyle=paintBase(surf); x.fillRect(0,0,sz.W,sz.H);
+  P.cv=cv; P.tex=new THREE.CanvasTexture(cv); P.tex.anisotropy=4; P.on=true; return true;
+}
+function paintSnap(surf){
+  const P=PAINT[surf]; if(!P.cv)return;
+  const c=document.createElement('canvas'); c.width=P.cv.width; c.height=P.cv.height; c.getContext('2d').drawImage(P.cv,0,0);
+  PAINT.undo.push({surf,c}); if(PAINT.undo.length>12)PAINT.undo.shift();
+}
+function paintUndo(){
+  const u=PAINT.undo.pop(); if(!u){toast('Nothing to undo');return;}
+  const P=PAINT[u.surf]; if(!P.cv)return; const x=P.cv.getContext('2d'); x.clearRect(0,0,P.cv.width,P.cv.height); x.drawImage(u.c,0,0); P.tex.needsUpdate=true;
+}
+function paintRemove(refresh){
+  ['body','nose'].forEach(k=>{ const P=PAINT[k]; if(P.tex)P.tex.dispose(); P.on=false; P.cv=null; P.tex=null; });
+  PAINT.undo=[]; if(refresh!==false)update();
+}
+function paintExport(){
+  const o={}; ['body','nose'].forEach(k=>{ const P=PAINT[k]; if(P.on&&P.cv)o[k]=P.cv.toDataURL('image/jpeg',0.9); });
+  return (o.body||o.nose)?o:null;
+}
+function paintLoad(paint){
+  paintRemove(false);
+  if(!paint){ update(); return; }
+  let pending=0; const done=()=>{ if(--pending<=0)update(); };
+  ['body','nose'].forEach(k=>{
+    if(typeof paint[k]!=='string')return; pending++;
+    const img=new Image(); img.onload=()=>{ paintInit(k); const P=PAINT[k]; P.cv.getContext('2d').drawImage(img,0,0,P.cv.width,P.cv.height); P.tex.needsUpdate=true; done(); }; img.onerror=done; img.src=paint[k];
+  });
+  if(!pending)update();
+}
+function paintHit(cx,cy){
+  const r=forge.canvas.getBoundingClientRect(); if(!r.width)return null;
+  if(!PAINT.rc)PAINT.rc=new THREE.Raycaster();
+  PAINT.rc.setFromCamera(new THREE.Vector2(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1),forge.cam);
+  const h=PAINT.rc.intersectObjects(forge.group.children,true).find(q=>{ let o=q.object; while(o&&o!==forge.group){ if(o.visible===false)return false; o=o.parent; } return true; });
+  if(!h||!h.uv||!h.object.userData.paint)return null;
+  return {surf:h.object.userData.paint,uv:h.uv};
+}
+function paintMetres(surf,uv){ const d=paintDims(surf); return {x:uv.x*d.C,y:(1-uv.y)*d.L/d.vs}; }
+function paintShape(x,cx,cy,r,kind){
+  x.beginPath();
+  if(kind==='circle'){ x.arc(cx,cy,r*0.7,0,6.2832); x.fill(); }
+  else if(kind==='ring'){ x.arc(cx,cy,r*0.75,0,6.2832); x.lineWidth=r*0.28; x.stroke(); }
+  else if(kind==='star'){ for(let i=0;i<10;i++){ const a=-Math.PI/2+i*Math.PI/5, rr=i%2?r*0.42:r; x[i?'lineTo':'moveTo'](cx+Math.cos(a)*rr,cy+Math.sin(a)*rr); } x.closePath(); x.fill(); }
+  else if(kind==='heart'){ x.moveTo(cx,cy+r*0.8); x.bezierCurveTo(cx-r*1.3,cy+r*0.1,cx-r*0.6,cy-r*0.9,cx,cy-r*0.3); x.bezierCurveTo(cx+r*0.6,cy-r*0.9,cx+r*1.3,cy+r*0.1,cx,cy+r*0.8); x.fill(); }
+  else { const pts=[[.15,-1],[-.55,.1],[-.05,.1],[-.2,1],[.6,-.15],[.05,-.15],[.15,-1]]; pts.forEach((q,i)=>x[i?'lineTo':'moveTo'](cx+q[0]*r,cy+q[1]*r)); x.closePath(); x.fill(); }
+}
+function paintDraw(surf,tool,x0,y0,x1,y1,first){
+  const P=PAINT[surf]; if(!P.on)return; const d=paintDims(surf), W=P.cv.width, H=P.cv.height, x=P.cv.getContext('2d');
+  const sz=PAINT.size/1000, col=tool==='eraser'?paintBase(surf):PAINT.color, n=PAINT.sym;
+  x.save(); x.setTransform(W/d.C,0,0,H*d.vs/d.L,0,0); x.lineCap='round'; x.lineJoin='round'; x.strokeStyle=col; x.fillStyle=col; x.lineWidth=sz;
+  if(tool==='band'){ x.fillRect(-d.C,y1-sz/2,3*d.C,sz); }
+  else for(let k=0;k<n;k++){ for(const w of [-d.C,0,d.C]){ const ox=k*d.C/n+w;
+    if(tool==='brush'||tool==='eraser'){ x.beginPath(); x.moveTo(x0+ox,y0); x.lineTo(x1+ox,y1); x.stroke(); if(first){ x.beginPath(); x.arc(x1+ox,y1,sz/2,0,6.2832); x.fill(); } }
+    else if(tool==='spray'){ x.globalAlpha=0.55; for(let i=0;i<16;i++){ const a=Math.random()*6.2832, rr=Math.sqrt(Math.random())*sz/2; x.beginPath(); x.arc(x1+ox+Math.cos(a)*rr,y1+Math.sin(a)*rr,sz*0.035,0,6.2832); x.fill(); } x.globalAlpha=1; }
+    else if(tool==='stamp'){ paintShape(x,x1+ox,y1,sz*0.9,PAINT.stamp); } } }
+  x.restore(); P.tex.needsUpdate=true;
+}
+function paintFill(surf,px,py){
+  const P=PAINT[surf], c=P.cv, x=c.getContext('2d'), W=c.width, H=c.height, img=x.getImageData(0,0,W,H), a=img.data;
+  px=Math.max(0,Math.min(W-1,Math.floor(px))); py=Math.max(0,Math.min(H-1,Math.floor(py)));
+  const hx=PAINT.color.replace('#',''), fr=parseInt(hx.slice(0,2),16), fg=parseInt(hx.slice(2,4),16), fb=parseInt(hx.slice(4,6),16);
+  const i0=(py*W+px)*4, tr=a[i0], tg=a[i0+1], tb=a[i0+2];
+  if(Math.abs(tr-fr)+Math.abs(tg-fg)+Math.abs(tb-fb)<6)return;
+  const match=i=>Math.abs(a[i]-tr)+Math.abs(a[i+1]-tg)+Math.abs(a[i+2]-tb)<=48, seen=new Uint8Array(W*H), stack=[px,py];
+  while(stack.length){
+    const y=stack.pop(), xx=stack.pop(); if(seen[y*W+xx])continue;
+    let l=xx; while(l>=0&&!seen[y*W+l]&&match((y*W+l)*4))l--; l++;
+    let r=xx; while(r<W&&!seen[y*W+r]&&match((y*W+r)*4))r++; r--;
+    for(let k=l;k<=r;k++){ const j=y*W+k; seen[j]=1; a[j*4]=fr; a[j*4+1]=fg; a[j*4+2]=fb; a[j*4+3]=255; }
+    for(const ny of [y-1,y+1]){ if(ny<0||ny>=H)continue; let run=false;
+      for(let k=l;k<=r;k++){ const j=ny*W+k; if(!seen[j]&&match(j*4)){ if(!run){stack.push(k,ny);run=true;} } else run=false; } }
+  }
+  x.putImageData(img,0,0); P.tex.needsUpdate=true;
+}
+function paintDown(cx,cy){
+  const h=paintHit(cx,cy); if(!h)return false;
+  if(cutawayOn){ toast('Switch back to the outside view to paint.'); return true; }
+  if(paintInit(h.surf)){ update(); }
+  const P=PAINT[h.surf], t=PAINT.tool, m=paintMetres(h.surf,h.uv), px=h.uv.x*P.cv.width, py=(1-h.uv.y)*P.cv.height;
+  if(t==='pick'){ const q=P.cv.getContext('2d').getImageData(Math.min(P.cv.width-1,Math.floor(px)),Math.min(P.cv.height-1,Math.floor(py)),1,1).data;
+    const hex='#'+[q[0],q[1],q[2]].map(v=>v.toString(16).padStart(2,'0')).join(''); paintSetColor(hex); PAINT.st=null; return true; }
+  paintSnap(h.surf);
+  if(t==='fill'){ paintFill(h.surf,px,py); PAINT.st=null; return true; }
+  paintDraw(h.surf,t,m.x,m.y,m.x,m.y,true);
+  PAINT.st=(t==='stamp')?null:{surf:h.surf,x:m.x,y:m.y};
+  return true;
+}
+function paintMove(cx,cy){
+  const st=PAINT.st; if(!st)return;
+  const h=paintHit(cx,cy); if(!h||h.surf!==st.surf)return;
+  const d=paintDims(st.surf), m=paintMetres(st.surf,h.uv); m.x+=d.C*Math.round((st.x-m.x)/d.C);
+  const dist=Math.hypot(m.x-st.x,m.y-st.y), step=Math.max(PAINT.size/1000*0.35,0.002);
+  if(PAINT.tool==='spray'){ for(let q=step;q<=dist;q+=step)paintDraw(st.surf,'spray',0,0,st.x+(m.x-st.x)*q/dist,st.y+(m.y-st.y)*q/dist,false); }
+  paintDraw(st.surf,PAINT.tool,st.x,st.y,m.x,m.y,false); st.x=m.x; st.y=m.y;
+}
+function paintSetColor(hex){
+  PAINT.color=hex; $('paintColor').value=hex;
+  $('paintSwatches').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.c===hex));
+}
+function paintMode(on){
+  PAINT.mode=on; document.body.classList.toggle('painting',on);
+  $('paintToggle').textContent=on?'Stop painting':'Start painting'; $('paintToggle').classList.toggle('on',on);
+  $('paintHint').textContent=on?'Painting is on. Drag on the rocket to paint. Drag the dark background to rotate it.':'Turn painting on, then drag on the rocket. Drag the dark background to rotate it.';
+  const hint=document.querySelector('#view-forge .stage-hint'); if(hint)hint.textContent=on?'Painting: drag on the rocket · drag the background to rotate · scroll to zoom':'Drag to rotate · scroll to zoom · click a part to zoom in';
+}
+function paintUIInit(){
+  const stage=forge.canvas.parentElement;
+  paintSetColor(PAINT.color);
+  $('paintSwatches').innerHTML=PAINT_SW.map(c=>'<button data-c="'+c+'" style="background:'+c+'" aria-label="Colour '+c+'"></button>').join('');
+  $('paintSwatches').querySelectorAll('button').forEach(b=>b.onclick=()=>paintSetColor(b.dataset.c)); paintSetColor(PAINT.color);
+  $('paintColor').oninput=e=>paintSetColor(e.target.value);
+  $('paintTools').querySelectorAll('button').forEach(b=>b.onclick=()=>{ PAINT.tool=b.dataset.tool; $('paintTools').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); if(!PAINT.mode)paintMode(true); });
+  $('paintSize').oninput=e=>{ PAINT.size=+e.target.value; $('vPaintSize').textContent=PAINT.size+' mm'; };
+  $('paintSym').onchange=e=>{ PAINT.sym=+e.target.value; }; $('paintStamp').onchange=e=>{ PAINT.stamp=e.target.value; };
+  $('paintToggle').onclick=()=>paintMode(!PAINT.mode);
+  $('paintUndo').onclick=paintUndo;
+  $('paintRemove').onclick=()=>{ paintRemove(true); toast('Paint removed'); };
+  $('paintFillAll').onclick=()=>{ const t=$('paintTarget').value; if(cutawayOn){toast('Switch back to the outside view first.');return;}
+    paintInit(t); paintSnap(t); const P=PAINT[t], x=P.cv.getContext('2d'); x.fillStyle=PAINT.color; x.fillRect(0,0,P.cv.width,P.cv.height); P.tex.needsUpdate=true; update(); };
+  $('paintImg').onclick=()=>$('paintFile').click();
+  $('paintFile').onchange=e=>{ const f=e.target.files[0]; e.target.value=''; if(!f)return;
+    const img=new Image(), url=URL.createObjectURL(f);
+    img.onload=()=>{ URL.revokeObjectURL(url); const t=$('paintTarget').value; paintInit(t); paintSnap(t);
+      const P=PAINT[t], d=paintDims(t), x=P.cv.getContext('2d'); let w=d.C*0.9, h=w*img.height/img.width; if(h>d.L*0.9){ h=d.L*0.9; w=h*img.width/img.height; }
+      x.save(); x.setTransform(P.cv.width/d.C,0,0,P.cv.height*d.vs/d.L,0,0); x.drawImage(img,d.C/2-w/2,d.L/2-h/2,w,h); x.restore(); P.tex.needsUpdate=true; update(); toast('Image added'); };
+    img.onerror=()=>{ URL.revokeObjectURL(url); toast('That file could not be opened as an image'); }; img.src=url; };
+  const move=(cx,cy)=>paintMove(cx,cy), end=()=>{ PAINT.st=null; };
+  stage.addEventListener('mousedown',e=>{ if(!PAINT.mode||e.button!==0)return; if(paintDown(e.clientX,e.clientY)){ e.stopPropagation(); e.preventDefault(); } },true);
+  window.addEventListener('mousemove',e=>{ if(PAINT.st)move(e.clientX,e.clientY); }); window.addEventListener('mouseup',end);
+  stage.addEventListener('touchstart',e=>{ if(!PAINT.mode||!e.touches[0])return; if(paintDown(e.touches[0].clientX,e.touches[0].clientY)){ e.stopPropagation(); e.preventDefault(); } },{capture:true,passive:false});
+  window.addEventListener('touchmove',e=>{ if(PAINT.st&&e.touches[0]){ e.preventDefault(); move(e.touches[0].clientX,e.touches[0].clientY); } },{passive:false}); window.addEventListener('touchend',end);
+}
+
+/* ---------- resizable panels ---------- */
+function splitInit(){
+  const f=document.querySelector('.forge'), saved=store.get('forgeLayout',{});
+  if(saved.L)f.style.setProperty('--railW',saved.L+'px'); if(saved.R)f.style.setProperty('--anaW',saved.R+'px');
+  const cur=(n,def)=>parseFloat(f.style.getPropertyValue(n))||def;
+  const save=()=>store.set('forgeLayout',{L:parseFloat(f.style.getPropertyValue('--railW'))||0,R:parseFloat(f.style.getPropertyValue('--anaW'))||0});
+  let raf=0; const ping=()=>{ if(!raf)raf=requestAnimationFrame(()=>{ raf=0; window.dispatchEvent(new Event('resize')); }); };
+  const setL=v=>{ const r=f.getBoundingClientRect(), L=Math.max(180,Math.min(560,v)); if(r.width-L-cur('--anaW',300)<320)return; f.style.setProperty('--railW',L+'px'); ping(); };
+  const setR=v=>{ const r=f.getBoundingClientRect(), R=Math.max(220,Math.min(600,v)); if(r.width-R-cur('--railW',230)<320)return; f.style.setProperty('--anaW',R+'px'); ping(); };
+  [['splitL','L'],['splitR','R']].forEach(([id,side])=>{
+    const el=$(id);
+    el.onpointerdown=e=>{ e.preventDefault(); el.setPointerCapture(e.pointerId); el.classList.add('drag'); document.body.style.userSelect='none'; };
+    el.onpointermove=e=>{ if(!el.classList.contains('drag'))return; const r=f.getBoundingClientRect(); side==='L'?setL(e.clientX-r.left):setR(r.right-e.clientX); };
+    const end=()=>{ if(!el.classList.contains('drag'))return; el.classList.remove('drag'); document.body.style.userSelect=''; save(); ping(); };
+    el.onpointerup=end; el.onpointercancel=end;
+    el.ondblclick=()=>{ f.style.removeProperty(side==='L'?'--railW':'--anaW'); save(); ping(); };
+    el.onkeydown=e=>{ if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return; e.preventDefault();
+      const step=(e.shiftKey?48:16)*(e.key==='ArrowRight'?1:-1);
+      side==='L'?setL(cur('--railW',230)+step):setR(cur('--anaW',300)-step); save(); };
+  });
+}
+
 /* ---------- projects ---------- */
 function renderProjects(){
+  backupUpdate();
   const list=store.get('projects',[]);
   if(!list.length){
     $('projGrid').innerHTML=`<div class="empty" style="grid-column:1/-1">
@@ -3136,7 +3699,7 @@ function renderProjects(){
     <div class="proj" data-id="${p.id}">
       <button class="proj-menu-btn" data-menu="${p.id}" aria-label="Project options" aria-haspopup="true">⋯</button>
       <div class="proj-menu" data-for="${p.id}" hidden>
-        <button data-act="rename">Rename</button><button data-act="duplicate">Duplicate</button><button data-act="delete" class="danger">Delete</button>
+        <button data-act="rename">Rename</button><button data-act="export">Export</button><button data-act="duplicate">Duplicate</button><button data-act="delete" class="danger">Delete</button>
       </div>
       <div class="proj-thumb">${thumbSVG(p.design)}</div>
       <div class="proj-meta">
@@ -3159,6 +3722,8 @@ function renderProjects(){
         if(btn.dataset.sure!=='1'){btn.dataset.sure='1';btn.textContent='Click again to confirm';
           setTimeout(()=>{btn.dataset.sure='';btn.textContent='Delete';},3000);return;}
         store.set('projects',all.filter(x=>String(x.id)!==id)); renderProjects(); toast('Project deleted');
+      }else if(act==='export'){
+        projDownload(projPayload([p]),'aeroforge-'+(String(p.name).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'project')+'.json'); toast('Exported this project');
       }else if(act==='duplicate'){
         const copy={...p,id:Date.now(),name:String(p.name).slice(0,50)+' copy',date:new Date().toISOString()};
         all.splice(all.indexOf(p)+1,0,copy); store.set('projects',all); renderProjects(); toast('Project duplicated');
@@ -3174,7 +3739,7 @@ function renderProjects(){
   });
   $('projGrid').querySelectorAll('.proj').forEach(el=>el.onclick=()=>{
     const p=store.get('projects',[]).find(x=>x.id==el.dataset.id);
-    if(!p)return; D={...DEFAULT,...p.design}; syncControls(); update(); go('forge');
+    if(!p)return; D={...DEFAULT,...p.design}; const pj=D.paint; delete D.paint; paintLoad(pj); syncControls(); update(); go('forge');
     toast('Opened “'+p.name+'”');
   });
 }
@@ -3215,7 +3780,7 @@ function aeroAnswer(q){
     return `<strong>What it is</strong><br>Thrust-to-weight is the motor's average thrust divided by the rocket's weight at liftoff.<br><br>
       <strong>Why it matters</strong><br>Fins only stabilise once air is moving fast over them. A slow launch means the rocket can tip before that happens.<br><br>
       <strong>In your project</strong><br>You are at <strong>${a.tw.toFixed(1)}:1</strong>. ${
-      a.tw<5?'Below the usual 5:1 guideline — a bigger motor or lighter build would help.':'Comfortably above the 5:1 guideline.'}`;
+      a.tw<5?'Below the usual 5:1 guideline. A bigger motor or a lighter build would raise it.':'Meets the usual 5:1 guideline. This alone does not make a launch safe.'}`;
   }
   if(/high|altitude|apogee|further/.test(s)){
     return `<strong>In your project</strong><br>Estimated apogee is <strong>${Math.round(a.apogee)} m</strong>.<br><br>
@@ -3268,7 +3833,7 @@ $('aeroSugg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
 /* ---------- boot ---------- */
 $('hsParts').textContent=CATALOG.length;
 $('hsLessons').textContent=LESSONS.length;
-initPartUI(); initLearn(); renderLessons(); renderComps(); renderFC(); update(); fsInit(); lvInit(); aiInit(); webInit(); fwInit();
+initPartUI(); initLearn(); renderLessons(); renderComps(); renderFC(); update(); fsInit(); lvInit(); aiInit(); webInit(); fwInit(); projToolsInit(); guideInit(); afLogoInit(); paintUIInit(); splitInit();
 const _go0=go; go=function(v){_go0(v); if(v==='flightcomputer'){FS.t=0;FS.play=false;$('fsPlay').textContent='▶ Play';fsBuild();}};
 setTimeout(()=>{hero.fit();forge.fit();},80);
 const start=location.hash.replace('#','');
