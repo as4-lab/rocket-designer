@@ -1620,8 +1620,8 @@ function runForgeCommand(text){
 }
 
 /* ---------- AI agent: understands anything, runs real actions ---------- */
-/* Paste your Cloudflare Worker address between the quotes, e.g. 'https://aeroforge-ai.yourname.workers.dev'. Never put an API key here. */
-const AI_ENDPOINT='https://aeroforge-chat.asermebratu4.workers.dev';
+/* Paste your Cloudflare Worker address between the quotes, e.g. '/api/chat'. Never put an API key here. */
+const AI_ENDPOINT='/api/chat';
 let AGENT_WEB=false;
 function webSync(){
   const on=$('webOn').checked;
